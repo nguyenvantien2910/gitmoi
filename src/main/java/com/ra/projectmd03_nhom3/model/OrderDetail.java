@@ -17,19 +17,23 @@ import javax.validation.constraints.Size;
 public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id",unique = true, nullable = false)
-    private Long orderId;
+    @ManyToOne
+    @JoinColumn(name = "order_id",referencedColumnName = "order_id")
+    private Order order;
 
-    @Column(name = "product_id",unique = true, nullable = false)
-    private Long productId;
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "product_id",referencedColumnName = "product_id")
+    private Product product;
+
     @Column(name = "name")
-    @Size(max = 100,message = "Max charactor of note is 100 !")
+    @Size(max = 100,message = "Max character is 100 !")
     private String productName;
 
     @Column(name = "unit_price")
     private Double unitPrice;
 
     @Column(name = "order_quantity")
-    @Min(value = 0,message = "Order quantity must than 0 !")
+    @Min(value = 1,message = "Order quantity must than 0 !")
     private Integer orderQuantity;
 }

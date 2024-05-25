@@ -2,7 +2,7 @@ package com.ra.projectmd03_nhom3.dao.iplm;
 
 import com.ra.projectmd03_nhom3.constant.RoleName;
 import com.ra.projectmd03_nhom3.dao.IRoleDao;
-import com.ra.projectmd03_nhom3.model.Roles;
+import com.ra.projectmd03_nhom3.model.Role;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,10 @@ public class RoleDaoImpl implements IRoleDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public Roles findByRoleName(RoleName roleName) {
+    public Role findByRoleName(RoleName roleName) {
         Session session = sessionFactory.openSession();
         try {
-            return session.createQuery("select r from Roles r where r.roleName = :roleName", Roles.class)
+            return session.createQuery("select r from Roles r where r.roleName = :roleName", Role.class)
                     .setParameter("roleName", roleName)
                     .getSingleResult();
         } catch (Exception e) {

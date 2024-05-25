@@ -5,8 +5,8 @@ import com.ra.projectmd03_nhom3.dao.IRoleDao;
 import com.ra.projectmd03_nhom3.dao.IUserDao;
 import com.ra.projectmd03_nhom3.dto.request.FormLogin;
 import com.ra.projectmd03_nhom3.dto.request.FormRegister;
-import com.ra.projectmd03_nhom3.model.Roles;
-import com.ra.projectmd03_nhom3.model.Users;
+import com.ra.projectmd03_nhom3.model.Role;
+import com.ra.projectmd03_nhom3.model.User;
 import com.ra.projectmd03_nhom3.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,21 +22,21 @@ public class UserServiceImpl implements IUserService {
     private IRoleDao roleDao;
 
     @Override
-    public Users login(FormLogin formLogin) {
+    public User login(FormLogin formLogin) {
         return userDao.login(formLogin.getUsername(), formLogin.getPassword());
     }
 
     @Override
     public boolean register(FormRegister formRegister) {
-        Set<Roles> roles = new HashSet<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(roleDao.findByRoleName(RoleName.ROLE_USER));
-        Users users = Users.builder()
+        User user = User.builder()
                 .fullName(formRegister.getFullName())
                 .username(formRegister.getUsername())
                 .password(formRegister.getPassword())
                 .roles(roles)
                 .status(true)
                 .build();
-        return userDao.register(users);
+        return userDao.register(user);
     }
 }

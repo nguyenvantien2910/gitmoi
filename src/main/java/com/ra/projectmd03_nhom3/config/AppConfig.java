@@ -4,11 +4,13 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -31,6 +33,8 @@ import java.util.Properties;
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.ra"})
 public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
+    @Autowired
+    private Environment env;
 
     private ApplicationContext applicationContext;
 
@@ -42,10 +46,10 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource source = new DriverManagerDataSource();
-        source.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        source.setUrl("jdbc:mysql://localhost:3306/login_register?createDatabaseIfNotExist=true");
-        source.setUsername("root");
-        source.setPassword("123456");
+        source.setDriverClassName(env.getRequiredProperty("hibernate.driver"));
+        source.setUrl(env.getRequiredProperty("hibernate.url"));
+        source.setUsername(env.getRequiredProperty("hibernate.username"));
+        source.setPassword(env.getRequiredProperty("hibernate.password"));
         return source;
     }
 
@@ -87,9 +91,9 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     @Bean
     public Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
-        properties.setProperty("hibernate.show_sql", "true");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        properties.setProperty("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
+        properties.setProperty("hibernate.show_sql",env.getProperty("hibernate.show_sql"));
+        properties.setProperty("hibernate.dialect",env.getProperty("hibernate.dialect"));
         return properties;
     }
 
@@ -117,8 +121,8 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     @Bean
     public CommonsMultipartResolver multipartResolver(){
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSizePerFile(24*1024*1024);
-        multipartResolver.setMaxUploadSize(5*1024*1024);
+        multipartResolver.setMaxUploadSizePerFile(5*1024*1024);
+        multipartResolver.setMaxUploadSize(20*1024*1024);
         return multipartResolver;
     }
 

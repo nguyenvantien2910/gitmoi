@@ -1,8 +1,8 @@
 package com.ra.projectmd03_nhom3.dao;
 
-import com.ra.projectmd03_nhom3.model.Users;
+import com.ra.projectmd03_nhom3.model.User;
 
 public interface IUserDao {
-    boolean register(Users users);
-    Users login(String username, String password);
+    boolean register(User user);
+    User login(String username, String password);
 }

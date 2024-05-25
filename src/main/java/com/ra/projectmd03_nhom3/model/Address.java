@@ -16,21 +16,22 @@ import javax.validation.constraints.Size;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_id",unique = true, nullable = false)
-    private Integer addressId;
+    @Column(name = "address_id", unique = true, nullable = false)
+    private Long addressId;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User user;
 
     @Column(name = "full_address")
-    @Size(max = 255,message = "Max charactor of note is 255 !")
+    @Size(max = 255, message = "Max character is 255 !")
     private String fullAddress;
 
     @Column(name = "phone")
-    @Size(max = 15,message = "Max charactor of note is 255 !")
+    @Size(max = 15, message = "Max character is 15 !")
     private String phoneNumber;
 
     @Column(name = "receive_name")
-    @Size(max = 15,message = "Max charactor of note is 255 !")
+    @Size(max = 50, message = "Max character is 50 !")
     private String receiveName;
 }

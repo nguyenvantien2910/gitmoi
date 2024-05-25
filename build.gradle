@@ -73,9 +73,9 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload
     implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.5'
 
-    // https://mvnrepository.com/artifact/at.favre.lib/bcrypt
-    implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.9.0'
-
+    //Bcrypt
+    // https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+    implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
 }
 
 test {

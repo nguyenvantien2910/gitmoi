@@ -12,20 +12,21 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Data
 @Builder
-@Entity(name = "category")
+@Entity(name = "categories")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false, name = "category_id")
-    private long categoryId;
+    private Long categoryId;
 
     @Column(name = "category_name")
-    @NotNull(message = "Category Name is empty!")
+    @NotNull(message = "Category name is empty!")
     private String categoryName;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "status")
+    @NotNull(message = "Category status is empty!")
     private Boolean categoryStatus;
 }

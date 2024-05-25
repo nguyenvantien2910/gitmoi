@@ -5,9 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,34 +17,38 @@ import java.util.Set;
 @Data
 @Builder
 @Entity(name = "users")
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false, name = "user_id")
+    @Column(name = "user_id", unique = true, nullable = false)
     private Long userId;
 
-    @Column(nullable = false, unique = true, length = 100, name = "usename")
+    @Column(name = "username", nullable = false, unique = true, length = 100)
     @Size(min = 6, max = 100, message = "Username must be between 6 and 100 characters!")
     private String username;
 
-    @Column(name = "email")
-    @Pattern(regexp = "\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b")
+    @Column(name = "email", nullable = false, unique = true)
+    @Pattern(regexp = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,6}",message = "Invalid email format!")
     private String email;
 
-    @Column(name = "fullname")
-    @NotNull(message = "Fullname is emty!")
+    @Column(name = "fullname", nullable = false)
+    @NotNull(message = "Fullname is empty!")
     private String fullName;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private Boolean status;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "avatar")
     private String avatar;
 
-    @Column(name = "address")
+    @Column(name = "phone",unique = true)
+    @Pattern(regexp = "^(0(3|5|7|8|9)\\\\d{8}|02\\\\d{8,9})$",message = "Invalid phone format!")
+    private String phone;
+
+    @Column(name = "address", nullable = false)
     @NotNull(message = "Address is empty!")
     private String address;
 
@@ -53,13 +58,13 @@ public class Users {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Roles> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate createdAt;
+    private Date createdAt;
 
-    @Column(name = "update_at")
+    @Column(name = "updated_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate updateAt;
+    private Date updatedAt;
 }

@@ -9,7 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,14 +19,16 @@ import java.time.LocalDate;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false,name = "order_id")
-    private Integer orderId;
+    @Column(unique = true, nullable = false, name = "order_id")
+    private Long orderId;
 
-    @Column(unique = true, nullable = false,name = "serial_number")
+    @Column(unique = true, nullable = false, name = "serial_number")
     private String serialNumber;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
+    private User user;
+
     @Column(name = "total_price")
     private Double totalPrice;
 
@@ -35,26 +37,26 @@ public class Order {
     private OrderStatus orderStatus;
 
     @Column(name = "note")
-    @Size(max = 100,message = "Max charactor of note is 100 !")
+    @Size(max = 100, message = "Max character is 100 !")
     private String note;
 
     @Column(name = "receive_name")
-    @Size(max = 100,message = "Max charactor of note is 100 !")
+    @Size(max = 100, message = "Max character is 100 !")
     private String receiveName;
 
     @Column(name = "receive_address")
-    @Size(max = 100,message = "Max charactor of note is 100 !")
+    @Size(max = 255, message = "Max character is 255 !")
     private String receiveAddress;
 
     @Column(name = "receive_phone")
-    @Size(max = 15,message = "Max charactor of note is 100 !")
+    @Size(max = 15, message = "Max charactor is 15 !")
     private String receivePhone;
 
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate createdAt;
+    private Date createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "received_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate updateAt;
+    private Date receivedAt;
 }

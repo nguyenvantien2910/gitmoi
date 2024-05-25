@@ -3,7 +3,7 @@ package com.ra.projectmd03_nhom3.controller;
 import com.ra.projectmd03_nhom3.constant.RoleName;
 import com.ra.projectmd03_nhom3.dto.request.FormLogin;
 import com.ra.projectmd03_nhom3.dto.request.FormRegister;
-import com.ra.projectmd03_nhom3.model.Users;
+import com.ra.projectmd03_nhom3.model.User;
 import com.ra.projectmd03_nhom3.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,21 +33,21 @@ public class AuthController {
 
     @PostMapping("/login")
     public String handleLogin(@ModelAttribute("formLogin") FormLogin formLogin, HttpSession session) {
-        Users users = userService.login(formLogin);
-        if (users != null) {
-            session.setAttribute("user", users);
+        User user = userService.login(formLogin);
+        if (user != null) {
+            session.setAttribute("user", user);
         } else {
             return "redirect:/";
         }
-        if (users.getRoles().stream().anyMatch(roles -> roles.getRoleName().equals(RoleName.ROLE_ADMIN))) {
+        if (user.getRoles().stream().anyMatch(roles -> roles.getRoleName().equals(RoleName.ROLE_ADMIN))) {
             return "redirect:/admin";
         }
-        return "home";
+        return "/admin/home";
     }
 
     @GetMapping("/admin")
     public String admin() {
-        return "admin";
+        return "/admin/home";
     }
 
     @GetMapping("/403")
