@@ -19,8 +19,8 @@ public class CartController {
     HttpSession session;
     @Autowired
     private ICartService cartService;
-    @Autowired
-    private IProductService productService;
+//    @Autowired
+//    private IProductService productService;
 
     @GetMapping("/shoppingcart")
     public String shoppingCart() {
@@ -40,11 +40,11 @@ public class CartController {
             return "redirect:/login";
         }else {
             if (cartService.checkExistProductInCart(userLogin.getUserId(), product_id)) {
-                Product product = productService.findById(product_id);
-                cartService.updateCart(product, Math.toIntExact(userLogin.getUserId()),1);
+//                Product product = productService.findById(product_id);
+//                cartService.updateCart(product, Math.toIntExact(userLogin.getUserId()),1);
             }else {
-                Product product = productService.findById(product_id);
-                cartService.addToCart(product, Math.toIntExact(userLogin.getUserId()),1);
+//                Product product = productService.findById(product_id);
+//                cartService.addToCart(product, Math.toIntExact(userLogin.getUserId()),1);
             }
             return "redirect:/shoppingcart";
         }
@@ -57,11 +57,11 @@ public class CartController {
             return "redirect:/login";
         }else {
             if (cartService.checkExistProductInCart(userLogin.getUserId(), product_id)) {
-                Product product = productService.findById(product_id);
-                cartService.updateCart(product, Math.toIntExact(userLogin.getUserId()),quantity);
+//                Product product = productService.findById(product_id);
+//                cartService.updateCart(product, Math.toIntExact(userLogin.getUserId()),quantity);
             }else {
-                Product product =  productService.findById(product_id);
-                cartService.addToCart(product, Math.toIntExact(userLogin.getUserId()),quantity);
+//                Product product =  productService.findById(product_id);
+//                cartService.addToCart(product, Math.toIntExact(userLogin.getUserId()),quantity);
             }
             return "redirect:/shoppingcart";
         }

@@ -20,8 +20,8 @@ import java.util.List;
 public class CartDaoImpl implements ICartDao {
     @Autowired
     private SessionFactory sessionFactory;
-    @Autowired
-    private IProductDao productDao;
+//    @Autowired
+//    private IProductDao productDao;
     @Autowired
     private IUserDao userDao;
 
