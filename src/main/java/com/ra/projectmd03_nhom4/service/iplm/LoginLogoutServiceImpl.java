@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class LoginLogoutServiceImpl implements IUserService {
     @Autowired
     private IUserDao userDao;
 

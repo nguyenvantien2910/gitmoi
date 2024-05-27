@@ -1,41 +1,38 @@
 package com.ra.projectmd03_nhom4.dao.iplm;
 
 import com.ra.projectmd03_nhom4.dao.IDAO;
-import com.ra.projectmd03_nhom4.model.Category;
-import org.hibernate.Query;
+import com.ra.projectmd03_nhom4.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class CategoryDaoIplm implements IDAO<Category, Integer, String, Boolean, Long> {
+public class UserDaoIplm implements IDAO<User, Integer, String, Boolean, Long> {
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Category> findAll(Integer pageNo, Integer pageSize, String sortField, String sortDirection, String searchQuery) {
+    public List<User> findAll(Integer pageNo, Integer pageSize, String sortField, String sortDirection, String searchQuery) {
         Session session = sessionFactory.openSession();
         try {
-            StringBuilder hql = new StringBuilder("SELECT c FROM categories c");
+            StringBuilder hql = new StringBuilder("FROM users u");
 
-            // Filter by search query if present
             if (searchQuery != null && !searchQuery.isEmpty()) {
-                hql.append(" WHERE c.categoryName LIKE :searchQuery");
+                hql.append(" WHERE u.fullName LIKE :searchQuery");
             }
 
-            // Set sort field and direction
             if (sortField != null && !sortField.isEmpty()) {
-                hql.append(" ORDER BY c.").append(sortField).append(" ").append(sortDirection);
+                hql.append(" ORDER BY u.").append(sortField).append(" ").append(sortDirection);
             } else {
-                hql.append(" ORDER BY c.categoryId ASC, c.categoryStatus ASC");
+                hql.append(" ORDER BY u.userId ASC");
             }
 
-            Query<Category> query = session.createQuery(hql.toString(), Category.class);
+            Query<User> query = session.createQuery(hql.toString(), User.class);
 
-            // Set search query parameter if present
             if (searchQuery != null && !searchQuery.isEmpty()) {
                 query.setParameter("searchQuery", "%" + searchQuery + "%");
             }
@@ -43,89 +40,74 @@ public class CategoryDaoIplm implements IDAO<Category, Integer, String, Boolean,
             query.setFirstResult(pageNo * pageSize);
             query.setMaxResults(pageSize);
 
-            return query.getResultList();
+            return query.list();
         } finally {
             session.close();
         }
     }
-
 
     @Override
     public Long count(String searchQuery) {
         Session session = sessionFactory.openSession();
         try {
-            return (Long) session.createQuery("select count(c.categoryName) from categories c").getSingleResult();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            StringBuilder hql = new StringBuilder("SELECT COUNT(u) FROM users u");
+            if (searchQuery != null && !searchQuery.isEmpty()) {
+                hql.append(" WHERE u.fullName LIKE :searchQuery");
+            }
+            Query<Long> query = session.createQuery(hql.toString(), Long.class);
+
+            if (searchQuery != null && !searchQuery.isEmpty()) {
+                query.setParameter("searchQuery", "%" + searchQuery + "%");
+            }
+
+            return query.uniqueResult();
         } finally {
             session.close();
         }
     }
 
-//    @Override
-//    public Long count(String searchQuery) {
-//        Session session = sessionFactory.openSession();
-//        try {
-//            String hql = "SELECT COUNT(c) FROM categories c";
-//            if (searchQuery != null && !searchQuery.isEmpty()) {
-//                hql += " WHERE c.categoryName LIKE :searchQuery";
-//            }
-//            Query<Long> query = session.createQuery(hql, Long.class);
-//            if (searchQuery != null && !searchQuery.isEmpty()) {
-//                query.setParameter("searchQuery", "%" + searchQuery + "%");
-//            }
-//            return query.getSingleResult();
-//        } finally {
-//            session.close();
-//        }
-//    }
-
-
     @Override
-    public Category findById(int id) {
+    public User findById(int id) {
         Session session = sessionFactory.openSession();
         try {
-            return session.get(Category.class, id);
-        } catch (Exception e) {
-            e.printStackTrace();
+            return session.get(User.class, id);
         } finally {
             session.close();
         }
-        return null;
     }
 
     @Override
-    public boolean add(Category category) {
+    public boolean add(User user) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            session.save(category);
+            session.save(user);
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             session.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
         } finally {
             session.close();
         }
-        return false;
     }
 
     @Override
-    public boolean update(Category category) {
+    public boolean update(User user) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            session.update(category);
+            session.update(user);
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             session.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
         } finally {
             session.close();
         }
-        return false;
     }
 
     @Override
@@ -133,20 +115,20 @@ public class CategoryDaoIplm implements IDAO<Category, Integer, String, Boolean,
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            String hql = "update categories set categoryStatus = :newStatus where categoryId = :categoryId";
+            String hql = "UPDATE users SET status = :newStatus WHERE userId = :userId";
             int updatedEntities = session.createQuery(hql)
                     .setParameter("newStatus", newStatus)
-                    .setParameter("categoryId", id)
+                    .setParameter("userId", id)
                     .executeUpdate();
             session.getTransaction().commit();
             return updatedEntities > 0;
         } catch (Exception e) {
-            e.printStackTrace();
             session.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
         } finally {
             session.close();
         }
-        return false;
     }
 
     @Override
@@ -154,15 +136,19 @@ public class CategoryDaoIplm implements IDAO<Category, Integer, String, Boolean,
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            session.delete(findById(id));
-            session.getTransaction().commit();
-            return true;
-        } catch (Exception exception) {
-            exception.printStackTrace();
+            User user = session.get(User.class, id);
+            if (user != null) {
+                session.delete(user);
+                session.getTransaction().commit();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
             session.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
         } finally {
             session.close();
         }
-        return false;
     }
 }

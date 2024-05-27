@@ -12,25 +12,25 @@
     <h1>Add Category</h1><br>
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/category/list">Home</a></li>
+            <li class="breadcrumb-item"><a href="admin/category/list">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Add Category</li>
         </ol>
     </nav>
     <br>
-    <form action="/category/insertCategory" th:object="${category}" method="post">
+    <form action="admin/category/insertCategory" th:object="${category}" method="post">
         <div class="mb-3">
             <label for="cateName" class="form-label">Category Name</label>
-            <input th:field="*{name}" type="text" class="form-control" id="cateName"/>
-            <div th:errors="*{name}" class="text-danger"></div>
+            <input th:field="*{categoryName}" type="text" class="form-control" id="cateName"/>
+            <div th:errors="*{categoryName}" class="text-danger"></div>
         </div>
         <div class="mb-3">
             <label for="status" class="form-label">Status</label>
-            <select th:field="*{status}" class="form-control" id="status">
+            <select th:field="*{categoryStatus}" class="form-control" id="status">
                 <option value="">Select status</option>
                 <option value="true">Active</option>
                 <option value="false">Inactive</option>
             </select>
-            <small th:errors="*{status}" class="text-danger"></small>
+            <small th:errors="*{categoryStatus}" class="text-danger"></small>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="reset" class="btn btn-secondary">Clear</button>

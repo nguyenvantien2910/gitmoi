@@ -13,16 +13,16 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("admin/category")
 public class CategoryController {
     @Autowired
     private IService<Category, Integer, String, Boolean, Long> categoryService;
 
-    @GetMapping({""})
+    @GetMapping({"/list"})
     public String listCategory(Model model,
                                @RequestParam(value = "page", defaultValue = "0") int page,
-                               @RequestParam(value = "size", defaultValue = "10") int size,
-                               @RequestParam(value = "sortField", defaultValue = "status") String sortField,
+                               @RequestParam(value = "size", defaultValue = "5") int size,
+                               @RequestParam(value = "sortField", defaultValue = "categoryStatus") String sortField,
                                @RequestParam(value = "sortDirection", defaultValue = "desc") String sortDirection,
                                @RequestParam(value = "searchQuery", defaultValue = "") String searchQuery,
                                @ModelAttribute("message") String message) {
@@ -38,10 +38,12 @@ public class CategoryController {
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("searchQuery", searchQuery);
-        model.addAttribute("message", message);
-
+        if (message != null && !message.isEmpty()) {
+            model.addAttribute("message", message);
+        }
         return "admin/category/list";
     }
+
 
     @GetMapping("/add")
     public String addCategory(Model model) {
@@ -56,9 +58,10 @@ public class CategoryController {
         } else {
             categoryService.add(category);
             redirectAttributes.addFlashAttribute("message", "Category added successfully!");
-            return "redirect:/category/list";
+            return "redirect:/list";
         }
     }
+
 
     @GetMapping("/edit")
     public String editCategory(@RequestParam("cateId") Integer cateId, Model model) {
@@ -74,7 +77,7 @@ public class CategoryController {
         } else {
             categoryService.update(category);
             redirectAttributes.addFlashAttribute("message", "Update category success!");
-            return "redirect:/category/list";
+            return "redirect:/list";
         }
     }
 
@@ -82,13 +85,13 @@ public class CategoryController {
     public String deleteCategory(@RequestParam("cateId") Integer cateId, RedirectAttributes redirectAttributes) {
         categoryService.delete(cateId);
         redirectAttributes.addFlashAttribute("message", "Category deleted successfully!");
-        return "redirect:/category/list";
+        return "redirect:/list";
     }
 
     @GetMapping("/updateStatus")
     public String updateStatus(@RequestParam("cateId") Integer cateId, @RequestParam("newStatus") Boolean newStatus, RedirectAttributes redirectAttributes) {
         categoryService.updateStatus(cateId, newStatus);
         redirectAttributes.addFlashAttribute("message", "Update status success!");
-        return "redirect:/category/list";
+        return "redirect:/list";
     }
 }
