@@ -33,7 +33,7 @@ public class UserDaoImpl implements IUserDao {
     public User login(String username, String password) {
         Session session = sessionFactory.openSession();
         try {
-            User user = session.createQuery("select u from Users u where u.username = :username and u.password = :password", User.class)
+            User user = session.createQuery("select u from users u where u.username = :username and u.password = :password", User.class)
                     .setParameter("username",username)
                     .setParameter("password",password)
                     .getSingleResult();
