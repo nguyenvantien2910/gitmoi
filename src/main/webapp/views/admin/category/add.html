@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Category</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>Add Category</h1><br>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/category/list">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Category</li>
+        </ol>
+    </nav>
+    <br>
+    <form action="/category/insertCategory" th:object="${category}" method="post">
+        <div class="mb-3">
+            <label for="cateName" class="form-label">Category Name</label>
+            <input th:field="*{name}" type="text" class="form-control" id="cateName"/>
+            <div th:errors="*{name}" class="text-danger"></div>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select th:field="*{status}" class="form-control" id="status">
+                <option value="">Select status</option>
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+            </select>
+            <small th:errors="*{status}" class="text-danger"></small>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-secondary">Clear</button>
+    </form>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
