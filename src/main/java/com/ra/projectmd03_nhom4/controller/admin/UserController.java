@@ -15,7 +15,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/user")
-public class ManageUserController {
+public class UserController {
     @Autowired
     private IUserService userService;
 
