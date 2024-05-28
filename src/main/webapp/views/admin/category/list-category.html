@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách danh mục</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>Danh sách danh mục</h1>
+    <a th:href="@{/category/add-category}" class="btn btn-primary mb-3">Thêm danh mục mới</a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID danh mục</th>
+            <th>Tên danh mục</th>
+            <th>Mô tả</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.categoryId}"></td>
+            <td th:text="${category.categoryName}"></td>
+            <td th:text="${category.description}"></td>
+            <td>
+                <a type="button" class="btn"
+                   th:classappend="${category.categoryStatus ? 'btn-success' : 'btn-danger'}"
+                   th:href="@{/category/{categoryId}(categoryId=${category.categoryId})}"
+                   th:attr="onclick=${category.categoryStatus ? 'return confirm(`Bạn có chắc muốn khóa danh mục này ?`)' : 'return confirm(`Bạn có chắc muốn mở khóa danh mục này ?`)' }"
+                >
+                    <span th:text="${category.categoryStatus ? 'Active' : 'Block'}"></span>
+                </a>
+            </td>
+            <td><a th:href="@{/category/edit-category/{categoryId}(categoryId=${category.categoryId})}"
+                   class="btn btn-warning"><i class="bi bi-pencil-square"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
