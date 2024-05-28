@@ -1,6 +1,7 @@
 package com.ra.projectmd03_nhom4.dao.iplm;
 
-import com.ra.projectmd03_nhom4.dao.IDAO;
+import com.ra.projectmd03_nhom4.dao.IUserDao;
+import com.ra.projectmd03_nhom4.dto.request.FromAddUser;
 import com.ra.projectmd03_nhom4.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class UserDaoIplm implements IDAO<User, Integer, String, Boolean, Long> {
+public class IUserDaoIplm implements IUserDao<User, Integer, String, Boolean, Long> {
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -67,7 +68,7 @@ public class UserDaoIplm implements IDAO<User, Integer, String, Boolean, Long> {
     }
 
     @Override
-    public User findById(int id) {
+    public User findById(Long id) {
         Session session = sessionFactory.openSession();
         try {
             return session.get(User.class, id);
@@ -111,7 +112,7 @@ public class UserDaoIplm implements IDAO<User, Integer, String, Boolean, Long> {
     }
 
     @Override
-    public boolean updateStatus(Integer id, Boolean newStatus) {
+    public boolean updateStatus(Long id, Boolean newStatus) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
@@ -132,7 +133,7 @@ public class UserDaoIplm implements IDAO<User, Integer, String, Boolean, Long> {
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Long id) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
@@ -150,5 +151,55 @@ public class UserDaoIplm implements IDAO<User, Integer, String, Boolean, Long> {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public boolean register(User user) {
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.save(user);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return false;
+    }
+
+    @Override
+    public User login(String username, String password) {
+        Session session = sessionFactory.openSession();
+        try {
+            return session.createQuery("select u from users u where u.username = :username and u.password = :password", User.class)
+                    .setParameter("username",username)
+                    .setParameter("password",password)
+                    .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean addNewAdmin(User user) {
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.save(user);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return false;
     }
 }

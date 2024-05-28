@@ -1,17 +1,29 @@
 package com.ra.projectmd03_nhom4.service.iplm;
 
-import com.ra.projectmd03_nhom4.dao.IDAO;
+import com.ra.projectmd03_nhom4.constant.RoleName;
+import com.ra.projectmd03_nhom4.dao.IRoleDao;
+import com.ra.projectmd03_nhom4.dao.IUserDao;
+import com.ra.projectmd03_nhom4.dto.request.FormLogin;
+import com.ra.projectmd03_nhom4.dto.request.FormRegister;
+import com.ra.projectmd03_nhom4.dto.request.FromAddUser;
+import com.ra.projectmd03_nhom4.model.Role;
 import com.ra.projectmd03_nhom4.model.User;
-import com.ra.projectmd03_nhom4.service.IService;
+import com.ra.projectmd03_nhom4.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
-public class UserServiceIplm implements IService<User,Integer,String,Boolean,Long> {
+public class UserServiceIplm implements IUserService {
     @Autowired
-    IDAO<User, Integer, String, Boolean, Long> userDao;
+    private IRoleDao roleDao;
+
+    @Autowired
+    IUserDao<User, Integer, String, Boolean, Long> userDao;
 
     @Override
     public List<User> findAll(Integer pageNo, Integer pageSize, String sortField, String sortDirection, String searchQuery) {
@@ -24,7 +36,7 @@ public class UserServiceIplm implements IService<User,Integer,String,Boolean,Lon
     }
 
     @Override
-    public User findById(int id) {
+    public User findById(Long id) {
         return userDao.findById(id);
     }
 
@@ -39,12 +51,54 @@ public class UserServiceIplm implements IService<User,Integer,String,Boolean,Lon
     }
 
     @Override
-    public boolean updateStatus(Integer id, Boolean newStatus) {
+    public boolean updateStatus(Long id, Boolean newStatus) {
         return userDao.updateStatus(id, newStatus);
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Long id) {
         return userDao.delete(id);
+    }
+
+    @Override
+    public User login(FormLogin formLogin) {
+        return userDao.login(formLogin.getUsername(), formLogin.getPassword());
+    }
+
+    @Override
+    public boolean register(FormRegister formRegister) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleDao.findByRoleName(RoleName.ROLE_USER));
+        User user = User.builder()
+                .fullName(formRegister.getFullName())
+                .username(formRegister.getUsername())
+                .password(formRegister.getPassword())
+                .address(formRegister.getAddress())
+                .email(formRegister.getEmail())
+                .phone(formRegister.getPhone())
+                .createdAt(new Date())
+                .roles(roles)
+                .status(true)
+                .build();
+        return userDao.register(user);
+    }
+
+    @Override
+    public boolean addNewAdmin(FromAddUser fromAddUser) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleDao.findByRoleName(RoleName.ROLE_ADMIN));
+        User user = User.builder()
+                .fullName(fromAddUser.getFullName())
+                .username(fromAddUser.getUsername())
+                .password(fromAddUser.getPassword())
+                .address(fromAddUser.getAddress())
+                .phone(fromAddUser.getPhone())
+                .email(fromAddUser.getEmail())
+                .createdAt(new Date())
+                .roles(roles)
+                .status(true)
+                .build();
+
+        return userDao.add(user);
     }
 }

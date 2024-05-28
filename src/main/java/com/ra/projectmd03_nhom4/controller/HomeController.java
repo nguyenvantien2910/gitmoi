@@ -19,9 +19,6 @@ import javax.validation.Valid;
 @Controller
 public class HomeController {
     @Autowired
-    private HttpSession session;
-
-    @Autowired
     private IUserService userService;
 
     @GetMapping("/register")
