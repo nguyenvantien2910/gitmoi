@@ -20,4 +20,6 @@ public class FormRegister {
     private String address;
     @NotNull(message = "Email must not null")
     private String email;
+    @NotNull(message = "Phone must not null")
+    private String phone;
 }
