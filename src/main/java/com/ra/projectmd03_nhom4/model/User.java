@@ -45,7 +45,7 @@ public class User {
     private String avatar;
 
     @Column(name = "phone",unique = true)
-    @Pattern(regexp = "^(0(3|5|7|8|9)\\\\d{8}|02\\\\d{8,9})$",message = "Invalid phone format!")
+    @Pattern(regexp = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$",message = "Invalid phone format!")
     private String phone;
 
     @Column(name = "address", nullable = false)

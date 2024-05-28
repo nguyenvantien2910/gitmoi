@@ -35,6 +35,11 @@
         <input th:field="*{address}" type="text" class="form-control" id="address">
         <small th:errors="*{address}" class="text-danger"></small>
     </div>
+    <div class="mb-3">
+        <label for="phone" class="form-label">Phone</label>
+        <input th:field="*{phone}" type="text" class="form-control" id="phone">
+        <small th:errors="*{phone}" class="text-danger"></small>
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     <input type="reset" class=" btn btn-danger" value="Reset Form">
 </form>
