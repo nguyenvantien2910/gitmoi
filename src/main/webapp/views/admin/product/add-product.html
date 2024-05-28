@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="/layout/header::header"></th:block>
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .col-form-label {
+            font-weight: bold;
+        }
+
+        .form-control, .form-select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/product/handleAddProduct}" method="post" enctype="multipart/form-data" th:object="${productRequest}">
+        <div class="form-group row">
+            <label class="col-12 col-form-label">Name</label>
+            <div class="col-12">
+                <input type="text" class="form-control" th:field="*{productName}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-12 col-form-label">Description</label>
+            <div class="col-12">
+                <input type="text" class="form-control" th:field="*{productDescription}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-12 col-form-label">Price</label>
+            <div class="col-12">
+                <input type="text" class="form-control" th:field="*{unitPrice}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-12 col-form-label">Stock</label>
+            <div class="col-12">
+                <input type="text" class="form-control" th:field="*{stockQuantity}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-12 col-form-label">Category</label>
+            <div class="col-12">
+                <select th:field="*{category.categoryId}" id="categoryId_up" class="form-select">
+                    <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="image" class="col-12 col-form-label">Image</label>
+            <div class="col-12">
+                <input type="file" class="form-control" id="image" th:field="*{file}">
+            </div>
+        </div>
+        <button type="submit">ADD</button>
+    </form>
+</div>
+
+<th:block th:replace="/layout/header::myScript"></th:block>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

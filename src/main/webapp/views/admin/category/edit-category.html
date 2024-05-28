@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cập nhật danh mục</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 class="text text-danger">Cập nhật danh mục</h1>
+    <form action="/category/edit-category" th:object="${category}" method="post">
+        <div class="mb-3">
+            <label for="categoryId" class="form-label">ID danh mục</label>
+            <input name="categoryId" class="form-control" id="categoryId" readonly th:field="*{categoryId}"/>
+        </div>
+        <div class="mb-3">
+            <label for="categoryName" class="form-label">Tên danh mục</label>
+            <input name="categoryName" class="form-control" id="categoryName" th:field="*{categoryName}"/>
+            <p th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}" style="color: red"></p>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Mô tả</label>
+            <input name="description" class="form-control" id="description" th:field="*{description}"/>
+            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color: red"></p>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select name="categoryStatus" class="form-control" id="status">
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+            </select>
+            <p th:if="${#fields.hasErrors('categoryStatus')}" th:errors="*{categoryStatus}" style="color: red"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
+        <button type="reset" class="btn btn-secondary">Làm mới</button>
+    </form>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
