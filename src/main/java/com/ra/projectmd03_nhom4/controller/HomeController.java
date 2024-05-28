@@ -50,7 +50,7 @@ public class HomeController {
             if (user.getRoles().stream().anyMatch(roles -> roles.getRoleName().equals(RoleName.ROLE_ADMIN))) {
                 return "redirect:/admin";
             }
-            return "redirect:/user";
+            return "redirect:/user/user";
         } else {
             return "redirect:/login";
         }

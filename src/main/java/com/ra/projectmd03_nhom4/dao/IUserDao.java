@@ -5,4 +5,6 @@ import com.ra.projectmd03_nhom4.model.User;
 public interface IUserDao {
     boolean register(User user);
     User login(String username, String password);
+
+    User findById(Long id);
 }

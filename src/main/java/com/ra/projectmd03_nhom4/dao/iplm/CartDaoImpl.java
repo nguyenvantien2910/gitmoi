@@ -12,6 +12,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -24,15 +25,15 @@ public class CartDaoImpl implements ICartDao {
     private IUserDao userDao;
 
     @Override
-    public List<ShoppingCart> findCartByUserId(Integer userId) {
+    public List<ShoppingCart> findCartByUserId(Long userId) {
         Transaction transaction = null;
-        List<ShoppingCart> cartList = null;
+        List<ShoppingCart> cartList = new ArrayList<>();
+        Session session = sessionFactory.openSession();
         try {
-            Session session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            Query<ShoppingCart> query = session.createQuery("from shopping_cart where user.userId = :userId");
-            query.setParameter("userId", userId);
-            cartList = query.getResultList();
+            cartList = session.createQuery("select s from shopping_cart s where s.user.userId = :userId", ShoppingCart.class)
+                    .setParameter("userId",userId)
+                    .getResultList();
             transaction.commit();
         }catch (Exception e) {
             if (transaction != null) {
@@ -40,16 +41,16 @@ public class CartDaoImpl implements ICartDao {
             }
             e.printStackTrace();
         }finally {
-            sessionFactory.close();
+            session.close();
         }
         return cartList;
     }
 
     @Override
-    public boolean addToCart(Product product, Integer user_id, Integer quantity) {
+    public boolean addToCart(Product product, Long user_id, Integer quantity) {
         Transaction transaction = null;
-        try {
         Session session = sessionFactory.openSession();
+        try {
         transaction = session.beginTransaction();
             User userLogin = session.get(User.class, user_id);
             if (userLogin == null) {
@@ -70,16 +71,16 @@ public class CartDaoImpl implements ICartDao {
             }
             e.printStackTrace();
         }finally {
-            sessionFactory.close();
+            session.close();
         }
         return false;
     }
 
     @Override
-    public void removeFromCart(Integer cart_id) {
+    public void removeFromCart(Long cart_id) {
         Transaction transaction = null;
+        Session session = sessionFactory.openSession();
         try{
-            Session session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             ShoppingCart cart = session.get(ShoppingCart.class, cart_id);
             if (cart != null){
@@ -92,16 +93,16 @@ public class CartDaoImpl implements ICartDao {
             }
             e.printStackTrace();
         }finally {
-            sessionFactory.close();
+            session.close();
         }
 
     }
 
     @Override
-    public void removeCartByUserId(Integer user_id) {
+    public void removeCartByUserId(Long user_id) {
         Transaction transaction = null;
+        Session session = sessionFactory.openSession();
         try {
-            Session session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             Query query = session.createQuery("delete from shopping_cart where user.userId = :userId");
             query.setParameter("userId", user_id);
@@ -113,21 +114,24 @@ public class CartDaoImpl implements ICartDao {
             }
             e.printStackTrace();
         }finally {
-            sessionFactory.close();
+            session.close();
         }
 
     }
 
     @Override
-    public void updateCartById(Integer cart_id, Integer quantity) {
+    public void updateCartById(Long cart_id, Integer quantity) {
         Transaction transaction = null;
+        Session session = sessionFactory.openSession();
         try{
-            Session session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             ShoppingCart cart = session.get(ShoppingCart.class, cart_id);
             if (cart != null){
                 cart.setOrderQuantity(quantity);
                 session.update(cart);
+            }
+            if (quantity <=0){
+                session.delete(cart);
             }
 
             transaction.commit();
@@ -137,15 +141,15 @@ public class CartDaoImpl implements ICartDao {
             }
             e.printStackTrace();
         }finally {
-            sessionFactory.close();
+            session.close();
         }
     }
 
     @Override
-    public boolean updateCart(Product product, Integer user_id, Integer quantity) {
+    public boolean updateCart(Product product, Long user_id, Integer quantity) {
         Transaction transaction = null;
+        Session session = sessionFactory.openSession();
         try {
-            Session session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             Query<ShoppingCart> query = session.createQuery("from shopping_cart where user.userId = :userId and product.productId = :productId");
             query.setParameter("userId", user_id);
@@ -166,7 +170,20 @@ public class CartDaoImpl implements ICartDao {
             e.printStackTrace();
             return false;
         }finally {
-            sessionFactory.close();
+            session.close();
         }
+    }
+
+    @Override
+    public ShoppingCart findCartById(Long cart_id) {
+        Session session = sessionFactory.openSession();
+        try {
+            return session.get(ShoppingCart.class, cart_id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return null;
     }
 }

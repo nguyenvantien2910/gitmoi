@@ -8,6 +8,8 @@ import com.ra.projectmd03_nhom4.dto.request.FormRegister;
 import com.ra.projectmd03_nhom4.model.Role;
 import com.ra.projectmd03_nhom4.model.User;
 import com.ra.projectmd03_nhom4.service.IUserService;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private IRoleDao roleDao;
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Override
     public User login(FormLogin formLogin) {
@@ -43,5 +47,15 @@ public class UserServiceImpl implements IUserService {
                 .status(true)
                 .build();
         return userDao.register(user);
+    }
+
+    @Override
+    public User findById(Long id) {
+        Session session = sessionFactory.openSession();
+        try {
+            return session.get(User.class, id);
+        } finally {
+            session.close();
+        }
     }
 }

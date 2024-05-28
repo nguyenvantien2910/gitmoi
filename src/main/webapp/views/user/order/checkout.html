@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="form-container">
+        <h2>User Information</h2>
+        <form th:object="${orders}" th:action="@{/checkout}" method="post" >
+            <div class="col-12">
+                <label for="inputName" class="form-label">Receive Name</label>
+                <input type="text" class="form-control"  th:field="*{receiveName}" id="inputName" placeholder="receiveName">
+            </div>
+            <div class="col-12">
+                <label for="inputName" class="form-label">Phone</label>
+                <label>
+                    <input type="text" class="form-control"  th:field="*{receivePhone}"  placeholder="receivePhone">
+                </label>
+            </div>
+            <div class="col-12">
+                <label for="inputName" class="form-label">Address</label>
+                <label>
+                    <input type="text" class="form-control"  th:field="*{receiveAddress}"  placeholder="receiveAddress">
+                </label>
+            </div>
+            <div class="bank">
+                <div class="bank-item">
+                    <label for="zalo">
+                        <img
+                                src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.evn.com.
+                                vn%2Fd6%2Fnews%2FThanh-toan-tien-dien-bang-ma-QR-qua-Zalopay-khach-hang-co
+                                -co-hoi-trung-thuong-vang-va-tien-mat-9-134-28851.aspx&psig=AOvVaw1UWNvPWU8iNQZRn
+                                LUE4KZc&ust=1716975731836000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoT
+                                COjVwpyHsIYDFQAAAAAdAAAAABAE"
+                                alt="zalo"
+                                class="bank-img zalo"
+                        />
+                    </label>
+                    <input type="radio" name="payment" class="bank-input zalo" id="zalo" value="zalo"/>
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="note" class="form-label">Note</label>
+                <input type="text" class="form-control"  th:field="*{note}" id="note"  placeholder="Note">
+            </div>
+            <div class="col-12">
+                <label for="totalPrice" class="form-label">TotalPrice</label>
+                <input type="text" class="form-control" th:value="${totalPrice}" th:field="*{totalPrice}" id="totalPrice" hidden="hidden" readonly>
+            </div>
+            <div class="order-summary">
+                <label class="totalPrice" th:text="${totalPrice}" ></label>
+            </div>
+            <button class="btn" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

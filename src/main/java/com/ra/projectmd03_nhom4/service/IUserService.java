@@ -7,4 +7,6 @@ import com.ra.projectmd03_nhom4.model.User;
 public interface IUserService {
     User login(FormLogin formLogin);
     boolean register(FormRegister formRegister);
+
+    User findById(Long id);
 }

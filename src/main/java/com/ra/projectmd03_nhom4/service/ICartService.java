@@ -7,18 +7,20 @@ import java.util.List;
 
 public interface ICartService {
 
-    List<ShoppingCart> findCartByUserId(Integer userId);
+    List<ShoppingCart> findCartByUserId(Long userId);
 
-    boolean addToCart(Product product, Integer user_id, Integer quantity);
+    ShoppingCart findCartById(Long shoppingCartId);
 
-    void removeFromCart(Integer cart_id);
+    boolean addToCart(Product product, Long user_id, Integer quantity);
 
-    void removeCartByUserId(Integer user_id);
+    void removeFromCart(Long cart_id);
 
-    void updateCartById(Integer cart_id, Integer qty);
+    void removeCartByUserId(Long user_id);
 
-    boolean updateCart(Product product, Integer user_id, Integer quantity);
+    void updateCartById(Long cart_id, Integer qty);
 
-    boolean checkExistProductInCart(Long product_id, Integer user_id);
+    boolean updateCart(Product product, Long user_id, Integer quantity);
+
+    boolean checkExistProductInCart(Long product_id, Long user_id);
     Float getCartTotal(List<ShoppingCart> shoppingCartList);
 }

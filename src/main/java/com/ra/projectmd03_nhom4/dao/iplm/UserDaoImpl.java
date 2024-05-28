@@ -44,4 +44,14 @@ public class UserDaoImpl implements IUserDao {
         }
         return null;
     }
+
+    @Override
+    public User findById(Long id) {
+        Session session = sessionFactory.openSession();
+        try {
+            return session.get(User.class, id);
+        } finally {
+            session.close();
+        }
+    }
 }

@@ -19,7 +19,7 @@ public class ShoppingCartService implements ICartService {
 
 
     @Override
-    public List<ShoppingCart> findCartByUserId(Integer userId) {
+    public List<ShoppingCart> findCartByUserId(Long userId) {
         List<ShoppingCart> cartList = cartDao.findCartByUserId(userId);
         session.setAttribute("cartList", cartList);
         Float total = getCartTotal(cartList);
@@ -28,35 +28,42 @@ public class ShoppingCartService implements ICartService {
     }
 
     @Override
-    public boolean addToCart(Product product, Integer user_id, Integer quantity) {
+    public ShoppingCart findCartById(Long shoppingCartId) {
+        ShoppingCart cart = cartDao.findCartById(shoppingCartId);
+        session.setAttribute("cart", cart);
+        return cart;
+    }
+
+    @Override
+    public boolean addToCart(Product product, Long user_id, Integer quantity) {
         return cartDao.addToCart(product, user_id, quantity);
     }
 
     @Override
-    public void removeFromCart(Integer cart_id) {
+    public void removeFromCart(Long cart_id) {
         cartDao.removeFromCart(cart_id);
     }
 
     @Override
-    public void removeCartByUserId(Integer user_id) {
+    public void removeCartByUserId(Long user_id) {
         cartDao.removeCartByUserId(user_id);
     }
 
     @Override
-    public void updateCartById(Integer cart_id, Integer qty) {
+    public void updateCartById(Long cart_id, Integer qty) {
         cartDao.updateCartById(cart_id, qty);
     }
 
     @Override
-    public boolean updateCart(Product product, Integer user_id, Integer quantity) {
+    public boolean updateCart(Product product, Long user_id, Integer quantity) {
         return cartDao.updateCart(product, user_id, quantity);
     }
 
     @Override
-    public boolean checkExistProductInCart(Long product_id, Integer user_id) {
+    public boolean checkExistProductInCart(Long product_id, Long user_id) {
         List<ShoppingCart> cartList = cartDao.findCartByUserId(user_id);
         for (ShoppingCart cart : cartList) {
-            if (cart.getProduct().getProductId() == product_id){
+            if (cart.getProduct().getProductId() == product_id) {
                 return true;
             }
         }
@@ -67,7 +74,7 @@ public class ShoppingCartService implements ICartService {
     public Float getCartTotal(List<ShoppingCart> shoppingCartList) {
         Float total = 0f;
         for (ShoppingCart cart : shoppingCartList) {
-            total += cart.getProduct().getUnitPrice().floatValue()*cart.getOrderQuantity();
+            total += cart.getProduct().getUnitPrice().floatValue() * cart.getOrderQuantity();
         }
         return total;
     }
