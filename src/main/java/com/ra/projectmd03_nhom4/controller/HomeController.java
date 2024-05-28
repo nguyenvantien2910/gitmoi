@@ -47,7 +47,7 @@ public class HomeController {
             if (user.getRoles().stream().anyMatch(roles -> roles.getRoleName().equals(RoleName.ROLE_ADMIN))) {
                 return "redirect:/admin";
             }
-            return "redirect:/user";
+            return "redirect:/user/homepage";
         } else {
             return "redirect:/login";
         }
@@ -60,6 +60,6 @@ public class HomeController {
 
     @RequestMapping("/")
     public String index() {
-        return "index";
+        return "user/index";
     }
 }
