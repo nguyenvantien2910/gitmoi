@@ -1,5 +1,6 @@
 package com.ra.projectmd03_nhom4.dao;
 
+import com.ra.projectmd03_nhom4.dto.request.CategoryDTO;
 import com.ra.projectmd03_nhom4.model.Category;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface ICategoryDao{
     void block(Long id);
 
     boolean checkCategoryName(String categoryName);
+//    List<CategoryDTO> findAllCategoriesWithProductCount();
 }

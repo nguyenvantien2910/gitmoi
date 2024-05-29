@@ -9,4 +9,5 @@ public interface IProductServiceUser {
     Product findById(Long id);
     void saveOrUpdate(Product product);
     void deleteById(Long id);
+    List<Product> findByCategoryId(Long categoryId);
 }
