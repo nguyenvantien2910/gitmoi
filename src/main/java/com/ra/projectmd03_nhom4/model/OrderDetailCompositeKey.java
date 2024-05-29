@@ -14,6 +14,6 @@ import java.io.Serializable;
 @Data
 @Builder
 public class OrderDetailCompositeKey implements Serializable {
-    private Long orderID;
-    private Long orderDetailID;
+    private Long orderId;
+    private Long productId;
 }

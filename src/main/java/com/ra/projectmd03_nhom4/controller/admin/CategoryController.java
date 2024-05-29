@@ -13,59 +13,59 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping("/admin/category")
 public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
 
-    @RequestMapping("/category")
+    @GetMapping("/list")
     public String categoryManagement(Model model) {
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
         return "admin/category/list-category";
     }
 
-    @GetMapping("/category/add-category")
+    @GetMapping("/add-category")
     public String openAddModal(Model model) {
         Category category = new Category();
         model.addAttribute("category", category);
         return "admin/category/add-category";
     }
-    @PostMapping("/category/add-category")
+    @PostMapping("/add-category")
     public String createCategory(@Valid @ModelAttribute("category") Category category, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()){
             return "admin/category/add-category";
         }
         if(categoryService.checkCategoryName(category.getCategoryName())){
-            return "redirect:/category/add-category";
+            return "redirect:admin/category/add-category";
         }
         categoryService.saveOrUpdate(category);
         redirectAttributes.addFlashAttribute("mess", "Thêm mới danh mục thành công !");
-        return "redirect:/category";
+        return "redirect:admin/category/list";
     }
 
 
-    @GetMapping("/category/edit-category/{id}")
+    @GetMapping("/edit-category/{id}")
     public String editCategory(@PathVariable("id") Long id, Model model) {
         Category category = categoryService.findById(id);
         model.addAttribute("category", category);
         return "admin/category/edit-category";
     }
 
-    @PostMapping("/category/edit-category")
+    @PostMapping("/edit-category")
     public String update(@ModelAttribute("category") Category category, RedirectAttributes redirectAttributes, BindingResult result) {
         if (result.hasErrors()) {
             return "admin/category/edit-category";
         }
         categoryService.saveOrUpdate(category);
 //        redirectAttributes.addAttribute("mess", "Cập nhật thành công !");
-        return "redirect:/category";
+        return "redirect:admin/category/list";
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/{id}")
     public String blockCategory(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         categoryService.block(id);
-        return "redirect:/category";
+        return "redirect:admin/category/list";
     }
 
 }

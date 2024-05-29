@@ -35,7 +35,11 @@
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
                     </a>
                 </li>
-
+                <li class="sidebar-item">
+                    <a class="sidebar-link" th:href="@{/admin/banner/list}">
+                        <i class="align-middle" data-feather="banner"></i> <span class="align-middle">Banner</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -68,9 +72,8 @@
                                                                  data-feather="pie-chart"></i>
                                 Change Pass</a>
 
-
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Log out</a>
+                            <a class="dropdown-item" th:href="@{/logout}">Log out</a>
                         </div>
                     </li>
                 </ul>
@@ -360,6 +363,8 @@
 
         <th:block th:insert="/layout/admin/footer::footer"></th:block>
 
+    </div>
+</div>
 </body>
 
 </html>

@@ -27,6 +27,16 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public List<Product> getAllProducts() {
+        return productDao.getAllProducts();
+    }
+
+    @Override
+    public List<Product> findByName(String name) {
+        return productDao.findByName(name);
+    }
+
+    @Override
     public void saveOrUpdate(ProductRequest productRequest) {
         Product product = Product.builder()
                 .productId(productRequest.getProductId())

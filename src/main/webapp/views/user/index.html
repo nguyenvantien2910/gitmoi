@@ -2,28 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:insert="/layout/user/header::header"></th:block>
-<!--<style>-->
-<!--    .fruite-img {-->
-<!--        position: relative;-->
-<!--        overflow: hidden;-->
-<!--        width: 100%;-->
-<!--        height: 200px; /* Điều chỉnh chiều cao khung hình ảnh */-->
-<!--    }-->
+<style>
+    .fruite-img {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 200px; /* Điều chỉnh chiều cao khung hình ảnh */
+    }
 
-<!--    .fruite-img img {-->
-<!--        position: absolute;-->
-<!--        top: 50%;-->
-<!--        left: 50%;-->
-<!--        transform: translate(-50%, -50%);-->
-<!--        min-width: 100%;-->
-<!--        min-height: 100%;-->
-<!--        transition: transform 0.3s ease; /* Hiệu ứng chuyển động */-->
-<!--    }-->
+    .fruite-img img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+        transition: transform 0.3s ease; /* Hiệu ứng chuyển động */
+    }
 
-<!--    .fruite-img:hover img {-->
-<!--        transform: scale(1.1); /* Hiệu ứng thu vào */-->
-<!--    }-->
-<!--</style>-->
+    .fruite-img:hover img {
+        transform: scale(1.1); /* Hiệu ứng thu vào */
+    }
+</style>
 <body>
 <!-- Navbar start -->
 <div class="container-fluid fixed-top">
@@ -64,6 +64,16 @@
                     <a href="#" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
                     </a>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" th:href="@{user/info}">Profile</a>
+                            <a class="dropdown-item" th:href="@{user/changepassword}">Change Pass</a>
+                            <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -85,20 +95,26 @@
                             class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
                             style="top: 0; right: 25%;">Search Now
                     </button>
+                    <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="text"
+                           placeholder="Input Search Key">
+                    <button type="submit"
+                            class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
+                            style="top: 0; right: 25%;">Search Now
+                    </button>
                 </div>
             </div>
             <div class="col-md-12 col-lg-5">
                 <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
                     <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active rounded">
-                            <img th:src="@{assets/img/hero-img-1.png}"
-                                 class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
-                            <a href="#" class="btn px-4 py-2 text-white rounded">Fruites</a>
-                        </div>
-                        <div class="carousel-item rounded">
-                            <img th:src="@{assets/img/hero-img-2.jpg}" class="img-fluid w-100 h-100 rounded"
-                                 alt="Second slide">
-                            <a href="#" class="btn px-4 py-2 text-white rounded">Vesitables</a>
+                        <div th:each="banner, iterStat : ${session.bannerList}"
+                             th:classappend="${iterStat.index == 0} ? 'active' : ''"
+                             class="carousel-item rounded">
+                            <img th:src="@{${banner.url}}"
+                                 class="img-fluid w-100 h-100 bg-secondary rounded"
+                                 th:alt="${banner.title}">
+                            <a href="#"
+                               class="btn px-4 py-2 text-white rounded"
+                               th:text="${banner.title}"></a>
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselId"
@@ -571,7 +587,8 @@
             </div>
         </div>
     </div>
-    <!-- Fruits Shop End-->
+</div>
+<!-- Fruits Shop End-->
 
 
     <!-- Featurs Start -->

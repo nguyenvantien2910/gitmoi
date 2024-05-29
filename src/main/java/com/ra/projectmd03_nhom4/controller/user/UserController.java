@@ -1,5 +1,6 @@
 package com.ra.projectmd03_nhom4.controller.user;
 
+import com.ra.projectmd03_nhom4.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,4 +40,10 @@ public class UserController {
         return "user/cart";
     }
 
+    @GetMapping("/info")
+    public String userInfo(Model model) {
+        User userLogin = (User) session.getAttribute("userLogin");
+        model.addAttribute("userLogin", userLogin);
+        return "user/info";
+    }
 }
