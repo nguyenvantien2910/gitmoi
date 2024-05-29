@@ -10,5 +10,7 @@ public interface IOrderDAO {
     List<Order> getOrdersByUserId(Long userId);
     boolean addOrder(Order order);
     boolean updateOrder(Order order);
-
+    Long saveOrder(Order order);
+    boolean cancelOrder(Long id);
+    boolean acceptOrder(Long id);
 }

@@ -82,7 +82,7 @@ public class HomeController {
     public String handleLogin(@ModelAttribute("formLogin") @Valid FormLogin formLogin, HttpSession session) {
         User user = userService.login(formLogin);
         if (user != null) {
-            session.setAttribute("user", user);
+            session.setAttribute("userLogin", user);
             if (user.getRoles().stream().anyMatch(roles -> roles.getRoleName().equals(RoleName.ROLE_ADMIN))) {
                 return "redirect:/admin";
             }
