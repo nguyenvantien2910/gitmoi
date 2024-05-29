@@ -131,4 +131,19 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/assets/**","views/layout/**").addResourceLocations("classpath:/assets/","classpath:views/layout/");
     }
+//    @Bean
+//    public JavaMailSender mailSender() {
+//        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+//        mailSender.setHost("smtp.gmail.com");
+//        mailSender.setPort(587);  // Use port 465 for SMTPS with SSL
+//
+//        mailSender.setUsername("truongthang268@gmail.com");
+//        mailSender.setPassword("kgdhbotdawpdplkt"); // Replace with your Gmail app password
+//
+//        Properties props = mailSender.getJavaMailProperties();
+//        props.put("mail.transport.protocol", "smtp");
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.starttls.enable", "true");
+//        return mailSender;
+//    }
 }
