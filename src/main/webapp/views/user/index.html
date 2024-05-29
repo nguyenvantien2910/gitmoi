@@ -2,35 +2,37 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:insert="/layout/user/header::header"></th:block>
-<!--<style>-->
-<!--    .fruite-img {-->
-<!--        position: relative;-->
-<!--        overflow: hidden;-->
-<!--        width: 100%;-->
-<!--        height: 200px; /* Điều chỉnh chiều cao khung hình ảnh */-->
-<!--    }-->
+<style>
+    .fruite-img {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 200px; /* Điều chỉnh chiều cao khung hình ảnh */
+    }
 
-<!--    .fruite-img img {-->
-<!--        position: absolute;-->
-<!--        top: 50%;-->
-<!--        left: 50%;-->
-<!--        transform: translate(-50%, -50%);-->
-<!--        min-width: 100%;-->
-<!--        min-height: 100%;-->
-<!--        transition: transform 0.3s ease; /* Hiệu ứng chuyển động */-->
-<!--    }-->
+    .fruite-img img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+        transition: transform 0.3s ease; /* Hiệu ứng chuyển động */
+    }
 
-<!--    .fruite-img:hover img {-->
-<!--        transform: scale(1.1); /* Hiệu ứng thu vào */-->
-<!--    }-->
-<!--</style>-->
+    .fruite-img:hover img {
+        transform: scale(1.1); /* Hiệu ứng thu vào */
+    }
+</style>
 <body>
 <!-- Navbar start -->
 <div class="container-fluid fixed-top">
     <div class="container topbar bg-primary d-none d-lg-block">
         <div class="d-flex justify-content-between">
             <div class="top-info ps-2">
-                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">678 Street, Ha Noi</a></small>
+                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
+                                                                                                 class="text-white">678
+                    Street, Ha Noi</a></small>
                 <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
             </div>
             <div class="top-link pe-2">
@@ -43,7 +45,8 @@
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
             <a th:href="@{/}" class="navbar-brand"><h1 class="text-primary display-6"> CAY CANH</h1></a>
-            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars text-primary"></span>
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
@@ -55,11 +58,22 @@
                 <div class="d-flex m-3 me-0">
                     <a href="#" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
-                        <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                        <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                              style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                     </a>
                     <a href="#" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
                     </a>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" th:href="@{user/info}">Profile</a>
+                            <a class="dropdown-item" th:href="@{user/changepassword}">Change Pass</a>
+                            <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -75,20 +89,26 @@
                 <h4 class="mb-3 text-secondary">100% Handmade</h4>
                 <h1 class="mb-5 display-3 text-primary">Vườn cây cảnh Nhóm 4</h1>
                 <div class="position-relative mx-auto">
-                    <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="number" placeholder="Input Search Key">
-                    <button type="submit" class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Search Now</button>
+                    <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="text"
+                           placeholder="Input Search Key">
+                    <button type="submit"
+                            class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
+                            style="top: 0; right: 25%;">Search Now
+                    </button>
                 </div>
             </div>
             <div class="col-md-12 col-lg-5">
                 <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
                     <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active rounded">
-                            <img th:src="@{assets/img/hero-img-1.png}" class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
-                            <a href="#" class="btn px-4 py-2 text-white rounded">Fruites</a>
-                        </div>
-                        <div class="carousel-item rounded">
-                            <img th:src="@{assets/img/hero-img-2.jpg}" class="img-fluid w-100 h-100 rounded" alt="Second slide">
-                            <a href="#" class="btn px-4 py-2 text-white rounded">Vesitables</a>
+                        <div th:each="banner, iterStat : ${session.bannerList}"
+                             th:classappend="${iterStat.index == 0} ? 'active' : ''"
+                             class="carousel-item rounded">
+                            <img th:src="@{${banner.url}}"
+                                 class="img-fluid w-100 h-100 bg-secondary rounded"
+                                 th:alt="${banner.title}">
+                            <a href="#"
+                               class="btn px-4 py-2 text-white rounded"
+                               th:text="${banner.title}"></a>
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
@@ -170,7 +190,8 @@
                 <div class="col-lg-8 text-end">
                     <ul class="nav nav-pills d-inline-flex text-center mb-5">
                         <li class="nav-item">
-                            <a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill" th:href="@{/user/products}">
+                            <a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill"
+                               th:href="@{/user/shop}">
                                 <span class="text-dark" style="width: 130px;">All Products</span>
                             </a>
                         </li>
@@ -205,132 +226,136 @@
                                 <div th:each="product : ${products}" class="col-md-6 col-lg-4 col-xl-3">
                                     <div class="rounded position-relative fruite-item">
                                         <div class="fruite-img">
-                                            <img th:src="@{${product.image}}" class="img-fluid w-100 rounded-top" alt="Product Image" style="object-fit: cover;" >
+                                            <img th:src="@{${product.image}}" class="img-fluid w-100 rounded-top"
+                                                 alt="Product Image" style="object-fit: cover;">
                                         </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                             <h4 th:text="${product.productName}">Grapes</h4>
-                                            <p th:text="${product.productDescription}">Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                                            <p th:text="${product.productDescription}">Lorem ipsum dolor sit amet
+                                                consectetur adipisicing elit sed do eiusmod te incididunt</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0" th:text="${product.unitPrice}">$4.99 / kg</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                <p class="text-dark fs-5 fw-bold mb-0" th:text="${product.unitPrice}">
+                                                    $4.99 / kg</p>
+                                                <a href="#"
+                                                   class="btn border border-secondary rounded-pill px-3 text-primary">
                                                     <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-<!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
-<!--                                    <div class="rounded position-relative fruite-item">-->
-<!--                                        <div class="fruite-img">-->
-<!--                                            <img src="img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">-->
-<!--                                        </div>-->
-<!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
-<!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
-<!--                                            <h4>Grapes</h4>-->
-<!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
-<!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
-<!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
-<!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
-<!--                                    <div class="rounded position-relative fruite-item">-->
-<!--                                        <div class="fruite-img">-->
-<!--                                            <img src="img/fruite-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">-->
-<!--                                        </div>-->
-<!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
-<!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
-<!--                                            <h4>Raspberries</h4>-->
-<!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
-<!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
-<!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
-<!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
-<!--                                    <div class="rounded position-relative fruite-item">-->
-<!--                                        <div class="fruite-img">-->
-<!--                                            <img src="img/fruite-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">-->
-<!--                                        </div>-->
-<!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
-<!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
-<!--                                            <h4>Apricots</h4>-->
-<!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
-<!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
-<!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
-<!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
-<!--                                    <div class="rounded position-relative fruite-item">-->
-<!--                                        <div class="fruite-img">-->
-<!--                                            <img src="img/fruite-item-3.jpg" class="img-fluid w-100 rounded-top" alt="">-->
-<!--                                        </div>-->
-<!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
-<!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
-<!--                                            <h4>Banana</h4>-->
-<!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
-<!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
-<!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
-<!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
-<!--                                    <div class="rounded position-relative fruite-item">-->
-<!--                                        <div class="fruite-img">-->
-<!--                                            <img src="img/fruite-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">-->
-<!--                                        </div>-->
-<!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
-<!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
-<!--                                            <h4>Oranges</h4>-->
-<!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
-<!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
-<!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
-<!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
-<!--                                    <div class="rounded position-relative fruite-item">-->
-<!--                                        <div class="fruite-img">-->
-<!--                                            <img src="img/fruite-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">-->
-<!--                                        </div>-->
-<!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
-<!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
-<!--                                            <h4>Raspberries</h4>-->
-<!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
-<!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
-<!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
-<!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
-<!--                                    <div class="rounded position-relative fruite-item">-->
-<!--                                        <div class="fruite-img">-->
-<!--                                            <img src="img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">-->
-<!--                                        </div>-->
-<!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
-<!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
-<!--                                            <h4>Grapes</h4>-->
-<!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
-<!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
-<!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
-<!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
+                                <!--                                    <div class="rounded position-relative fruite-item">-->
+                                <!--                                        <div class="fruite-img">-->
+                                <!--                                            <img src="img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+                                <!--                                        </div>-->
+                                <!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
+                                <!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
+                                <!--                                            <h4>Grapes</h4>-->
+                                <!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+                                <!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
+                                <!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
+                                <!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+                                <!--                                            </div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
+                                <!--                                    <div class="rounded position-relative fruite-item">-->
+                                <!--                                        <div class="fruite-img">-->
+                                <!--                                            <img src="img/fruite-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+                                <!--                                        </div>-->
+                                <!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
+                                <!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
+                                <!--                                            <h4>Raspberries</h4>-->
+                                <!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+                                <!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
+                                <!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
+                                <!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+                                <!--                                            </div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
+                                <!--                                    <div class="rounded position-relative fruite-item">-->
+                                <!--                                        <div class="fruite-img">-->
+                                <!--                                            <img src="img/fruite-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+                                <!--                                        </div>-->
+                                <!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
+                                <!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
+                                <!--                                            <h4>Apricots</h4>-->
+                                <!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+                                <!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
+                                <!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
+                                <!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+                                <!--                                            </div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
+                                <!--                                    <div class="rounded position-relative fruite-item">-->
+                                <!--                                        <div class="fruite-img">-->
+                                <!--                                            <img src="img/fruite-item-3.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+                                <!--                                        </div>-->
+                                <!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
+                                <!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
+                                <!--                                            <h4>Banana</h4>-->
+                                <!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+                                <!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
+                                <!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
+                                <!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+                                <!--                                            </div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
+                                <!--                                    <div class="rounded position-relative fruite-item">-->
+                                <!--                                        <div class="fruite-img">-->
+                                <!--                                            <img src="img/fruite-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+                                <!--                                        </div>-->
+                                <!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
+                                <!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
+                                <!--                                            <h4>Oranges</h4>-->
+                                <!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+                                <!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
+                                <!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
+                                <!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+                                <!--                                            </div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
+                                <!--                                    <div class="rounded position-relative fruite-item">-->
+                                <!--                                        <div class="fruite-img">-->
+                                <!--                                            <img src="img/fruite-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+                                <!--                                        </div>-->
+                                <!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
+                                <!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
+                                <!--                                            <h4>Raspberries</h4>-->
+                                <!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+                                <!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
+                                <!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
+                                <!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+                                <!--                                            </div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                                <div class="col-md-6 col-lg-4 col-xl-3">-->
+                                <!--                                    <div class="rounded position-relative fruite-item">-->
+                                <!--                                        <div class="fruite-img">-->
+                                <!--                                            <img src="img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+                                <!--                                        </div>-->
+                                <!--                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>-->
+                                <!--                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">-->
+                                <!--                                            <h4>Grapes</h4>-->
+                                <!--                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+                                <!--                                            <div class="d-flex justify-content-between flex-lg-wrap">-->
+                                <!--                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>-->
+                                <!--                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+                                <!--                                            </div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -344,13 +369,19 @@
                                         <div class="fruite-img">
                                             <img src="img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
                                         </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                             style="top: 10px; left: 10px;">Fruits
+                                        </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                             <h4>Grapes</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
+                                                incididunt</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <a href="#"
+                                                   class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                    cart</a>
                                             </div>
                                         </div>
                                     </div>
@@ -360,13 +391,19 @@
                                         <div class="fruite-img">
                                             <img src="img/fruite-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">
                                         </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                             style="top: 10px; left: 10px;">Fruits
+                                        </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                             <h4>Raspberries</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
+                                                incididunt</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <a href="#"
+                                                   class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                    cart</a>
                                             </div>
                                         </div>
                                     </div>
@@ -384,13 +421,19 @@
                                         <div class="fruite-img">
                                             <img src="img/fruite-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
                                         </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                             style="top: 10px; left: 10px;">Fruits
+                                        </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                             <h4>Oranges</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
+                                                incididunt</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <a href="#"
+                                                   class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                    cart</a>
                                             </div>
                                         </div>
                                     </div>
@@ -400,13 +443,19 @@
                                         <div class="fruite-img">
                                             <img src="img/fruite-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
                                         </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                             style="top: 10px; left: 10px;">Fruits
+                                        </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                             <h4>Apple</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
+                                                incididunt</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <a href="#"
+                                                   class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                    cart</a>
                                             </div>
                                         </div>
                                     </div>
@@ -424,13 +473,19 @@
                                         <div class="fruite-img">
                                             <img src="img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
                                         </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                             style="top: 10px; left: 10px;">Fruits
+                                        </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                             <h4>Grapes</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
+                                                incididunt</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <a href="#"
+                                                   class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                    cart</a>
                                             </div>
                                         </div>
                                     </div>
@@ -440,13 +495,19 @@
                                         <div class="fruite-img">
                                             <img src="img/fruite-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">
                                         </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                             style="top: 10px; left: 10px;">Fruits
+                                        </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                             <h4>Apricots</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
+                                                incididunt</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <a href="#"
+                                                   class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                    cart</a>
                                             </div>
                                         </div>
                                     </div>
@@ -464,13 +525,19 @@
                                         <div class="fruite-img">
                                             <img src="img/fruite-item-3.jpg" class="img-fluid w-100 rounded-top" alt="">
                                         </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                             style="top: 10px; left: 10px;">Fruits
+                                        </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                             <h4>Banana</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
+                                                incididunt</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <a href="#"
+                                                   class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                    cart</a>
                                             </div>
                                         </div>
                                     </div>
@@ -478,15 +545,22 @@
                                 <div class="col-md-6 col-lg-4 col-xl-3">
                                     <div class="rounded position-relative fruite-item">
                                         <div class="fruite-img">
-                                            <img th:src="@{assets/img/fruite-item-2.jpg}" class="img-fluid w-100 rounded-top" alt="">
+                                            <img th:src="@{assets/img/fruite-item-2.jpg}"
+                                                 class="img-fluid w-100 rounded-top" alt="">
                                         </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                             style="top: 10px; left: 10px;">Fruits
+                                        </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                             <h4>Raspberries</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
+                                                incididunt</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <a href="#"
+                                                   class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                    cart</a>
                                             </div>
                                         </div>
                                     </div>
@@ -494,15 +568,22 @@
                                 <div class="col-md-6 col-lg-4 col-xl-3">
                                     <div class="rounded position-relative fruite-item">
                                         <div class="fruite-img">
-                                            <img th:src="@{assets/img/fruite-item-1.jpg}" class="img-fluid w-100 rounded-top" alt="">
+                                            <img th:src="@{assets/img/fruite-item-1.jpg}"
+                                                 class="img-fluid w-100 rounded-top" alt="">
                                         </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                             style="top: 10px; left: 10px;">Fruits
+                                        </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                             <h4>Oranges</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
+                                                incididunt</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <a href="#"
+                                                   class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                    cart</a>
                                             </div>
                                         </div>
                                     </div>

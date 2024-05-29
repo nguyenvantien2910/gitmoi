@@ -49,7 +49,7 @@
 <body>
 
 <div class="container">
-    <form th:action="@{'/product/handleEditProduct/' + ${product.productId}}" method="post" enctype="multipart/form-data" th:object="${product}">
+    <form th:action="@{'/admin/product/handleEditProduct/' + ${product.productId}}" method="post" enctype="multipart/form-data" th:object="${product}">
         <div class="form-group row">
             <label class="col-12 col-form-label">Name</label>
             <div class="col-12">

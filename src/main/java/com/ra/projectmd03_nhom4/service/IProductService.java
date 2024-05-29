@@ -8,7 +8,8 @@ import java.util.List;
 public interface IProductService {
     List<Product> findAll(int currentPage, int page);
     Product findById(Long id);
-//    List<Product> findByName(String name);
+    List<Product> getAllProducts();
+    List<Product> findByName(String name);
 
     void saveOrUpdate(ProductRequest productRequest);
 

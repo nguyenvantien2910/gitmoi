@@ -31,6 +31,18 @@ public class ProductDaoImpl implements IProductDao {
     }
 
     @Override
+    public List<Product> getAllProducts() {
+        Session session = sessionFactory.openSession();
+        try {
+            return session.createQuery("from products ", Product.class).getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
     public Product findById(Long id) {
         Session session = sessionFactory.openSession();
         try {
@@ -44,6 +56,20 @@ public class ProductDaoImpl implements IProductDao {
         return null;
     }
 
+    @Override
+    public List<Product> findByName(String name) {
+        Session session = sessionFactory.openSession();
+        try {
+            String hql = "from products p where p.productName LIKE :name";
+            return session.createQuery(hql, Product.class)
+                    .setParameter("name", "%" + name + "%")
+                    .getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException("Error finding products by name", e);
+        } finally {
+            session.close();
+        }
+    }
 
     @Override
     public void save(Product product) {

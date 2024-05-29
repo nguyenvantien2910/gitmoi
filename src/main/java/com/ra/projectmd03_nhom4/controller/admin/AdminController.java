@@ -17,10 +17,4 @@ public class AdminController {
     public String homeAdmin() {
         return "admin/index";
     }
-
-    @GetMapping("/logout")
-    public String logout() {
-        session.removeAttribute("user");
-        return "redirect:/login";
-    }
 }
