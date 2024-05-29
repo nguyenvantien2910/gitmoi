@@ -3,11 +3,14 @@ package com.ra.projectmd03_nhom4.controller;
 import com.ra.projectmd03_nhom4.constant.RoleName;
 import com.ra.projectmd03_nhom4.dto.request.FormLogin;
 import com.ra.projectmd03_nhom4.dto.request.FormRegister;
+import com.ra.projectmd03_nhom4.model.Category;
+import com.ra.projectmd03_nhom4.model.Product;
+import com.ra.projectmd03_nhom4.model.User;
+import com.ra.projectmd03_nhom4.service.ICategoryService;
+import com.ra.projectmd03_nhom4.service.IProductServiceUser;
 import com.ra.projectmd03_nhom4.model.*;
 import com.ra.projectmd03_nhom4.service.IBannerService;
 import com.ra.projectmd03_nhom4.service.IUserService;
-import com.ra.projectmd03_nhom4.service.iplm.CategoryServiceIpml;
-import com.ra.projectmd03_nhom4.service.iplm.ProductServiceImpl;
 import com.ra.projectmd03_nhom4.service.iplm.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,19 +30,19 @@ public class HomeController {
     HttpSession session;
 
     @Autowired
-    ShoppingCartService shoppingCartService;
-
-    @Autowired
-    CategoryServiceIpml categoryServiceIpml;
-
-    @Autowired
-    ProductServiceImpl productService;
-
-    @Autowired
     private IUserService userService;
 
     @Autowired
+    private ICategoryService categoryService;
+
+    @Autowired
+    private IProductServiceUser productService;
+
+    @Autowired
     private IBannerService bannerService;
+
+    @Autowired
+    ShoppingCartService shoppingCartService;
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -63,7 +66,7 @@ public class HomeController {
         } else {
             model.addAttribute("formLogin", new FormLogin());
         }
-        List<Category> categoryList = categoryServiceIpml.findAll();
+        List<Category> categoryList = categoryService.findAll();
         session.setAttribute("categoryList", categoryList);
 
         List<Product> productList = productService.getAllProducts();
@@ -102,11 +105,10 @@ public class HomeController {
             List<ShoppingCart> cartList = shoppingCartService.findCartByUserId(userLogin.getUserId());
             session.setAttribute("cartList", cartList);
         }
-        List<Category> categoryList = categoryServiceIpml.findAll();
-        session.setAttribute("categoryList", categoryList);
-
-        List<Product> productList = productService.getAllProducts();
-        session.setAttribute("productList", productList);
+        List<Product> products = productService.findAll();
+        List<Category> categoryList = categoryService.findAll();
+        model.addAttribute("products", products);
+        model.addAttribute("categoryList", categoryList);
 
         List<Banner> bannerList = bannerService.findBannerToDisplay();
         session.setAttribute("bannerList", bannerList);
