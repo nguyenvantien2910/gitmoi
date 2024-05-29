@@ -3,7 +3,11 @@ package com.ra.projectmd03_nhom4.controller;
 import com.ra.projectmd03_nhom4.constant.RoleName;
 import com.ra.projectmd03_nhom4.dto.request.FormLogin;
 import com.ra.projectmd03_nhom4.dto.request.FormRegister;
+import com.ra.projectmd03_nhom4.model.Category;
+import com.ra.projectmd03_nhom4.model.Product;
 import com.ra.projectmd03_nhom4.model.User;
+import com.ra.projectmd03_nhom4.service.ICategoryService;
+import com.ra.projectmd03_nhom4.service.IProductServiceUser;
 import com.ra.projectmd03_nhom4.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class HomeController {
     @Autowired
     private IUserService userService;
+    @Autowired
+    private ICategoryService categoryService;
+    @Autowired
+    private IProductServiceUser productService;
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -59,7 +68,11 @@ public class HomeController {
     }
 
     @RequestMapping("/")
-    public String index() {
+    public String index(Model model) {
+        List<Product> products = productService.findAll();
+        List<Category> categoryList = categoryService.findAll();
+        model.addAttribute("products", products);
+        model.addAttribute("categoryList", categoryList);
         return "user/index";
     }
 }

@@ -53,4 +53,13 @@ public class ProductDaoUserImpl implements IProductDaoUser {
         transaction.commit();
         session.close();
     }
+
+    @Override
+    public List<Product> findByCategoryId(Long categoryId) {
+        return sessionFactory.openSession()
+                .createQuery("FROM products WHERE category.id = :categoryId", Product.class)
+                .setParameter("categoryId", categoryId)
+                .getResultList();
+    }
+
 }

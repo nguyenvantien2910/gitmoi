@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
 @Service
 public class ProductServiceUser implements IProductServiceUser {
     @Autowired
@@ -35,5 +36,10 @@ public class ProductServiceUser implements IProductServiceUser {
     @Transactional
     public void deleteById(Long id) {
         productDAOUser.deleteById(id);
+    }
+
+    @Override
+    public List<Product> findByCategoryId(Long categoryId) {
+        return productDAOUser.findByCategoryId(categoryId);
     }
 }

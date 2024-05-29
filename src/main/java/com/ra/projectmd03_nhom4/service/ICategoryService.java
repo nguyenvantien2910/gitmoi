@@ -1,6 +1,7 @@
 package com.ra.projectmd03_nhom4.service;
 
 import com.ra.projectmd03_nhom4.dao.ICategoryDao;
+import com.ra.projectmd03_nhom4.dto.request.CategoryDTO;
 import com.ra.projectmd03_nhom4.model.Category;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface ICategoryService  {
 
     boolean checkCategoryName(String categoryName);
 //    boolean checkProductByCategoryId(int id);
+//List<CategoryDTO> findAllCategoriesWithProductCount();
 }

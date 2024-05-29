@@ -1,11 +1,14 @@
 package com.ra.projectmd03_nhom4.dao.iplm;
 
 import com.ra.projectmd03_nhom4.dao.ICategoryDao;
+import com.ra.projectmd03_nhom4.dto.request.CategoryDTO;
 import com.ra.projectmd03_nhom4.model.Category;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
@@ -95,6 +98,12 @@ public class CategoryDaoIpml implements ICategoryDao {
         }
     }
 
-
+//    public List<CategoryDTO> findAllCategoriesWithProductCount() {
+//        Session session = sessionFactory.getCurrentSession();
+//        String hql = "SELECT new com.ra.projectmd03_nhom4.dto.request.CategoryDTO(c.id, c.categoryName, COUNT(p)) " +
+//                "FROM categories c LEFT JOIN c.products p GROUP BY c.id, c.categoryName";
+//        Query<CategoryDTO> query = session.createQuery(hql, CategoryDTO.class);
+//        return query.getResultList();
+//    }
 }
 
