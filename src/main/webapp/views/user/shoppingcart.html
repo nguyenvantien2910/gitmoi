@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:insert="/layout/user/header::header"></th:block>
+
+<body>
+<div class="container">
+    <h1>Your Shopping Cart</h1>
+    <div class="cart-table">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cartItem : ${session.cartList}">
+                <td>
+                    <a th:href="@{/datail/{product_id}(product_id = ${cartItem.product.productId})}">
+                        <img th:src="${cartItem.product.image}">
+                    </a>
+                </td>
+                <td th:text="${cartItem.product.productName}"></td>
+                <td>
+                    <div class="input-quantity">
+                        <a class="btn minus-btn" th:href="@{/minus/{shoppingCartId}(shoppingCartId = ${cartItem.getShoppingCartId()})}">
+                            <button>-</button>
+                        </a>
+                        <label>
+                            <input type="text" th:value="${cartItem.orderQuantity}">
+                        </label>
+                        <a class="btn plus-btn" th:href="@{/plus/{shoppingCartId}(shoppingCartId = ${cartItem.getShoppingCartId()})}">
+                            <button>+</button>
+                        </a>
+                    </div>
+                </td>
+                <td th:text="${#numbers.formatDecimal(cartItem.product.unitPrice, 0, 'COMMA', 0, 'POINT')}"></td>
+                <td th:text="${cartItem.product.unitPrice * cartItem.orderQuantity}"></td>
+                <td>
+<!--                    <form th:action="@{/update-cart-by-id}" method="post">-->
+<!--                        <input type="hidden" name="cartId" th:value="${cartItem.shoppingCartId}">-->
+<!--                        <input type="number" name="quantity" th:value="${cartItem.orderQuantity}" min="1">-->
+<!--                        <button type="submit">Update</button>-->
+<!--                    </form>-->
+                    <a th:href="@{/delete-item/{id}(id=${cartItem.shoppingCartId})}">Remove</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/delete-all-item/{userId}(userId=${1})}">Remove All</a>
+    </div>
+    <div class="cart-summary">
+        <div class="cart-summary-wrap">
+            <h4>Cart Summary</h4>
+            <p>Sub Total <span
+                    th:text="${#numbers.formatDecimal(session.total, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
+            </p>
+            <p>Shipping Cost <span>0.00 VND</span></p>
+            <h2>Grand Total <span
+                    th:text="${#numbers.formatDecimal(session.total, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
+            </h2>
+        </div>
+        <div class="cart-summary-button">
+            <a th:href="@{/order/checkout}">
+                <button class="checkout-btn">Checkout</button>
+            </a>
+            <a th:href="@{/list-product}">
+                <button class="reply-btn">Continue Shopping</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<th:block th:insert="/layout/user/footer::footer"></th:block>
+
+</body>
+</html>

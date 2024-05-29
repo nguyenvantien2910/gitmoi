@@ -2,6 +2,7 @@ package com.ra.projectmd03_nhom4.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,9 +14,29 @@ public class UserController {
     @Autowired
     HttpSession session;
 
-    @GetMapping
-    public String index() {
-        return "index";
+    @GetMapping("/homepage")
+    public String homepage(Model model) {
+        return "user/index";
+    }
+
+    @GetMapping("/shop")
+    public String shop() {
+        return "user/shop";
+    }
+
+    @GetMapping("/shop-detail")
+    public String shopDetail() {
+        return "user/shop-detail";
+    }
+
+    @GetMapping("/checkout")
+    public String checkout() {
+        return "user/checkout";
+    }
+
+    @GetMapping("/cart")
+    public String cart() {
+        return "user/cart";
     }
 
 }
