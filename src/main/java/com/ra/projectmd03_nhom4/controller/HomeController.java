@@ -112,13 +112,14 @@ public class HomeController {
             session.setAttribute("cartList", cartList);
         }
         List<Product> products = productService.getAllProducts();
-        model.addAttribute("products", products);
+        session.setAttribute("products", products);
 
         List<Category> categoryList = categoryService.findAll();
-        model.addAttribute("categoryList", categoryList);
+        session.setAttribute("categoryList", categoryList);
 
         List<Banner> bannerList = bannerService.findBannerToDisplay();
         model.addAttribute("bannerList", bannerList);
+        session.setAttribute("activePage", "index");
 
         return "user/index";
     }

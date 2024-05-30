@@ -31,7 +31,7 @@ public class WishListController {
     public String wishList(Model model, HttpSession session) {
         User userLogin = (User) session.getAttribute("userLogin");
         if (userLogin == null) {
-
+            session.setAttribute("activePage", "myWishList");
             return "redirect:/login";
         }
 
