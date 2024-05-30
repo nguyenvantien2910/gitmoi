@@ -13,7 +13,7 @@
 <body>
 <div class="container">
     <h1 class="text text-danger">INSERT CATEGORY</h1>
-    <form th:action ="@{/category/add-category}" method="post" th:object="${category}">
+    <form th:action ="@{/admin/category/add-category}" method="post" th:object="${category}">
         <div class="mb-3">
             <label for="categoryName" class="form-label">Category Name</label>
             <input name="categoryName" class="form-control" id="categoryName"/>

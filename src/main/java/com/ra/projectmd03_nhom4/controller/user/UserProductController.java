@@ -41,5 +41,4 @@ public class UserProductController {
         model.addAttribute("productCategory", products);
         return "user/index";
     }
-
 }

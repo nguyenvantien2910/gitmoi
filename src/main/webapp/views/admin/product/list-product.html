@@ -46,8 +46,8 @@
 <body>
 <div class="container mt-5">
     <h1>DANH SÁCH SẢN PHẨM</h1>
-    <a class="btn btn-primary mb-3" th:href="@{/product/initAddProduct}">Thêm sản phẩm</a>
-    <form class="d-flex mb-4" role="search" th:action="@{/product/search}" method="get">
+    <a class="btn btn-primary mb-3" th:href="@{/admin/product/initAddProduct}">Thêm sản phẩm</a>
+    <form class="d-flex mb-4" role="search" th:action="@{/admin/product/search}" method="get">
         <input class="form-control me-2" type="search" placeholder="Nhập tên sản phẩm..." aria-label="Search"
                name="name">
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -76,10 +76,10 @@
                      alt=""></td>
             <td th:text="${p.productDescription}"></td>
             <td>
-                <a class="btn btn-warning" th:href="@{'/product/' + ${p.productId} + '/edit'}">Edit</a>
+                <a class="btn btn-warning" th:href="@{'/admin/product/' + ${p.productId} + '/edit'}">Edit</a>
             </td>
             <td>
-                <a class="btn btn-danger" th:href="@{'/product/' + ${p.productId} + '/delete'}">Delete</a>
+                <a class="btn btn-danger" th:href="@{'/admin/product/' + ${p.productId} + '/delete'}">Delete</a>
             </td>
         </tr>
         </tbody>
@@ -88,7 +88,7 @@
         <nav>
             <ul class="pagination">
                 <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPage)}">
-                    <a class="page-link" th:href="@{'/product?currentPage=' + ${i - 1}}" th:text="${i}"></a>
+                    <a class="page-link" th:href="@{'/admin/product?currentPage=' + ${i - 1}}" th:text="${i}"></a>
                 </li>
             </ul>
         </nav>
