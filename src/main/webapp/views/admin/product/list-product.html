@@ -70,7 +70,7 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPage)}">
-                            <a class="page-link" th:href="@{'/admin/product?currentPage=' + ${i - 1}}" th:text="${i}"></a>
+                            <a class="page-link" th:href="@{'/admin/product/list?currentPage=' + ${i - 1}}" th:text="${i}"></a>
                         </li>
                     </ul>
                 </nav>
