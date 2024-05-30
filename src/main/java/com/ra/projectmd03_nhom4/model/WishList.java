@@ -15,14 +15,12 @@ import javax.persistence.*;
 public class WishList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "wish_list_id",unique = true, nullable = false)
+    @Column(name = "wish_list_id")
     private Long wishListId;
-
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
     @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 }

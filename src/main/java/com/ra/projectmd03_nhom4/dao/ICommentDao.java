@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface ICommentDao {
     List<Comment> getCommentsByProductId(Long productId);
-    void saveComment(Comment comment);
+    boolean addComment(Comment comment);
+    void deleteComment(Long commentId);
 }

@@ -20,6 +20,6 @@ public class CommentServiceImpl implements ICommentService {
 
     @Override
     public void saveComment(Comment comment) {
-        commentDao.saveComment(comment);
+        commentDao.addComment(comment);
     }
 }
