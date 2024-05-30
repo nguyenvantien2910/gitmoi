@@ -24,6 +24,8 @@ public class OrderDAOImpl implements IOrderDAO {
     private CartDaoImpl cartDao;
     @Autowired
     private OrderDetailDaoImpl orderDetailDao;
+    @Autowired
+    private ProductDaoImpl productDao;
 
     @Override
     public List<Order> getAllOrders() {

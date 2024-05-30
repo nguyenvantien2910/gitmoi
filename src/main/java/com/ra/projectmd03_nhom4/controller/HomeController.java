@@ -66,14 +66,14 @@ public class HomeController {
         List<Category> categoryList = categoryService.findAll();
         session.setAttribute("categoryList", categoryList);
 
-        List<Product> productList = productService.findAll();
+        List<Product> productList = productService.getAllProducts();
         session.setAttribute("productList", productList);
 
         List<Banner> bannerList = bannerService.findBannerToDisplay();
         session.setAttribute("bannerList", bannerList);
 
 
-        model.addAttribute("formLogin", new FormLogin())
+        model.addAttribute("formLogin", new FormLogin());
         return "login";
     }
 
