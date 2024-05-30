@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/admin/category")
 
 
 public class CategoryController {
