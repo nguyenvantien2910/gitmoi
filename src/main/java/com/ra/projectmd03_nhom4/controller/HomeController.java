@@ -12,6 +12,7 @@ import com.ra.projectmd03_nhom4.service.iplm.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,9 +49,13 @@ public class HomeController {
     }
 
     @PostMapping("/register")
-    public String handleRegister(@ModelAttribute("formRegister") @Valid FormRegister formRegister) {
-        userService.register(formRegister);
-        return "redirect:/";
+    public String handleRegister(@ModelAttribute("formRegister") @Valid FormRegister formRegister , BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "register";
+        } else {
+            userService.register(formRegister);
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/login")
