@@ -136,4 +136,8 @@ public class UserController {
         return "redirect:/login";
     }
 
+    @GetMapping("/contact")
+    public String contact() {
+        return "user/contact";
+    }
 }
