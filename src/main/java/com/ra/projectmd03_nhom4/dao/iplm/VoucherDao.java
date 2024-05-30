@@ -36,6 +36,22 @@ public class VoucherDao implements IVoucherDao {
         }
     }
 
+    @Override
+    public List<Voucher> findAllCode() {
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            List<Voucher> list = session.createQuery("from Voucher").list();
+            session.getTransaction().commit();
+            return list;
+        }catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return null;
+    }
 
     @Override
 
@@ -107,17 +123,18 @@ public class VoucherDao implements IVoucherDao {
 
     public boolean checkVoucherCode(String voucherCode) {
         Session session = sessionFactory.openSession();
-        try{
+        try {
             List<Voucher> voucherList = session.createQuery("select v from Voucher v where v.voucherCode = :voucherCode")
                     .setParameter("voucherCode", voucherCode).list();
             return voucherList != null && !voucherList.isEmpty();
-        }catch(Exception e){
+        } catch (Exception e) {
             session.getTransaction().rollback();
             e.printStackTrace();
-        }finally {
+        } finally {
             session.close();
         }
         return false;
+    }
 
     @Override
     public List<Voucher> findAll(Integer pageNo, Integer pageSize, String sortField, String sortDirection, String searchQuery) {

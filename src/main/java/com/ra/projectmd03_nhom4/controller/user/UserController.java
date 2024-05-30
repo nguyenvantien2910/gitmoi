@@ -56,6 +56,8 @@ public class UserController {
 
             List<Banner> bannerList = bannerService.findBannerToDisplay();
             model.addAttribute("bannerList", bannerList);
+            session.setAttribute("activePage", "index");
+
         }
         return "user/index";
     }
@@ -64,6 +66,7 @@ public class UserController {
     public String shop(Model model) {
         List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
+        session.setAttribute("activePage", "shop");
         return "user/shop";
     }
 
@@ -139,7 +142,10 @@ public class UserController {
     }
 
     @GetMapping("/contact")
-    public String contact() {
+    public String contact(Model model) {
+        List<Banner> bannerList = bannerService.findBannerToDisplay();
+        model.addAttribute("bannerList", bannerList);
+        session.setAttribute("activePage", "contact");
         return "user/contact";
     }
 }

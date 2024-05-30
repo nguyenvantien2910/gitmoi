@@ -23,10 +23,10 @@
       </button>
       <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
         <div class="navbar-nav mx-auto">
-          <a th:href="@{/}" class="nav-item nav-link active">Home</a>
-          <a th:href="@{/user/shop}" class="nav-item nav-link">Shop</a>
-          <a th:href="@{/user/myWishList}" class="nav-item nav-link" th:if="${session.userLogin != null}">MyWishList</a>
-          <a href="#" class="nav-item nav-link">Contact</a>
+          <a th:href="@{/}" th:class="${session.activePage == 'index' ? 'nav-item nav-link active' : 'nav-item nav-link'}">Home</a>
+          <a th:href="@{/user/shop}" th:class="${session.activePage == 'shop' ? 'nav-item nav-link active' : 'nav-item nav-link'}">Shop</a>
+          <a th:href="@{/user/myWishList}" th:class="${session.activePage == 'myWishList' ? 'nav-item nav-link active' : 'nav-item nav-link'}" th:if="${session.userLogin != null}">MyWishList</a>
+          <a th:href="@{/user/contact}" th:class="${session.activePage == 'contact' ? 'nav-item nav-link active' : 'nav-item nav-link'}">Contact</a>
         </div>
         <div class="d-flex m-3 me-0">
           <a href="#" class="position-relative me-4 my-auto">
