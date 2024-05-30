@@ -75,7 +75,6 @@ public class HomeController {
         return "redirect:/login";
     }
 
-
     @GetMapping("/403")
     public String forbidden() {
         return "_403";
