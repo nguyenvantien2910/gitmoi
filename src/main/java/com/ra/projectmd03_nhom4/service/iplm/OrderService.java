@@ -140,4 +140,10 @@ public class OrderService implements IOrderService {
         );
         return orderDAO.updateOrder(order);
     }
+
+    public void applyDiscount(Order order, double discount) {
+        double totalPrice = order.getTotalPrice();
+        order.setTotalPrice(totalPrice - (totalPrice * (discount / 100)));
+    }
+
 }
