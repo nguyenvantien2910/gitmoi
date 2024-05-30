@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add User</title>
+    <!-- Header -->
+    <th:block th:insert="/layout/admin/header::header"></th:block>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <th:block th:insert="/layout/admin/sidebar::sidebar"></th:block>
+
+    <div class="main">
+        <!-- Navbar -->
+        <th:block th:insert="/layout/admin/navbar::navbar"></th:block>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <h1 class="h3 mb-3"><strong>Add Voucher</strong></h1>
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/admin/voucher/list}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Voucher</li>
+                    </ol>
+                </nav>
+                <form th:action="@{/admin/voucher/update}" th:object="${voucher}" method="post">
+                    <div class="mb-3">
+                        <label for="Id" class="form-label">Voucher ID</label>
+                        <input th:value="*{voucherId}" th:field="*{voucherId}" type="text" class="form-control" id="Id" readonly/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="voucherCode" class="form-label">Voucher Code</label>
+                        <input th:field="*{voucherCode}" type="text" class="form-control" id="voucherCode"/>
+                        <div th:errors="*{voucherCode}" class="text-danger"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="discount" class="form-label">Discount</label>
+                        <input th:field="*{discount}" type="text" class="form-control" id="discount"/>
+                        <div th:errors="*{discount}" class="text-danger"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="expiryDate" class="form-label">Email</label>
+                        <input th:field="*{expiryDate}" type="date" class="form-control" id="expiryDate"/>
+                        <div th:errors="*{expiryDate}" class="text-danger"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </form>
+            </div>
+        </main>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<th:block th:insert="/layout/admin/footer::footer"></th:block>
+</body>
+</html>
