@@ -14,8 +14,8 @@ public class CommentServiceImpl implements ICommentService {
     private ICommentDao commentDao;
 
     @Override
-    public List<Comment> getCommentsByProductId(Long productId, Long userId) {
-        return commentDao.getCommentsByProductId(productId, userId);
+    public List<Comment> getCommentsByProductId(Long productId) {
+        return commentDao.getCommentsByProductId(productId);
     }
 
     @Override

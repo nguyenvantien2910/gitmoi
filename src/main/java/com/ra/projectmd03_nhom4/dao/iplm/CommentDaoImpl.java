@@ -18,11 +18,10 @@ public class CommentDaoImpl implements ICommentDao {
 
     @Override
     @Transactional
-    public List<Comment> getCommentsByProductId(Long productId, Long userId) {
+    public List<Comment> getCommentsByProductId(Long productId) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Comment where product.id = :productId and user.id = :userId", Comment.class)
+            return session.createQuery("from Comment where product.id = :productId", Comment.class)
                     .setParameter("productId", productId)
-                    .setParameter("userId", userId)
                     .list();
         } catch (Exception e) {
             e.printStackTrace();
