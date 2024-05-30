@@ -7,4 +7,5 @@ public interface IUserDao<U, I extends Number, S, B, L extends Number> extends I
     User login(String username, String password);
     boolean addNewAdmin(User user);
     boolean findUserByUsername(String username);
+    String getAvaterByUserId(Long id);
 }
