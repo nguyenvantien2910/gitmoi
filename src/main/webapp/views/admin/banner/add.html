@@ -1,45 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Banner</title>
-    <!-- Include Header -->
-    <th:block th:include="/layout/admin/header::header"></th:block>
+    <!-- Header -->
+    <th:block th:insert="/layout/admin/header::header"></th:block>
 </head>
 <body>
 <div class="wrapper">
-    <!-- Include Sidebar -->
-    <th:block th:include="/layout/admin/sidebar::#sidebar"></th:block>
+    <!-- Sidebar -->
+    <th:block th:insert="/layout/admin/sidebar::sidebar"></th:block>
 
     <div class="main">
-        <!-- Include Navbar -->
-        <th:block th:include="/layout/admin/navbar::navbar"></th:block>
+        <!-- Navbar -->
+        <th:block th:insert="/layout/admin/navbar::navbar"></th:block>
 
-        <!-- Page Content -->
         <main class="content">
             <div class="container-fluid p-0">
                 <h1 class="h3 mb-3"><strong>Add Banner</strong></h1>
-                <!-- Breadcrumb -->
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a th:href="@{/admin/banner/list}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Add Banner</li>
                     </ol>
                 </nav>
-                <!-- Form -->
                 <form th:action="@{/admin/banner/insertBanner}" th:object="${bannerRequest}" method="post" enctype="multipart/form-data">
-                    <!-- Title Input -->
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
                         <input th:field="*{title}" type="text" class="form-control" id="title"/>
                         <div th:errors="*{title}" class="text-danger"></div>
                     </div>
-                    <!-- Image Input -->
                     <div class="mb-3">
                         <label for="url" class="form-label">Image</label>
                         <input th:field="*{file}" type="file" class="form-control" id="url"/>
                         <div th:errors="*{file}" class="text-danger"></div>
                     </div>
-                    <!-- IsDisplay Selection -->
                     <div class="mb-3">
                         <label for="isDisplay" class="form-label">IsDisplay</label>
                         <select th:field="*{isDisplay}" class="form-control" id="isDisplay">
@@ -49,7 +43,6 @@
                         </select>
                         <small th:errors="*{isDisplay}" class="text-danger"></small>
                     </div>
-                    <!-- Save and Clear Buttons -->
                     <button type="submit" class="btn btn-primary">Save</button>
                     <button type="reset" class="btn btn-secondary">Clear</button>
                 </form>
@@ -57,7 +50,8 @@
         </main>
     </div>
 </div>
-<!-- Include Footer -->
-<th:block th:include="/layout/admin/footer::footer"></th:block>
+
+<!-- Footer -->
+<th:block th:insert="/layout/admin/footer::footer"></th:block>
 </body>
 </html>

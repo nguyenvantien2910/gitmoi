@@ -30,6 +30,6 @@ public class Category {
     @Column(name = "status")
     @NotNull(message = "Category status is empty!")
     private Boolean categoryStatus;
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Product> products;
 }

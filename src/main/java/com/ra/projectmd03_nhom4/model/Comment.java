@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -26,8 +25,7 @@ public class Comment {
     private String comment;
     private LocalDateTime createdAt;
 
-    @PrePersist
-    protected void onCreate() {
+    public Comment() {
         createdAt = LocalDateTime.now();
     }
 }

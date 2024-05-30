@@ -4,53 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cập nhật danh mục</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Header -->
+    <th:block th:insert="/layout/admin/header::header"></th:block>
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .col-form-label {
+            font-weight: bold;
+        }
+
+        .form-control, .form-select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h1 class="text text-danger">Cập nhật danh mục</h1>
-    <form th:action ="@{/admin/category/edit-category}" th:object="${category}" method="post">
+<div class="wrapper">
+    <!-- Sidebar -->
+    <th:block th:insert="/layout/admin/sidebar::sidebar"></th:block>
 
-        <div class="mb-3">
-            <label for="categoryId" class="form-label">ID danh mục</label>
-            <input name="categoryId" class="form-control" id="categoryId" readonly th:field="*{categoryId}"/>
-        </div>
-        <div class="mb-3">
-            <label for="categoryName" class="form-label">Tên danh mục</label>
-            <input name="categoryName" class="form-control" id="categoryName" th:field="*{categoryName}"/>
-            <p th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}" style="color: red"></p>
-        </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Mô tả</label>
-            <input name="description" class="form-control" id="description" th:field="*{description}"/>
-            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color: red"></p>
-        </div>
-        <div class="mb-3">
-            <label for="status" class="form-label">Status</label>
-            <select name="categoryStatus" class="form-control" id="status">
-                <option value="true">Active</option>
-                <option value="false">Inactive</option>
-            </select>
-            <p th:if="${#fields.hasErrors('categoryStatus')}" th:errors="*{categoryStatus}" style="color: red"></p>
-        </div>
+    <div class="main">
+        <!-- Navbar -->
+        <th:block th:insert="/layout/admin/navbar::navbar"></th:block>
 
-        <button type="submit" class="btn btn-primary">Cập nhật</button>
-        <button type="reset" class="btn btn-secondary">Làm mới</button>
-    </form>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <h1 class="h3 mb-3"><strong>Cập nhật danh mục</strong></h1>
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/admin/category/list}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Cập nhật danh mục</li>
+                    </ol>
+                </nav>
+                <form th:action="@{/admin/category/edit-category}" th:object="${category}" method="post">
+                    <div class="form-group row">
+                        <label for="categoryId" class="col-12 col-form-label">ID danh mục</label>
+                        <div class="col-12">
+                            <input name="categoryId" class="form-control" id="categoryId" readonly th:field="*{categoryId}"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="categoryName" class="col-12 col-form-label">Tên danh mục</label>
+                        <div class="col-12">
+                            <input name="categoryName" class="form-control" id="categoryName" th:field="*{categoryName}"/>
+                            <p th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}" style="color: red"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="description" class="col-12 col-form-label">Mô tả</label>
+                        <div class="col-12">
+                            <input name="description" class="form-control" id="description" th:field="*{description}"/>
+                            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color: red"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="status" class="col-12 col-form-label">Status</label>
+                        <div class="col-12">
+                            <select class="form-select" th:field="*{categoryStatus}" id="status">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                            <p th:if="${#fields.hasErrors('categoryStatus')}" th:errors="*{categoryStatus}" style="color: red"></p>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+<!--                    <button type="reset" class="btn btn-secondary">Làm mới</button>-->
+                </form>
+            </div>
+        </main>
+    </div>
 </div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+<!-- Footer -->
+<th:block th:insert="/layout/admin/footer::footer"></th:block>
 </body>
 </html>

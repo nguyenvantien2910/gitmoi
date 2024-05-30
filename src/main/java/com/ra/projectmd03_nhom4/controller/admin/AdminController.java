@@ -15,6 +15,7 @@ public class AdminController {
 
     @GetMapping
     public String homeAdmin() {
+        session.setAttribute("activePage", "dashboard");
         return "admin/index";
     }
 }

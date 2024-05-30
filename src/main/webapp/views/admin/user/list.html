@@ -9,7 +9,7 @@
 <body>
 <div class="wrapper">
     <!-- Sidebar -->
-    <th:block th:insert="/layout/admin/sidebar::#sidebar"></th:block>
+    <th:block th:insert="/layout/admin/sidebar::sidebar"></th:block>
 
     <div class="main">
         <!-- Navbar -->
@@ -24,7 +24,7 @@
                     </ol>
                 </nav>
 
-                <h1 class="h3 mb-3"><strong>User Management</strong> </h1>
+                <h1 class="h3 mb-3"><strong>User Management</strong></h1>
 
                 <div class="row justify-content-between align-items-center mb-3">
                     <div class="col-md-6">
@@ -32,48 +32,53 @@
                     </div>
                     <div class="col-md-6">
                         <form class="d-flex" th:action="@{/admin/user/list}" method="GET">
-                            <input class="form-control me-2" type="search" placeholder="Input a keyword" aria-label="Search"
+                            <input class="form-control me-2" type="search" placeholder="Input a keyword"
+                                   aria-label="Search"
                                    name="searchQuery">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>
                 </div>
 
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover table-responsive">
                     <thead>
                     <tr>
-                        <th>
+                        <th scope="col" class="w-10">
                             <a class="text-decoration-none"
                                th:href="@{/admin/user/list(page=0, size=${size}, sortField='userId', sortDirection=${sortField == 'userId' and sortDirection == 'asc' ? 'desc' : 'asc'}, searchQuery=${searchQuery})}">
-                                ID <span th:if="${sortField == 'userId'}" th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
+                                ID <span th:if="${sortField == 'userId'}"
+                                         th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
                             </a>
                         </th>
-                        <th>
+                        <th scope="col" class="w-25">
                             <a class="text-decoration-none"
                                th:href="@{/admin/user/list(page=0, size=${size}, sortField='fullName', sortDirection=${sortField == 'fullName' and sortDirection == 'asc' ? 'desc' : 'asc'}, searchQuery=${searchQuery})}">
                                 FullName <span th:if="${sortField == 'fullName'}"
                                                th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
                             </a>
                         </th>
-                        <th>
+                        <th scope="col" class="w-25">
                             <a class="text-decoration-none"
                                th:href="@{/admin/user/list(page=0, size=${size}, sortField='email', sortDirection=${sortField == 'email' and sortDirection == 'asc' ? 'desc' : 'asc'}, searchQuery=${searchQuery})}">
-                                Email <span th:if="${sortField == 'email'}" th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
+                                Email <span th:if="${sortField == 'email'}"
+                                            th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
                             </a>
                         </th>
-                        <th>
+                        <th scope="col" class="w-25">
                             <a class="text-decoration-none"
                                th:href="@{/admin/user/list(page=0, size=${size}, sortField='phone', sortDirection=${sortField == 'phone' and sortDirection == 'asc' ? 'desc' : 'asc'}, searchQuery=${searchQuery})}">
-                                Phone <span th:if="${sortField == 'phone'}" th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
+                                Phone <span th:if="${sortField == 'phone'}"
+                                            th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
                             </a>
                         </th>
-                        <th>
+                        <th scope="col" class="w-25">
                             <a class="text-decoration-none"
                                th:href="@{/admin/user/list(page=0, size=${size}, sortField='status', sortDirection=${sortField == 'status' and sortDirection == 'asc' ? 'desc' : 'asc'}, searchQuery=${searchQuery})}">
-                                Status <span th:if="${sortField == 'status'}" th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
+                                Status <span th:if="${sortField == 'status'}"
+                                             th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
                             </a>
                         </th>
-                        <th colspan="3">Actions</th>
+                        <th scope="col" colspan="3" class="w-25">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -86,14 +91,15 @@
                         <td>
                             <a th:href="@{/admin/user/updateStatus/{userId}(userId=${user.userId}, newStatus=!${user.status})}"
                                onclick="return confirm('Are you sure you want to update the status of this user?');"
-                               class="btn btn-primary">Update Status</a>
+                               class="btn btn-primary">Status</a>
                         </td>
                         <td>
                             <a th:href="@{/admin/user/edit/{userId}(userId=${user.userId})}" class="btn btn-warning">Edit</a>
                         </td>
                         <td>
                             <a th:href="@{/admin/user/delete(userId=${user.userId})}"
-                               onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger">Delete</a>
+                               onclick="return confirm('Are you sure you want to delete this user?');"
+                               class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                     </tbody>
