@@ -22,6 +22,11 @@ public class ShoppingCartService implements ICartService {
     public List<ShoppingCart> findCartByUserId(Long userId) {
         List<ShoppingCart> cartList = cartDao.findCartByUserId(userId);
         session.setAttribute("cartList", cartList);
+        int totalCart = 0;
+        for (ShoppingCart shoppingCart : cartList) {
+            totalCart += shoppingCart.getOrderQuantity();
+        }
+        session.setAttribute("totalCart", totalCart);
         Float total = getCartTotal(cartList);
         session.setAttribute("total", total);
         return cartList;

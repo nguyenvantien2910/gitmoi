@@ -38,6 +38,11 @@
                     <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Voucher</span>
                 </a>
             </li>
+            <li th:class="${session.activePage == 'voucher' ? 'active sidebar-item' : 'sidebar-item'}">
+                <a class="sidebar-link" th:href="@{/orders/list-order}">
+                    <i class="align-middle" data-feather="file-minus"></i> <span class="align-middle">Order</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
