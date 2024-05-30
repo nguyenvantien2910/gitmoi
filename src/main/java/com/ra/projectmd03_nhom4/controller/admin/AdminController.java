@@ -13,14 +13,8 @@ public class AdminController {
     @Autowired
     HttpSession session;
 
-    @GetMapping("")
+    @GetMapping
     public String homeAdmin() {
         return "admin/index";
-    }
-
-    @GetMapping("/logout")
-    public String logout() {
-        session.removeAttribute("user");
-        return "redirect:/login";
     }
 }

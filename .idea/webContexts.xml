@@ -5,6 +5,9 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/admin/category/add.html" value="file://$PROJECT_DIR$/src/main/webapp/views/admin/category" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/user/index.html" value="file://$PROJECT_DIR$/src/main/webapp/views/user" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/admin/index.html" value="file://$PROJECT_DIR$/src/main/webapp/views/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/user/info.html" value="file://$PROJECT_DIR$/src/main/webapp/views/user" />
+
       </map>
     </option>
   </component>

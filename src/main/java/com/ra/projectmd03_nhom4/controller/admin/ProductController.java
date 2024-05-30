@@ -21,7 +21,7 @@ public class ProductController {
     @Autowired
     private ICategoryService categoryService;
 
-    @GetMapping
+    @GetMapping("/list")
     public String homeProduct(Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "2") int size) {
         List<Product> products = productService.findAll(currentPage, size);
         model.addAttribute("currentPage", currentPage);
@@ -55,7 +55,7 @@ public class ProductController {
             return "admin/product/add-product";
         }
         productService.saveOrUpdate(productRequest);
-        return "redirect:/product";
+        return "redirect:admin/product/list";
     }
 
     // /product/{id}/edit
@@ -70,12 +70,12 @@ public class ProductController {
     public String handleEditProduct(@ModelAttribute("product") ProductRequest productRequest, @PathVariable Long id) {
         productRequest.setProductId(id);
         productService.saveOrUpdate(productRequest);
-        return "redirect:/product";
+        return "redirect:admin/product/list";
     }
 
     @GetMapping("/{id}/delete")
     public String deleteProduct(@PathVariable("id") Long id) {
         productService.deleteById(id);
-        return "redirect:/product";
+        return "redirect:admin/product/list";
     }
 }

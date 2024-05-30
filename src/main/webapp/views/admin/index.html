@@ -35,7 +35,11 @@
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
                     </a>
                 </li>
-
+                <li class="sidebar-item">
+                    <a class="sidebar-link" th:href="@{/admin/banner/list}">
+                        <i class="align-middle" data-feather="banner"></i> <span class="align-middle">Banner</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -57,20 +61,13 @@
 
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                            data-bs-toggle="dropdown">
-                            <img th:src="@{assets/admin/img/avatars/avatar-2.jpg}" class="avatar img-fluid rounded me-1"
+                            <img th:src="*{session.userLogin.avatar}" class="avatar img-fluid rounded me-1"
                                  alt="Charles Hall"/>
-                            <span class="text-dark">Admin</span>
+                            <span class="text-dark" th:text="*{session.userLogin.fullName}"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i>
-                                Profile</a>
-                            <a class="dropdown-item" href="#"><i class="align-middle me-1"
-                                                                 data-feather="pie-chart"></i>
-                                Change Pass</a>
-
-
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Log out</a>
+<!--                            <div class="dropdown-divider"></div>-->
+                            <a class="dropdown-item" th:href="@{/logout}">Log out</a>
                         </div>
                     </li>
                 </ul>
@@ -360,6 +357,8 @@
 
         <th:block th:insert="/layout/admin/footer::footer"></th:block>
 
+    </div>
+</div>
 </body>
 
 </html>

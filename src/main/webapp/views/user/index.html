@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -97,9 +98,19 @@
                         <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                               style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                     </a>
-                    <a href="#" class="my-auto">
+                    <a th:href="@{/login}" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
                     </a>
+                    <div class="dropdown" th:if="${session.userLogin != null}">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <span class="dropdown-item" th:text="${session.userLogin.fullName}"></span>
+                            <a class="dropdown-item" th:href="@{/user/info}">Profile</a>
+                            <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -126,15 +137,16 @@
             <div class="col-md-12 col-lg-5">
                 <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
                     <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active rounded">
-                            <img th:src="@{assets/user/img/thuytung.png}"
-                                 class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
-                            <a href="#" class="btn px-4 py-2 text-white rounded">Phát lộc</a>
-                        </div>
-                        <div class="carousel-item rounded">
-                            <img th:src="@{assets/user/img/thuytung.png}" class="img-fluid w-100 h-100 rounded"
-                                 alt="Second slide">
-                            <a href="#" class="btn px-4 py-2 text-white rounded">Thủy tùng</a>
+
+                        <div th:each="banner, iterStat : ${bannerList}"
+                             th:classappend="${iterStat.index == 0} ? 'active' : ''"
+                             class="carousel-item rounded">
+                            <img th:src="@{${banner.url}}"
+                                 class="img-fluid w-100 h-100 bg-secondary rounded"
+                                 th:alt="${banner.title}">
+                            <a href="#"
+                               class="btn px-4 py-2 text-white rounded"
+                               th:text="${banner.title}"></a>
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselId"

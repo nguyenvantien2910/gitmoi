@@ -15,8 +15,11 @@ import javax.validation.constraints.Size;
 @Builder
 @Entity(name = "order_details")
 public class OrderDetail {
-    @EmbeddedId
-    private OrderDetailCompositeKey compositeKey;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false, name = "order_details_id")
+    private Long orderId;
+
     @ManyToOne
     @JoinColumn(name = "order_id",referencedColumnName = "order_id")
     private Order order;

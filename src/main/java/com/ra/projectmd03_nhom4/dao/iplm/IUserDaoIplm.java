@@ -1,7 +1,6 @@
 package com.ra.projectmd03_nhom4.dao.iplm;
 
 import com.ra.projectmd03_nhom4.dao.IUserDao;
-import com.ra.projectmd03_nhom4.dto.request.FromAddUser;
 import com.ra.projectmd03_nhom4.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -175,8 +174,8 @@ public class IUserDaoIplm implements IUserDao<User, Integer, String, Boolean, Lo
         Session session = sessionFactory.openSession();
         try {
             return session.createQuery("select u from users u where u.username = :username and u.password = :password", User.class)
-                    .setParameter("username",username)
-                    .setParameter("password",password)
+                    .setParameter("username", username)
+                    .setParameter("password", password)
                     .getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
@@ -202,4 +201,37 @@ public class IUserDaoIplm implements IUserDao<User, Integer, String, Boolean, Lo
         }
         return false;
     }
+
+    @Override
+    public boolean findUserByUsername(String username) {
+        Session session = sessionFactory.openSession();
+        try {
+            String hql = "from users u where u.username = :name";
+            User user = session.createQuery(hql, User.class)
+                    .setParameter("name", username)
+                    .uniqueResult();
+            if (user != null) {
+                return true;
+            };
+            return false;
+        } catch (Exception e) {
+            throw new RuntimeException("Error finding user by username", e);
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public String getAvaterByUserId(Long id) {
+        Session session = sessionFactory.openSession();
+        try {
+            return (String) session.createQuery("select u.avatar from users u where u.id = :id")
+                    .setParameter("id", id).getSingleResult();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            session.close();
+        }
+    }
+
 }
