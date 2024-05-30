@@ -60,7 +60,7 @@ public class ProductController {
             return "admin/product/add-product";
         }
         productService.saveOrUpdate(productRequest);
-        return "redirect:admin/product/list";
+        return "redirect:/admin/product/list";
     }
 
     // /product/{id}/edit
@@ -75,12 +75,12 @@ public class ProductController {
     public String handleEditProduct(@ModelAttribute("product") ProductRequest productRequest, @PathVariable Long id) {
         productRequest.setProductId(id);
         productService.saveOrUpdate(productRequest);
-        return "redirect:admin/product/list";
+        return "redirect:/admin/product/list";
     }
 
     @GetMapping("/{id}/delete")
     public String deleteProduct(@PathVariable("id") Long id) {
         productService.deleteById(id);
-        return "redirect:admin/product/list";
+        return "redirect:/admin/product/list";
     }
 }
