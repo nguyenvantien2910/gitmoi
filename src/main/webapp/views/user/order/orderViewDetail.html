@@ -9,7 +9,9 @@
     <div class="container topbar bg-primary d-none d-lg-block">
         <div class="d-flex justify-content-between">
             <div class="top-info ps-2">
-                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">678 Street, Ha Noi</a></small>
+                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
+                                                                                                 class="text-white">678
+                    Street, Ha Noi</a></small>
                 <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
             </div>
             <div class="top-link pe-2">
@@ -22,20 +24,22 @@
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
             <a th:href="@{/}" class="navbar-brand"><h1 class="text-primary display-6"> CAY CANH</h1></a>
-            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars text-primary"></span>
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
                     <a th:href="@{/}" class="nav-item nav-link active">Home</a>
-                    <a href="../shop.html" class="nav-item nav-link">Shop</a>
-                    <a href="../shop-detail.html" class="nav-item nav-link">Shop Detail</a>
+                    <a href="shop.html" class="nav-item nav-link">Shop</a>
+                    <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
                     <a href="#" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-flex m-3 me-0">
                     <a href="#" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
-                        <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                        <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                              style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                     </a>
                     <a href="#" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
@@ -47,43 +51,41 @@
 </div>
 <!-- Navbar End -->
 
+
 <table class="table">
     <thead>
-    <tr class="text-center">
-        <th scope="col">#</th>
-        <th scope="col">Received Name</th>
-        <th scope="col">Received Address</th>
-        <th scope="col">Received Phone</th>
-        <th scope="col">Order Date</th>
-        <th scope="col">Total Price</th>
-        <th scope="col">Status</th>
-        <th scope="col" colspan="1">View Detail</th>
-        <th scope="col" colspan="1">Update Orders</th>
+    <tr>
+        <th scope="col">OrderId</th>
+        <th scope="col">Receive Name</th>
+        <th scope="col">Receive Phone</th>
+        <th scope="col">Receive Address</th>
+        <th scope="col">Receive Day</th>
+        <th scope="col">Total</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="order,index : ${orderList}" class="">
-        <th scope="row" th:text="${index.count}" class="mb-0 mt-4"></th>
-        <td th:text="${order.receiveName}" class="mb-0 mt-4"></td>
-        <td th:text="${order.receiveAddress}" class="mb-0 mt-4"></td>
-        <td th:text="${order.receivePhone}" class="mb-0 mt-4"></td>
-        <td th:text="  ${order.createdAt}" class="mb-0 mt-4"></td>
-        <td th:text="  ${order.totalPrice}" class="mb-0 mt-4"></td>
-        <td th:text="  ${order.orderStatus.toString()}" class="mb-0 mt-4"></td>
-        <td><a th:href="@{/orders/clients/viewDetail/{orderId}(orderId=${order.getId()})}">
-            <i class="bi bi-ticket-detailed" style="font-size: 30px;"></i></a>
+    <tr th:each="${orders}">
+        <th scope="row" th:text="*{orders.orderId}">
+        </th>
+        <td>
+            <p class="mb-0 mt-4" th:text="*{orders.receiveName}"></p>
         </td>
-        <td><a th:href="@{/orders/clients/update/{orderId}(orderId=${order.getId()})}"
-               class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+        <td>
+            <p class="mb-0 mt-4" th:text="*{orders.receivePhone}"></p>
         </td>
-    </tr>
+        <td>
+            <p class="mb-0 mt-4" th:text="*{orders.receiveAddress}"></p>
+        </td>
+        <td>
+            <p class="mb-0 mt-4">4 Ngày sau đặt hàng</p>
+        </td>
+        <td>
+            <p class="mb-0 mt-4" th:text="${#numbers.formatDecimal(orders.totalPrice, 0,'COMMA',0,'POINT')+'VND'}"></p>
+        </td>
 
+    </tr>
     </tbody>
 </table>
-<div class="continue__shopping">
-    <a th:href="@{/home}">Continue Shopping</a>
-</div>
-
 
 
 <th:block th:insert="/layout/user/footer::footer"></th:block>
