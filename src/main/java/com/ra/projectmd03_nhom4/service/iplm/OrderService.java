@@ -65,6 +65,17 @@ public class OrderService implements IOrderService {
                 )
 
         );
+        //#1965 :Tự động trừ kho khi đơn hàng được xác nhận.
+        List<OrderDetail> orderDetails = orderDetailDAO.getOrderDetail(order.getOrderId());
+        for (OrderDetail orderDetail : orderDetails) {
+            Product product = orderDetail.getProduct();
+            Integer newQuantity = product.getStockQuantity() - orderDetail.getOrderQuantity();
+            if (newQuantity < 0) {
+                newQuantity = 0;
+            }
+            product.setStockQuantity(newQuantity);
+            productDAO.save(product);
+        }
         return orderDAO.addOrder(order);
     }
 
@@ -73,14 +84,15 @@ public class OrderService implements IOrderService {
         return orderDAO.updateOrder(order);
     }
 
+    //#1965 : Cập nhật kho khi hủy đơn hàng.
     @Override
     public void cancelOrder(Long orderId) {
-        orderDAO.cancelOrder(orderId);
         List<OrderDetail> orderDetailList = findDetailByOrderId(orderId);
         for (OrderDetail orderDetail : orderDetailList) {
             Product product = productDAO.findById(orderDetail.getProduct().getProductId());
             product.setStockQuantity(product.getStockQuantity() + orderDetail.getOrderQuantity());
         }
+        orderDAO.cancelOrder(orderId);
     }
 
     @Override

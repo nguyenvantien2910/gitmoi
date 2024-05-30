@@ -44,13 +44,13 @@ public class OrderController {
             totalPrice += shoppingCart.getProduct().getUnitPrice();
             model.addAttribute("totalPrice",totalPrice);
         }
-        return "orders/clientOrders";
+        return "user/order/clientOrders";
     }
 
-    @GetMapping("/clients/viewDetail/{orderId}")
+    @GetMapping("/viewDetail/{orderId}")
     public String orderDetail(@PathVariable("orderId") Long orderId, Model model) {
         model.addAttribute("orders",orderService.getOrderById(orderId));
-        return "orders/orderViewDetail";
+        return "user/order/orderViewDetail";
     }
 
     @GetMapping("clients/update/{orderId}")
