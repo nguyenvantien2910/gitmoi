@@ -18,12 +18,24 @@ public class VoucherService {
     @Autowired
     private HttpSession session;
 
-    public Voucher getVoucherByCode(Long code) {
-        Voucher voucher = voucherDao.findByCode(code);
+
+    public Voucher getVoucherByCode(String code) {
+        List<Voucher> voucherList = voucherDao.findAllCode();
+        Voucher voucher = null;
+        for (Voucher voucher1 : voucherList) {
+            if (voucher1.getVoucherCode().equals(code)) {
+                voucher = voucher1;
+            }
+        }
         if (voucher != null && (voucher.getExpiryDate()).after(new Date()) ){
             return voucher;
         }
         return null;
+    }
+
+
+    public boolean checkVoucherCode(String voucherCode) {
+        return voucherDao.checkVoucherCode(voucherCode);
     }
 
     public Long findAllCode(String code){
@@ -49,4 +61,5 @@ public class VoucherService {
     public List<Voucher> findAll(Integer pageNo, Integer pageSize, String sortField, String sortDirection, String searchQuery) {
         return voucherDao.findAll(pageNo, pageSize, sortField, sortDirection, searchQuery);
     };
+
 }

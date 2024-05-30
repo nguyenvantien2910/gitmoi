@@ -61,7 +61,9 @@ public class UserController {
     }
 
     @GetMapping("/shop")
-    public String shop() {
+    public String shop(Model model) {
+        List<Product> products = productService.getAllProducts();
+        model.addAttribute("products", products);
         return "user/shop";
     }
 

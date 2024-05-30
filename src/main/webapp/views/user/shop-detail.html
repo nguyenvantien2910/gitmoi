@@ -194,22 +194,17 @@
                             </div>
                         </div>
                     </div>
-                    <form th:action="@{/user/products/addComment}" method="post">
+                    <form th:action="@{/user/products/{id}/addComment(id=${product.productId})}" th:object="${newComment}" method="post">
                         <h4 class="mb-5 fw-bold">Leave a Reply</h4>
                         <div class="row g-4">
                             <div class="col-lg-6">
                                 <div class="border-bottom rounded">
-                                    <input type="text" class="form-control border-0 me-4" placeholder="Your Name *">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="border-bottom rounded">
-                                    <input type="email" class="form-control border-0" placeholder="Your Email">
+                                    <input th:field="*{user}" type="text" class="form-control border-0 me-4" placeholder="Your Name *">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="border-bottom rounded my-4">
-                                    <textarea name="" id="" class="form-control border-0" cols="30" rows="8"
+                                    <textarea th:field="*{comment}" id="" class="form-control border-0" cols="30" rows="8"
                                               placeholder="Your Review *" spellcheck="false"></textarea>
                                 </div>
                             </div>
@@ -230,12 +225,18 @@
                             </div>
                         </div>
                     </form>
-                    <div class="col-lg-12">
-                        <h2>All Comments</h2>
-                        <div th:each="comment : ${comments}">
-                            <p><strong th:text="${comment.user}">Name</strong></p>
-                            <p th:text="${comment.comment}">Comment</p>
-                            <p><span th:text="${comment.createdAt}">Date</span></p>
+                    <div class="col-lg-12 mt-5">
+                        <h2 class="mb-4">All Comments</h2>
+                        <div th:each="comment : ${comments}" class="mb-4">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="mb-1"><strong th:text="${comment.user}">Name</strong></p>
+                                        <p class="text-muted mb-1"><span th:text="${comment.createdAt}">Date</span></p>
+                                    </div>
+                                    <p class="mb-1" th:text="${comment.comment}">Comment</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
