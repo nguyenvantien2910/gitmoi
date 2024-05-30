@@ -10,16 +10,19 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin/product")
 public class ProductController {
-
     @Autowired
     private IProductService productService;
     @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private HttpSession session;
 
     @GetMapping("/list")
     public String homeProduct(Model model, @RequestParam(defaultValue = "0") int currentPage, @RequestParam(defaultValue = "2") int size) {
@@ -29,6 +32,8 @@ public class ProductController {
         model.addAttribute("products", products);
         model.addAttribute("productRequest", new ProductRequest());
         model.addAttribute("categories", categoryService.findAll());
+        session.setAttribute("activePage", "product");
+
         return "admin/product/list-product";
     }
 

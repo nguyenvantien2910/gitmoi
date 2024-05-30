@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="wrapper">
-    <th:block th:insert="layout/admin/sidebar::#sidebar"></th:block>
+    <th:block th:insert="layout/admin/sidebar::sidebar"></th:block>
 
     <div class="main">
         <th:block th:insert="layout/admin/navbar::navbar"></th:block>
@@ -33,32 +33,32 @@
                         </form>
                     </div>
                 </div>
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover table-responsive">
                     <thead>
                     <tr>
-                        <th>
+                        <th class="w-10">
                             <a class="text-decoration-none"
                                th:href="@{/admin/banner/list(page=0, size=${size}, sortField='id', sortDirection=${sortField == 'id' and sortDirection == 'asc' ? 'desc' : 'asc'}, searchQuery=${searchQuery})}">
                                 ID <span th:if="${sortField == 'id'}"
                                          th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
                             </a>
                         </th>
-                        <th>
+                        <th class="w-25">
                             <a class="text-decoration-none"
                                th:href="@{/admin/banner/list(page=0, size=${size}, sortField='title', sortDirection=${sortField == 'title' and sortDirection == 'asc' ? 'desc' : 'asc'}, searchQuery=${searchQuery})}">
                                 Title <span th:if="${sortField == 'title'}"
                                             th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
                             </a>
                         </th>
-                        <th>
+                        <th class="w-25">
                             <a class="text-decoration-none"
                                th:href="@{/admin/banner/list(page=0, size=${size}, sortField='isDisplay', sortDirection=${sortField == 'isDisplay' and sortDirection == 'asc' ? 'desc' : 'asc'}, searchQuery=${searchQuery})}">
                                 IsDisplay <span th:if="${sortField == 'isDisplay'}"
                                                 th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
                             </a>
                         </th>
-                        <th>Image</th>
-                        <th colspan="3">Actions</th>
+                        <th class="w-25">Image</th>
+                        <th colspan="3" class="w-25"> Actions</th>
                     </tr>
                     </thead>
                     <tbody>

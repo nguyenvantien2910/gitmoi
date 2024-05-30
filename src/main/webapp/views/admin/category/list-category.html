@@ -1,52 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Danh sách danh mục</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Category</title>
+    <!-- Header -->
+    <th:block th:insert="/layout/admin/header::header"></th:block>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
-    <h1>Danh sách danh mục</h1>
-    <a th:href="@{/admin/category/add-category}" class="btn btn-primary mb-3">Thêm danh mục mới</a>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>ID danh mục</th>
-            <th>Tên danh mục</th>
-            <th>Mô tả</th>
-            <th>Trạng thái</th>
-            <th>Thao tác</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="category : ${categories}">
-            <td th:text="${category.categoryId}"></td>
-            <td th:text="${category.categoryName}"></td>
-            <td th:text="${category.description}"></td>
-            <td>
-                <a type="button" class="btn"
-                   th:classappend="${category.categoryStatus ? 'btn-success' : 'btn-danger'}"
-                   th:href="@{/admin/category/{categoryId}(categoryId=${category.categoryId})}"
-                   th:attr="onclick=${category.categoryStatus ? 'return confirm(`Bạn có chắc muốn khóa danh mục này ?`)' : 'return confirm(`Bạn có chắc muốn mở khóa danh mục này ?`)' }"
-                >
-                    <span th:text="${category.categoryStatus ? 'Active' : 'Block'}"></span>
-                </a>
-            </td>
-            <td><a th:href="@{/admin/category/edit-category/{categoryId}(categoryId=${category.categoryId})}"
-                   class="btn btn-warning"><i class="bi bi-pencil-square"></i></a></td>
-        </tr>
-        </tbody>
-    </table>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <th:block th:insert="/layout/admin/sidebar::sidebar"></th:block>
+
+    <div class="main">
+        <!-- Navbar -->
+        <th:block th:insert="/layout/admin/navbar::navbar"></th:block>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/admin}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Category Management</li>
+                    </ol>
+                </nav>
+
+                <h1 class="h3 mb-3"><strong>Category Management</strong> </h1>
+
+                <div class="row justify-content-between align-items-center mb-3">
+                    <div class="col-md-6">
+                        <a th:href="@{/admin/category/add-category}" class="btn btn-primary mb-3">Thêm danh mục mới</a>
+                    </div>
+                    <div class="col-md-6">
+                        <form class="d-flex" th:action="@{/admin/user/list}" method="GET">
+                            <input class="form-control me-2" type="search" placeholder="Nhập tên sản phẩm..." aria-label="Search"
+                                   name="name">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID danh mục</th>
+                        <th>Tên danh mục</th>
+                        <th>Mô tả</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="category : ${categories}">
+                        <td th:text="${category.categoryId}"></td>
+                        <td th:text="${category.categoryName}"></td>
+                        <td th:text="${category.description}"></td>
+                        <td>
+                            <a type="button" class="btn"
+                               th:classappend="${category.categoryStatus ? 'btn-success' : 'btn-danger'}"
+                               th:href="@{/category/{categoryId}(categoryId=${category.categoryId})}"
+                               th:attr="onclick=${category.categoryStatus ? 'return confirm(`Bạn có chắc muốn khóa danh mục này ?`)' : 'return confirm(`Bạn có chắc muốn mở khóa danh mục này ?`)' }"
+                            >
+                                <span th:text="${category.categoryStatus ? 'Active' : 'Block'}"></span>
+                            </a>
+                        </td>
+                        <td><a th:href="@{/admin/category/edit-category/{categoryId}(categoryId=${category.categoryId})}"
+                               class="btn btn-warning"><i class="bi bi-pencil-square"></i></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+<!-- Footer -->
+<th:block th:insert="/layout/admin/footer::footer"></th:block>
+
 </body>
 </html>

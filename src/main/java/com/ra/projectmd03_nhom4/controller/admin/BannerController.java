@@ -10,13 +10,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin/banner")
 public class BannerController {
     @Autowired
-    IBannerService bannerService;
+    private IBannerService bannerService;
+
+    @Autowired
+    private HttpSession session;
 
     @GetMapping("/list")
     public String listBanner(Model model,
@@ -38,6 +42,8 @@ public class BannerController {
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("searchQuery", searchQuery);
+
+        session.setAttribute("activePage", "banner");
         if (message != null && !message.isEmpty()) {
             model.addAttribute("message", message);
         }

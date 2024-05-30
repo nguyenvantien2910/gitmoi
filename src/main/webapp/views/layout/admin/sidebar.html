@@ -1,4 +1,4 @@
-<nav id="sidebar" class="sidebar js-sidebar" th:fragment="navbar">
+<nav id="sidebar" class="sidebar js-sidebar" th:fragment="sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" th:href="@{/admin}">
             <span class="align-middle">Admin Site</span>
@@ -8,29 +8,29 @@
             <li class="sidebar-header">
                 Pages
             </li>
-            <li class="sidebar-item active">
+            <li th:class="${session.activePage == 'dashboard' ? 'active sidebar-item' : 'sidebar-item'}">
                 <a class="sidebar-link" th:href="@{/admin}">
-                    <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Dashboard</span>
+                    <i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Dashboard</span>
                 </a>
             </li>
-            <li class="sidebar-item">
+            <li th:class="${session.activePage == 'category' ? 'active sidebar-item' : 'sidebar-item'}">
                 <a class="sidebar-link" th:href="@{/admin/category/list}">
                     <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Category</span>
                 </a>
             </li>
-            <li class="sidebar-item">
+            <li th:class="${session.activePage == 'product' ? 'active sidebar-item' : 'sidebar-item'}">
                 <a class="sidebar-link" th:href="@{/admin/product/list}">
-                    <i class="align-middle" data-feather="square"></i> <span class="align-middle">Product</span>
+                    <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Product</span>
                 </a>
             </li>
-            <li class="sidebar-item">
+            <li th:class="${session.activePage == 'user' ? 'active sidebar-item' : 'sidebar-item'}">
                 <a class="sidebar-link" th:href="@{/admin/user/list}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
+                    <i class="align-middle" data-feather="users"></i> <span class="align-middle">User</span>
                 </a>
             </li>
-            <li class="sidebar-item">
+            <li th:class="${session.activePage == 'banner' ? 'active sidebar-item' : 'sidebar-item'}">
                 <a class="sidebar-link" th:href="@{/admin/banner/list}">
-                    <i class="align-middle" data-feather="banner"></i> <span class="align-middle">Banner</span>
+                    <i class="align-middle" data-feather="image"></i> <span class="align-middle">Banner</span>
                 </a>
             </li>
         </ul>
