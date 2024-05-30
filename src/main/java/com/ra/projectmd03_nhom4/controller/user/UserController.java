@@ -72,7 +72,7 @@ public class UserController {
 
     @GetMapping("/checkout")
     public String checkout() {
-        return "user/checkout";
+        return "user/order/checkout";
     }
 
     @GetMapping("/cart")

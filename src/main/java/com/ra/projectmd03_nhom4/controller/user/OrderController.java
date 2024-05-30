@@ -1,6 +1,7 @@
 package com.ra.projectmd03_nhom4.controller.user;
 
 import com.ra.projectmd03_nhom4.constant.OrderStatus;
+import com.ra.projectmd03_nhom4.dao.iplm.CartDaoImpl;
 import com.ra.projectmd03_nhom4.model.Order;
 import com.ra.projectmd03_nhom4.model.ShoppingCart;
 import com.ra.projectmd03_nhom4.model.User;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -30,6 +32,8 @@ public class OrderController {
     private AddressServiceImpl addressService;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private CartDaoImpl cartDao;
 
     @GetMapping("/clients")
     public String ordersClients(Model model) {
@@ -45,13 +49,13 @@ public class OrderController {
 
     @GetMapping("/clients/viewDetail/{orderId}")
     public String orderDetail(@PathVariable("orderId") Long orderId, Model model) {
-        model.addAttribute("order",orderService.getOrderById(orderId));
+        model.addAttribute("orders",orderService.getOrderById(orderId));
         return "orders/orderViewDetail";
     }
 
     @GetMapping("clients/update/{orderId}")
     public String orderUpdate(@PathVariable("orderId") Long orderId, Model model) {
-        model.addAttribute("order",orderService.getOrderById(orderId));
+        model.addAttribute("orders",orderService.getOrderById(orderId));
         return "orders/updateOrder";
     }
 
@@ -60,12 +64,14 @@ public class OrderController {
         User userLogin = (User) session.getAttribute("userLogin");
         model.addAttribute("orders",new Order());
         model.addAttribute("addressList",addressService.findByUserId(1L));
+        List<ShoppingCart> cartList = cartService.findCartByUserId(userLogin.getUserId());
+        model.addAttribute("cartList", cartList);
         double totalPrice = 0;
         for(ShoppingCart shoppingCart : cartService.findCartByUserId(userLogin.getUserId())){
-            totalPrice += shoppingCart.getProduct().getUnitPrice();
-            model.addAttribute("totalPrice",totalPrice);
+            totalPrice += shoppingCart.getProduct().getUnitPrice()*shoppingCart.getOrderQuantity();
         }
-        return "orders/checkout";
+        model.addAttribute("totalPrice",totalPrice);
+        return "user/order/checkout";
     }
 
     @GetMapping("/management")
@@ -87,19 +93,20 @@ public class OrderController {
         User userLogin = (User) session.getAttribute("userLogin");
         double totalPrice = 0;
         for(ShoppingCart shoppingCart : cartService.findCartByUserId(userLogin.getUserId())){
-            totalPrice += shoppingCart.getProduct().getUnitPrice();
-            order.setTotalPrice(totalPrice);
+            totalPrice += shoppingCart.getProduct().getUnitPrice()*shoppingCart.getOrderQuantity();
         }
+        order.setTotalPrice(totalPrice);
         order.setCreatedAt(new Date());
         order.setSerialNumber(UUID.randomUUID().toString());
         order.setUser(userService.findById(userLogin.getUserId()));
         order.setOrderStatus(OrderStatus.WAITING);
         orderService.addOrder(order);
+        cartDao.removeCartByUserId(order.getUser().getUserId());
         return "redirect:/orders/order-success";
     }
 
-    @GetMapping("/success")
+    @GetMapping("/order-success")
     public String success() {
-        return "orders/success";
+        return "user/order/order-success";
     }
 }

@@ -3,6 +3,8 @@ package com.ra.projectmd03_nhom4.dao.iplm;
 import com.ra.projectmd03_nhom4.constant.OrderStatus;
 import com.ra.projectmd03_nhom4.dao.IOrderDAO;
 import com.ra.projectmd03_nhom4.model.Order;
+import com.ra.projectmd03_nhom4.model.OrderDetail;
+import com.ra.projectmd03_nhom4.model.ShoppingCart;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,6 +20,10 @@ public class OrderDAOImpl implements IOrderDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
+    @Autowired
+    private CartDaoImpl cartDao;
+    @Autowired
+    private OrderDetailDaoImpl orderDetailDao;
 
     @Override
     public List<Order> getAllOrders() {
@@ -65,8 +71,19 @@ public class OrderDAOImpl implements IOrderDAO {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
+//            Order newOrder = getOrderById(saveOrder(order));
             session.save(order);
             session.getTransaction().commit();
+
+            List<ShoppingCart> cartList = cartDao.findCartByUserId(order.getUser().getUserId());
+            for (ShoppingCart cart : cartList) {
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setOrder(order);
+                orderDetail.setProduct(cart.getProduct());
+                orderDetail.setUnitPrice(cart.getProduct().getUnitPrice());
+                orderDetail.setOrderQuantity(cart.getOrderQuantity());
+                orderDetailDao.save(orderDetail);
+            }
             return true;
         }catch (Exception e) {
             e.printStackTrace();
@@ -107,7 +124,7 @@ public class OrderDAOImpl implements IOrderDAO {
             query.registerStoredProcedureParameter("o_phone", String.class, ParameterMode.IN);
             query.registerStoredProcedureParameter("o_note", String.class, ParameterMode.IN);
             query.registerStoredProcedureParameter("o_total", Double.class, ParameterMode.IN);
-            query.registerStoredProcedureParameter("order_id", Long.class, ParameterMode.OUT);
+            query.registerStoredProcedureParameter("o_order_id", Long.class, ParameterMode.OUT);
 
             query.setParameter("o_userid", order.getUser().getUserId());
             query.setParameter("o_order_name", order.getReceiveName());
@@ -115,6 +132,7 @@ public class OrderDAOImpl implements IOrderDAO {
             query.setParameter("o_phone", order.getReceivePhone());
             query.setParameter("o_note", order.getNote());
             query.setParameter("o_total", order.getTotalPrice());
+            query.setParameter("o_order_id", orderId);
 
             query.execute();
 
