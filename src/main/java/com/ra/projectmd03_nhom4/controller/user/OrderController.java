@@ -2,21 +2,22 @@ package com.ra.projectmd03_nhom4.controller.user;
 
 import com.ra.projectmd03_nhom4.constant.OrderStatus;
 import com.ra.projectmd03_nhom4.dao.iplm.CartDaoImpl;
+import com.ra.projectmd03_nhom4.dao.iplm.VoucherDao;
 import com.ra.projectmd03_nhom4.model.Order;
 import com.ra.projectmd03_nhom4.model.ShoppingCart;
 import com.ra.projectmd03_nhom4.model.User;
-import com.ra.projectmd03_nhom4.service.iplm.AddressServiceImpl;
-import com.ra.projectmd03_nhom4.service.iplm.OrderService;
-import com.ra.projectmd03_nhom4.service.iplm.ShoppingCartService;
-import com.ra.projectmd03_nhom4.service.iplm.UserServiceIplm;
+import com.ra.projectmd03_nhom4.model.Voucher;
+import com.ra.projectmd03_nhom4.service.iplm.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Controller
@@ -34,6 +35,8 @@ public class OrderController {
     private HttpSession session;
     @Autowired
     private CartDaoImpl cartDao;
+    @Autowired
+    private VoucherDao voucherDao;
 
     @GetMapping("/clients")
     public String ordersClients(Model model) {
@@ -62,8 +65,8 @@ public class OrderController {
     @GetMapping()
     public String orders(Model model) {
         User userLogin = (User) session.getAttribute("userLogin");
-        model.addAttribute("orders",new Order());
-        model.addAttribute("addressList",addressService.findByUserId(1L));
+        model.addAttribute("orders", new Order());
+//        model.addAttribute("addressList",addressService.findByUserId(1L));
         List<ShoppingCart> cartList = cartService.findCartByUserId(userLogin.getUserId());
         model.addAttribute("cartList", cartList);
         double totalPrice = 0;
@@ -89,11 +92,15 @@ public class OrderController {
     }
 
     @PostMapping("/checkout")
-    public String checkout(@ModelAttribute() Order order) {
+    public String checkout(@ModelAttribute("orders") Order order, @RequestParam(value = "useVoucher",required = false) String useVoucher, Model model) {
         User userLogin = (User) session.getAttribute("userLogin");
         double totalPrice = 0;
         for(ShoppingCart shoppingCart : cartService.findCartByUserId(userLogin.getUserId())){
             totalPrice += shoppingCart.getProduct().getUnitPrice()*shoppingCart.getOrderQuantity();
+        }
+        if ("true".equals(useVoucher)) {
+            double discount = 5.0;
+            totalPrice = totalPrice*(1-(discount/100));
         }
         order.setTotalPrice(totalPrice);
         order.setCreatedAt(new Date());
@@ -102,11 +109,23 @@ public class OrderController {
         order.setOrderStatus(OrderStatus.WAITING);
         orderService.addOrder(order);
         cartDao.removeCartByUserId(order.getUser().getUserId());
+        session.setAttribute("orders",order);
         return "redirect:/orders/order-success";
     }
 
+    //chi tiết đơn hàng
     @GetMapping("/order-success")
-    public String success() {
+    public String success(@ModelAttribute Order order) {
         return "user/order/order-success";
     }
+
+    @GetMapping("/apply-voucher")
+    public String applyVoucher(Model model) {
+        Voucher newVoucher = new Voucher(1L,"VOUCHER1",5.0, LocalDateTime.of(2024,12,12,0,0,0));
+        voucherDao.save(newVoucher);
+        session.setAttribute("voucher",newVoucher);
+        model.addAttribute("voucher",newVoucher);
+        return "user/order/checkout";
+    }
+
 }

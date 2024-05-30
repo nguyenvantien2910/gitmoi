@@ -9,7 +9,9 @@
     <div class="container topbar bg-primary d-none d-lg-block">
         <div class="d-flex justify-content-between">
             <div class="top-info ps-2">
-                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">678 Street, Ha Noi</a></small>
+                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
+                                                                                                 class="text-white">678
+                    Street, Ha Noi</a></small>
                 <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
             </div>
             <div class="top-link pe-2">
@@ -22,7 +24,8 @@
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
             <a th:href="@{/}" class="navbar-brand"><h1 class="text-primary display-6"> CAY CANH</h1></a>
-            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars text-primary"></span>
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
@@ -35,7 +38,8 @@
                 <div class="d-flex m-3 me-0">
                     <a href="#" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
-                        <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                        <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                              style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                     </a>
                     <a href="#" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
@@ -46,69 +50,75 @@
     </div>
 </div>
 <!-- Navbar End -->
-<div class="container">
-    <h1>Your Shopping Cart</h1>
-    <div class="cart-table">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Image</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="cartItem : ${session.cartList}">
-                <td>
-                    <a th:href="@{/datail/{product_id}(product_id = ${cartItem.product.productId})}">
-                        <img th:src="${cartItem.product.image}">
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="table-responsive">
+            <h1>Your Shopping Cart</h1>
+            <div class="cart-table">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="cartItem : ${session.cartList}">
+                        <td>
+                            <a th:href="@{/datail/{product_id}(product_id = ${cartItem.product.productId})}">
+                                <img th:src="${cartItem.product.image}">
+                            </a>
+                        </td>
+                        <td th:text="${cartItem.product.productName}"></td>
+                        <td>
+                            <div class="input-quantity">
+                                <a class="btn minus-btn"
+                                   th:href="@{/minus/{shoppingCartId}(shoppingCartId = ${cartItem.getShoppingCartId()})}">
+                                    <button>-</button>
+                                </a>
+                                <label>
+                                    <input type="text" th:value="${cartItem.orderQuantity}">
+                                </label>
+                                <a class="btn plus-btn"
+                                   th:href="@{/plus/{shoppingCartId}(shoppingCartId = ${cartItem.getShoppingCartId()})}">
+                                    <button>+</button>
+                                </a>
+                            </div>
+                        </td>
+                        <td th:text="${#numbers.formatDecimal(cartItem.product.unitPrice, 0, 'COMMA', 0, 'POINT')}"></td>
+                        <td th:text="${cartItem.product.unitPrice * cartItem.orderQuantity}"></td>
+                        <td>
+                            <a th:href="@{/delete-item/{id}(id=${cartItem.shoppingCartId})}">Remove</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a th:href="@{/delete-all-item/{userId}(userId=${1})}">Remove All</a>
+            </div>
+            <div class="cart-summary">
+                <div class="cart-summary-wrap">
+                    <h4>Cart Summary</h4>
+                    <p>Sub Total <span
+                            th:text="${#numbers.formatDecimal(session.total, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
+                    </p>
+                    <p>Shipping Cost <span>0.00 VND</span></p>
+                    <h2>Grand Total <span
+                            th:text="${#numbers.formatDecimal(session.total, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
+                    </h2>
+                </div>
+                <div class="cart-summary-button">
+                    <a th:href="@{/orders}">
+                        <button class="checkout-btn">Checkout</button>
                     </a>
-                </td>
-                <td th:text="${cartItem.product.productName}"></td>
-                <td>
-                    <div class="input-quantity">
-                        <a class="btn minus-btn" th:href="@{/minus/{shoppingCartId}(shoppingCartId = ${cartItem.getShoppingCartId()})}">
-                            <button>-</button>
-                        </a>
-                        <label>
-                            <input type="text" th:value="${cartItem.orderQuantity}">
-                        </label>
-                        <a class="btn plus-btn" th:href="@{/plus/{shoppingCartId}(shoppingCartId = ${cartItem.getShoppingCartId()})}">
-                            <button>+</button>
-                        </a>
-                    </div>
-                </td>
-                <td th:text="${#numbers.formatDecimal(cartItem.product.unitPrice, 0, 'COMMA', 0, 'POINT')}"></td>
-                <td th:text="${cartItem.product.unitPrice * cartItem.orderQuantity}"></td>
-                <td>
-                    <a th:href="@{/delete-item/{id}(id=${cartItem.shoppingCartId})}">Remove</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <a th:href="@{/delete-all-item/{userId}(userId=${1})}">Remove All</a>
-    </div>
-    <div class="cart-summary">
-        <div class="cart-summary-wrap">
-            <h4>Cart Summary</h4>
-            <p>Sub Total <span
-                    th:text="${#numbers.formatDecimal(session.total, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
-            </p>
-            <p>Shipping Cost <span>0.00 VND</span></p>
-            <h2>Grand Total <span
-                    th:text="${#numbers.formatDecimal(session.total, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
-            </h2>
-        </div>
-        <div class="cart-summary-button">
-            <a th:href="@{/orders}">
-                <button class="checkout-btn">Checkout</button>
-            </a>
-            <a th:href="@{/list-product}">
-                <button class="reply-btn">Continue Shopping</button>
-            </a>
+                    <a th:href="@{/list-product}">
+                        <button class="reply-btn">Continue Shopping</button>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
