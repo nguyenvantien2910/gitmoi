@@ -63,14 +63,14 @@
                                     <i class="fa fa-minus"></i>
                                 </button>
                             </div>
-                            <input type="text" class="form-control form-control-sm text-center border-0" value="1">
+                            <input type="text" class="form-control form-control-sm text-center border-0" value="1" th:name="quantity">
                             <div class="input-group-btn">
                                 <button class="btn btn-sm btn-plus rounded-circle bg-light border">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
                         </div>
-                        <a class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+                        <a class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" th:href="@{/add-one/{product_id}(product_id=${product.productId})}">
                             <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                         </a>
                     </div>

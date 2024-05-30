@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Category</title>
+    <!-- Header -->
+    <th:block th:insert="/layout/admin/header::header"></th:block>
+
 </head>
 <body>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <th:block th:insert="/layout/admin/sidebar::sidebar"></th:block>
+
+    <div class="main">
+        <!-- Navbar -->
+        <th:block th:insert="/layout/admin/navbar::navbar"></th:block>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/admin}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Order Management</li>
+                    </ol>
+                </nav>
+
+                <h1 class="h3 mb-3"><strong>Order Management</strong> </h1>
+
+                <div class="row justify-content-between align-items-center mb-3">
+                    <div class="col-md-6">
+                        <form class="d-flex" th:action="@{/admin/user/list}" method="GET">
+                            <input class="form-control me-2" type="search" placeholder="Nhập tên sản phẩm..." aria-label="Search"
+                                   name="name">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID Đơn hàng</th>
+                        <th>Tên người nhận</th>
+                        <th>Địa chỉ người nhận/th>
+                        <th>Điện thoại người nhận</th>
+                        <th>Mã số</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="order : ${orderList}">
+                        <td th:text="${order.orderId}"></td>
+                        <td th:text="${order.receiveName}"></td>
+                        <td th:text="${order.receiveAddress}"></td>
+                        <td th:text="${order.receivePhone}"></td>
+                        <td th:text="${order.serialNumber}"></td>
+                        <td th:text="${order.totalPrice}"></td>
+                        <td th:text="${order.orderStatus.toString()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+<!-- Footer -->
+<th:block th:insert="/layout/admin/footer::footer"></th:block>
 
 </body>
 </html>

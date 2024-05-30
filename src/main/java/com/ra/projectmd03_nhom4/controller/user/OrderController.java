@@ -56,11 +56,6 @@ public class OrderController {
         return "user/order/orderViewDetail";
     }
 
-    @GetMapping("clients/update/{orderId}")
-    public String orderUpdate(@PathVariable("orderId") Long orderId, Model model) {
-        model.addAttribute("orders",orderService.getOrderById(orderId));
-        return "orders/updateOrder";
-    }
 
     @GetMapping()
     public String orders(Model model) {
@@ -76,10 +71,11 @@ public class OrderController {
         return "user/order/checkout";
     }
 
-    @GetMapping("/management")
+    @GetMapping("/list-order")
     public String orderManagement(Model model) {
         model.addAttribute("orderList",orderService.getAllOrders());
-        return "admin/orders/managementOrders";
+        session.setAttribute("activePage","list-order");
+        return "admin/order/list-order";
     }
 
     @PostMapping("/updateStatus/{orderId}")
