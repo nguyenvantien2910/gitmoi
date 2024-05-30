@@ -5,74 +5,11 @@
 
 <body>
 <div class="wrapper">
-    <nav id="sidebar" class="sidebar js-sidebar">
-        <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" th:href="@{/}">
-                <span class="align-middle">Admin Site</span>
-            </a>
-
-            <ul class="sidebar-nav">
-                <li class="sidebar-header">
-                    Pages
-                </li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="#">
-                        <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Dashboard</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" th:href="@{admin/category/list}">
-                        <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Category</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" th:href="@{admin/product/list}">
-                        <i class="align-middle" data-feather="square"></i> <span class="align-middle">Product</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" th:href="@{/admin/user/list}">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" th:href="@{/admin/banner/list}">
-                        <i class="align-middle" data-feather="banner"></i> <span class="align-middle">Banner</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <th:block th:insert="/layout/admin/sidebar::#sidebar"></th:block>
 
     <div class="main">
-        <nav class="navbar navbar-expand navbar-light navbar-bg">
-            <a class="sidebar-toggle js-sidebar-toggle mx-2">
-                <i class="hamburger align-self-center"></i>
-            </a>
+        <th:block th:insert="/layout/admin/navbar::navbar"></th:block>
 
-            <div class="navbar-collapse collapse">
-                <ul class="navbar-nav navbar-align">
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
-                           data-bs-toggle="dropdown">
-                            <i class="align-middle" data-feather="settings"></i>
-                        </a>
-
-                        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
-                           data-bs-toggle="dropdown">
-                            <img th:src="*{session.userLogin.avatar}" class="avatar img-fluid rounded me-1"
-                                 alt="Charles Hall"/>
-                            <span class="text-dark" th:text="*{session.userLogin.fullName}"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-<!--                            <div class="dropdown-divider"></div>-->
-                            <a class="dropdown-item" th:href="@{/logout}">Log out</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
 
         <main class="content">
             <div class="container-fluid p-0">
@@ -356,7 +293,6 @@
         </main>
 
         <th:block th:insert="/layout/admin/footer::footer"></th:block>
-
     </div>
 </div>
 </body>
