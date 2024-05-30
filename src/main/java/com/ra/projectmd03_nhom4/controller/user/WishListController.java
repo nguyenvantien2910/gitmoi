@@ -28,28 +28,39 @@ public class WishListController {
     private HttpSession session;
 
     @RequestMapping("/myWishList")
-    public String wishList(Model model) {
-        Long userId = 1L;
-        List<Product> productWishList = wishListService.getAllWishList(userId);
+    public String wishList(Model model, HttpSession session) {
+        User userLogin = (User) session.getAttribute("userLogin");
+        if (userLogin == null) {
+
+            return "redirect:/login";
+        }
+
+
+        List<Product> productWishList = wishListService.getAllWishList(userLogin.getUserId());
         model.addAttribute("productWishList", productWishList);
-        return "user/favorProduct";
+        return "user/favorProduct"; // View name to display the wishlist
     }
 
+
     @GetMapping("/deleteWishList/{id}")
-    public String deleteWishList(@PathVariable("id") Long id) {
-        Long userId = 1L;
-        wishListService.deleteWishList(userId, id);
+    public String deleteWishList(@PathVariable("id") Long id, @SessionAttribute("userLogin") User user) {
+        wishListService.deleteWishList(user.getUserId(), id);
         return "redirect:/user/myWishList";
     }
 
     @GetMapping("/addWishList/{id}")
-    public String addWishList(@PathVariable("id") Long productId, Model model) {
+    public String addWishList(@PathVariable("id") Long productId, HttpSession session) {
+
+        User userLogin = (User) session.getAttribute("userLogin");
+        if (userLogin == null) {
+
+            return "redirect:/login";
+        }
+
         Product product = productService.findById(productId);
-        Long userId = 1L;
-        User user = userService.findById(userId);
         WishList wishList = new WishList();
         wishList.setProduct(product);
-        wishList.setUser(user);
+        wishList.setUser(userLogin);
         wishListService.addWishList(wishList);
         return "redirect:/user/myWishList";
     }

@@ -29,11 +29,11 @@ public class UserProductController {
 
     @RequestMapping("/{id}")
     public String getProductDetails(@PathVariable Long id, Model model) {
-        Long userId = 1L;
+
         Product product = productService.findById(id);
         model.addAttribute("product", product);
-        model.addAttribute("comments", commentService.getCommentsByProductId(id, userId));
-//        model.addAttribute("newComment", new Comment());
+        model.addAttribute("comments", commentService.getCommentsByProductId(id));
+        model.addAttribute("newComment", new Comment());
         return "user/shop-detail";
     }
 
@@ -44,11 +44,14 @@ public class UserProductController {
         return "user/index";
     }
 
-    @PostMapping("/addComment")
-    public String addComment(@ModelAttribute("newComment") Comment comment) {
+
+    @PostMapping("/{id}/addComment")
+    public String addComment(@PathVariable Long id, @ModelAttribute("newComment") Comment comment) {
+        comment.setProduct(productService.findById(id));
         commentService.saveComment(comment);
-        return "redirect:/";
+        return "redirect:/user/products/" + id;
     }
+
 
     @GetMapping("/search")
     public String searchProduct(@RequestParam("name") String name, Model model) {
