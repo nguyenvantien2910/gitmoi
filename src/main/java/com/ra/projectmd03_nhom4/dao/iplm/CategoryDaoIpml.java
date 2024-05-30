@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -67,16 +68,21 @@ public class CategoryDaoIpml implements ICategoryDao {
     }
 
     @Override
+    @Transactional
     public void block(Long id) {
         Session session = sessionFactory.openSession();
         try {
             Category category = findById(id);
             if (category != null) {
-                category.setCategoryStatus(!category.getCategoryStatus()); // Đảo ngược giá trị status
-                session.update(category);
+                session.beginTransaction();
+                String hql = "UPDATE categories SET categoryStatus = :newStatus WHERE categoryId = :id";
+              session.createQuery(hql)
+                        .setParameter("newStatus",!category.getCategoryStatus())
+                        .setParameter("id",id).executeUpdate();
+                session.getTransaction().commit();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
 
         } finally {
             session.close();

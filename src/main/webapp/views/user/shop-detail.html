@@ -2,6 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:insert="/layout/user/header::header"></th:block>
+<style>
+    .post-comment-btn {
+        background-color: #007bff; /* Primary blue color */
+        color: white; /* White text */
+        border: none; /* No border */
+        padding: 10px 20px; /* Padding for size */
+        font-size: 14px; /* Font size */
+        border-radius: 5px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s ease; /* Smooth background color transition */
+    }
+
+    .post-comment-btn:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+    }
+
+</style>
 
 <body>
 <!-- Navbar start -->
@@ -220,17 +237,17 @@
                             </div>
                         </div>
                     </div>
-                    <form action="#">
+                    <form th:action="@{/user/products/addComment}" method="post">
                         <h4 class="mb-5 fw-bold">Leave a Reply</h4>
                         <div class="row g-4">
                             <div class="col-lg-6">
                                 <div class="border-bottom rounded">
-                                    <input type="text" class="form-control border-0 me-4" placeholder="Yur Name *">
+                                    <input type="text" class="form-control border-0 me-4" placeholder="Your Name *">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="border-bottom rounded">
-                                    <input type="email" class="form-control border-0" placeholder="Your Email *">
+                                    <input type="email" class="form-control border-0" placeholder="Your Email">
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -251,12 +268,19 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                     </div>
-                                    <a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3">
-                                        Post Comment</a>
+                                    <input type="submit" class="post-comment-btn" value="Post Comment">
                                 </div>
                             </div>
                         </div>
                     </form>
+                    <div class="col-lg-12">
+                        <h2>All Comments</h2>
+                        <div th:each="comment : ${comments}">
+                            <p><strong th:text="${comment.user}">Name</strong></p>
+                            <p th:text="${comment.comment}">Comment</p>
+                            <p><span th:text="${comment.createdAt}">Date</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4 col-xl-3">
@@ -423,131 +447,131 @@
                 </div>
             </div>
         </div>
-        <h1 class="fw-bold mb-0">Related products</h1>
-        <div class="vesitable">
-            <div class="owl-carousel vegetable-carousel justify-content-center">
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
+        <!--        <h1 class="fw-bold mb-0">Related products</h1>-->
+        <!--        <div class="vesitable">-->
+        <!--            <div class="owl-carousel vegetable-carousel justify-content-center">-->
+        <!--                <div class="border border-primary rounded position-relative vesitable-item">-->
+        <!--                    <div class="vesitable-img">-->
+        <!--                        <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+        <!--                    </div>-->
 
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Parsely</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="img/vegetable-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
+        <!--                    <div class="p-4 pb-0 rounded-bottom">-->
+        <!--                        <h4>Parsely</h4>-->
+        <!--                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+        <!--                        <div class="d-flex justify-content-between flex-lg-wrap">-->
+        <!--                            <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>-->
+        <!--                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i-->
+        <!--                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="border border-primary rounded position-relative vesitable-item">-->
+        <!--                    <div class="vesitable-img">-->
+        <!--                        <img src="img/vegetable-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+        <!--                    </div>-->
 
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Parsely</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="img/vegetable-item-3.png" class="img-fluid w-100 rounded-top bg-light" alt="">
-                    </div>
+        <!--                    <div class="p-4 pb-0 rounded-bottom">-->
+        <!--                        <h4>Parsely</h4>-->
+        <!--                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+        <!--                        <div class="d-flex justify-content-between flex-lg-wrap">-->
+        <!--                            <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>-->
+        <!--                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i-->
+        <!--                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="border border-primary rounded position-relative vesitable-item">-->
+        <!--                    <div class="vesitable-img">-->
+        <!--                        <img src="img/vegetable-item-3.png" class="img-fluid w-100 rounded-top bg-light" alt="">-->
+        <!--                    </div>-->
 
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Banana</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="img/vegetable-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
+        <!--                    <div class="p-4 pb-0 rounded-bottom">-->
+        <!--                        <h4>Banana</h4>-->
+        <!--                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+        <!--                        <div class="d-flex justify-content-between flex-lg-wrap">-->
+        <!--                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>-->
+        <!--                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i-->
+        <!--                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="border border-primary rounded position-relative vesitable-item">-->
+        <!--                    <div class="vesitable-img">-->
+        <!--                        <img src="img/vegetable-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+        <!--                    </div>-->
 
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Bell Papper</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
+        <!--                    <div class="p-4 pb-0 rounded-bottom">-->
+        <!--                        <h4>Bell Papper</h4>-->
+        <!--                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+        <!--                        <div class="d-flex justify-content-between flex-lg-wrap">-->
+        <!--                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>-->
+        <!--                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i-->
+        <!--                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="border border-primary rounded position-relative vesitable-item">-->
+        <!--                    <div class="vesitable-img">-->
+        <!--                        <img src="img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+        <!--                    </div>-->
 
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Potatoes</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
+        <!--                    <div class="p-4 pb-0 rounded-bottom">-->
+        <!--                        <h4>Potatoes</h4>-->
+        <!--                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+        <!--                        <div class="d-flex justify-content-between flex-lg-wrap">-->
+        <!--                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>-->
+        <!--                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i-->
+        <!--                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="border border-primary rounded position-relative vesitable-item">-->
+        <!--                    <div class="vesitable-img">-->
+        <!--                        <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+        <!--                    </div>-->
 
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Parsely</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
+        <!--                    <div class="p-4 pb-0 rounded-bottom">-->
+        <!--                        <h4>Parsely</h4>-->
+        <!--                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+        <!--                        <div class="d-flex justify-content-between flex-lg-wrap">-->
+        <!--                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>-->
+        <!--                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i-->
+        <!--                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="border border-primary rounded position-relative vesitable-item">-->
+        <!--                    <div class="vesitable-img">-->
+        <!--                        <img src="img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+        <!--                    </div>-->
 
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Potatoes</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
+        <!--                    <div class="p-4 pb-0 rounded-bottom">-->
+        <!--                        <h4>Potatoes</h4>-->
+        <!--                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+        <!--                        <div class="d-flex justify-content-between flex-lg-wrap">-->
+        <!--                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>-->
+        <!--                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i-->
+        <!--                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="border border-primary rounded position-relative vesitable-item">-->
+        <!--                    <div class="vesitable-img">-->
+        <!--                        <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">-->
+        <!--                    </div>-->
 
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Parsely</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--                    <div class="p-4 pb-0 rounded-bottom">-->
+        <!--                        <h4>Parsely</h4>-->
+        <!--                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>-->
+        <!--                        <div class="d-flex justify-content-between flex-lg-wrap">-->
+        <!--                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>-->
+        <!--                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i-->
+        <!--                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 </div>
 <!-- Single Product End -->
