@@ -69,7 +69,7 @@ public class HomeController {
         List<Category> categoryList = categoryService.findAll();
         session.setAttribute("categoryList", categoryList);
 
-        List<Product> productList = productService.getAllProducts();
+        List<Product> productList = productService.findAll();
         session.setAttribute("productList", productList);
 
         List<Banner> bannerList = bannerService.findBannerToDisplay();

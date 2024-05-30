@@ -28,14 +28,14 @@ public class CartController {
     // 1959- hiển thị danh sách cart item
     @GetMapping("/shoppingcart")
     public String shoppingCart(Model model) {
-//        User userLogin = (User) session.getAttribute("userLogin");
-//        if (userLogin == null) {
-//            return "redirect:/login";
-//        }else {
-            List<ShoppingCart> list = cartService.findCartByUserId(1L);    //(Math.toIntExact(userLogin.getUserId()));
+        User userLogin = (User) session.getAttribute("userLogin");
+        if (userLogin == null) {
+            return "redirect:/login";
+        }else {
+            List<ShoppingCart> list = cartService.findCartByUserId(userLogin.getUserId());
             model.addAttribute("cartList",list);
             return "user/shoppingcart";
-//        }
+        }
     }
 
     @GetMapping("/add-one/{product_id}")
