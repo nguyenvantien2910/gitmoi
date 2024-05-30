@@ -13,7 +13,7 @@ public class AdminController {
     @Autowired
     HttpSession session;
 
-    @GetMapping("")
+    @GetMapping
     public String homeAdmin() {
         return "admin/index";
     }

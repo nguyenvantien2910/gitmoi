@@ -221,4 +221,17 @@ public class IUserDaoIplm implements IUserDao<User, Integer, String, Boolean, Lo
         }
     }
 
+    @Override
+    public String getAvaterByUserId(Long id) {
+        Session session = sessionFactory.openSession();
+        try {
+            return (String) session.createQuery("select u.avatar from users u where u.id = :id")
+                    .setParameter("id", id).getSingleResult();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            session.close();
+        }
+    }
+
 }
