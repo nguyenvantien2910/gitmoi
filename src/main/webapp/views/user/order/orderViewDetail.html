@@ -50,42 +50,48 @@
     </div>
 </div>
 <!-- Navbar End -->
-
-
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">OrderId</th>
-        <th scope="col">Receive Name</th>
-        <th scope="col">Receive Phone</th>
-        <th scope="col">Receive Address</th>
-        <th scope="col">Receive Day</th>
-        <th scope="col">Total</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="${orders}">
-        <th scope="row" th:text="*{orders.orderId}">
-        </th>
-        <td>
-            <p class="mb-0 mt-4" th:text="*{orders.receiveName}"></p>
-        </td>
-        <td>
-            <p class="mb-0 mt-4" th:text="*{orders.receivePhone}"></p>
-        </td>
-        <td>
-            <p class="mb-0 mt-4" th:text="*{orders.receiveAddress}"></p>
-        </td>
-        <td>
-            <p class="mb-0 mt-4">4 Ngày sau đặt hàng</p>
-        </td>
-        <td>
-            <p class="mb-0 mt-4" th:text="${#numbers.formatDecimal(orders.totalPrice, 0,'COMMA',0,'POINT')+'VND'}"></p>
-        </td>
-
-    </tr>
-    </tbody>
-</table>
+<div class="container-fluid py-5">
+    <br>
+    <br>
+    <div class="container py-5">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">OrderId</th>
+                    <th scope="col">Receive Name</th>
+                    <th scope="col">Receive Phone</th>
+                    <th scope="col">Receive Address</th>
+                    <th scope="col">Created Day</th>
+                    <th scope="col">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${session.orders}">
+                    <th scope="row" th:field="*{session.orders.orderId}">
+                    </th>
+                    <td>
+                        <p class="mb-0 mt-4" th:text="*{session.orders.receiveName}"></p>
+                    </td>
+                    <td>
+                        <p class="mb-0 mt-4" th:text="*{session.orders.receivePhone}"></p>
+                    </td>
+                    <td>
+                        <p class="mb-0 mt-4" th:text="*{session.orders.receiveAddress}"></p>
+                    </td>
+                    <td>
+                        <p class="mb-0 mt-4" th:text="*{session.orders.createdAt}"></p>
+                    </td>
+                    <td>
+                        <p class="mb-0 mt-4"
+                           th:text="${#numbers.formatDecimal(session.orders.totalPrice, 0,'COMMA',0,'POINT')+'VND'}"></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
 <th:block th:insert="/layout/user/footer::footer"></th:block>

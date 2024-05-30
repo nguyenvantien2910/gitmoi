@@ -43,12 +43,12 @@ public class CategoryController {
             return "admin/category/add-category";
         }
         if(categoryService.checkCategoryName(category.getCategoryName())){
-            return "redirect:admin/category/add-category";
+            return "redirect:/admin/category/add-category";
         }
         categoryService.saveOrUpdate(category);
         redirectAttributes.addFlashAttribute("mess", "Thêm mới danh mục thành công !");
 
-        return "redirect:/admin/category";
+        return "redirect:/admin/category/list";
 
     }
 
@@ -67,7 +67,7 @@ public class CategoryController {
         }
         categoryService.saveOrUpdate(category);
 
-        return "redirect:/admin/category";
+        return "redirect:/admin/category/list";
 
     }
 

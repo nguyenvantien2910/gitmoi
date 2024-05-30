@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Category</title>
+    <!-- Header -->
+    <th:block th:insert="/layout/admin/header::header"></th:block>
+
+</head>
+<body>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <th:block th:insert="/layout/admin/sidebar::sidebar"></th:block>
+
+    <div class="main">
+        <!-- Navbar -->
+        <th:block th:insert="/layout/admin/navbar::navbar"></th:block>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/admin}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Voucher Management</li>
+                    </ol>
+                </nav>
+
+                <h1 class="h3 mb-3"><strong>Voucher Management</strong></h1>
+
+                <div class="row justify-content-between align-items-center mb-3">
+                    <div class="col-md-6">
+                        <a th:href="@{/admin/voucher/add}" class="btn btn-primary mb-3">Thêm mã giảm giá mới</a>
+                    </div>
+                    <div class="col-md-6">
+                        <form class="d-flex" th:action="@{/admin/voucher/list}" method="GET">
+                            <input class="form-control me-2" type="search" placeholder="Nhập tên voucher ..."
+                                   aria-label="Search"
+                                   name="searchQuery">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>
+                            <a class="text-decoration-none"
+                               th:href="@{/admin/voucher/list(page=0, size=${size}, sortField='voucherId', sortDirection=${sortField == 'voucherId' and sortDirection == 'asc' ? 'desc' : 'asc'}, searchQuery=${searchQuery})}">
+                                ID <span th:if="${sortField == 'voucherId'}"
+                                               th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a class="text-decoration-none"
+                               th:href="@{/admin/voucher/list(page=0, size=${size}, sortField='voucherCode', sortDirection=${sortField == 'voucherCode' and sortDirection == 'asc' ? 'desc' : 'asc'}, searchQuery=${searchQuery})}">
+                                Voucher Code <span th:if="${sortField == 'voucherCode'}"
+                                               th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a class="text-decoration-none"
+                               th:href="@{/admin/voucher/list(page=0, size=${size}, sortField='discount', sortDirection=${sortField == 'discount' and sortDirection == 'asc' ? 'desc' : 'asc'}, searchQuery=${searchQuery})}">
+                                Discount <span th:if="${sortField == 'discount'}"
+                                               th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a class="text-decoration-none"
+                               th:href="@{/admin/voucher/list(page=0, size=${size}, sortField='expiryDate', sortDirection=${sortField == 'expiryDate' and sortDirection == 'asc' ? 'desc' : 'asc'}, searchQuery=${searchQuery})}">
+                                ExpiredDate <span th:if="${sortField == 'expiryDate'}"
+                                               th:text="${sortDirection == 'asc' ? '↑' : '↓'}"></span>
+                            </a>
+                        </th>
+
+                        <th colspan="2">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="voucher : ${vouchers}">
+                        <td th:text="${voucher.voucherId}"></td>
+                        <td th:text="${voucher.voucherCode}"></td>
+                        <td th:text="${voucher.discount}"></td>
+                        <td th:text="${#dates.format(voucher.expiryDate, 'yyyy-MM-dd')}"></td>
+                        <td>
+                            <a th:href="@{/admin/voucher/edit/{id}(id=${voucher.voucherId})}" class="btn btn-warning">Edit</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/admin/voucher/delete(id=${voucher.voucherId})}"
+                               onclick="return confirm('Are you sure you want to delete this voucher?');"
+                               class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/admin/voucher/list(page=${currentPage - 1}, size=${size}, sortField=${sortField}, sortDirection=${sortDirection}, searchQuery=${searchQuery})}"
+                               tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                            th:classappend="${i == currentPage} ? 'active'">
+                            <a class="page-link"
+                               th:href="@{/admin/voucher/list(page=${i}, size=${size}, sortField=${sortField}, sortDirection=${sortDirection}, searchQuery=${searchQuery})}"
+                               th:text="${i + 1}">1</a>
+                        </li>
+                        <li class="page-item" th:classappend="${currentPage + 1 >= totalPages} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/admin/voucher/list(page=${currentPage + 1}, size=${size}, sortField=${sortField}, sortDirection=${sortDirection}, searchQuery=${searchQuery})}">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </main>
+    </div>
+</div>
+<!-- Footer -->
+<th:block th:insert="/layout/admin/footer::footer"></th:block>
+
+</body>
+</html>
