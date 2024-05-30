@@ -1,133 +1,184 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings</title>
 
-<th:block th:insert="/layout/user/header::header"></th:block>
-<style>
-  .fruite-img {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 200px; /* Điều chỉnh chiều cao khung hình ảnh */
-  }
+    <th:block th:insert="/layout/user/header::header"></th:block>
 
-  .fruite-img img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-    transition: transform 0.3s ease; /* Hiệu ứng chuyển động */
-  }
+    <style>
+        .fruite-img {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 200px;
+        }
 
-  .fruite-img:hover img {
-    transform: scale(1.1); /* Hiệu ứng thu vào */
-  }
-</style>
+        .fruite-img img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .fruite-img:hover img {
+            transform: scale(1.1);
+        }
+    </style>
+
+</head>
 <body>
+<!-- Header -->
+<th:block th:insert="/layout/user/header::header"></th:block>
+
 <!-- Navbar start -->
 <div class="container-fluid fixed-top">
-  <div class="container topbar bg-primary d-none d-lg-block">
-    <div class="d-flex justify-content-between">
-      <div class="top-info ps-2">
-        <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
-                                                                                         class="text-white">678
-          Street, Ha Noi</a></small>
-        <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
-      </div>
-      <div class="top-link pe-2">
-        <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
-        <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
-        <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
-      </div>
-    </div>
-  </div>
-  <div class="container px-0">
-    <nav class="navbar navbar-light bg-white navbar-expand-xl">
-      <a th:href="@{/}" class="navbar-brand"><h1 class="text-primary display-6"> CAY CANH</h1></a>
-      <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarCollapse">
-        <span class="fa fa-bars text-primary"></span>
-      </button>
-      <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
-        <div class="navbar-nav mx-auto">
-          <a th:href="@{/}" class="nav-item nav-link active">Home</a>
-          <a th:href="@{/user/shop}" class="nav-item nav-link">Shop</a>
-          <a href="#" class="nav-item nav-link">Contact</a>
-        </div>
-        <div class="d-flex m-3 me-0">
-          <a href="#" class="position-relative me-4 my-auto">
-            <i class="fa fa-shopping-bag fa-2x"></i>
-            <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                  style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
-          </a>
-          <a href="#" class="my-auto">
-            <i class="fas fa-user fa-2x"></i>
-          </a>
-          <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" th:href="@{user/info}">Profile</a>
-              <a class="dropdown-item" th:href="@{user/changepassword}">Change Pass</a>
-              <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+    <div class="container topbar bg-primary d-none d-lg-block">
+        <div class="d-flex justify-content-between">
+            <div class="top-info ps-2">
+                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
+                                                                                                 class="text-white">678
+                    Street, Ha Noi</a></small>
+                <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
             </div>
-          </div>
+            <div class="top-link pe-2">
+                <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
+                <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
+                <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+            </div>
         </div>
-      </div>
-    </nav>
-  </div>
+    </div>
+    <div class="container px-0">
+        <nav class="navbar navbar-light bg-white navbar-expand-xl">
+            <a th:href="@{/}" class="navbar-brand"><h1 class="text-primary display-6">CAY CANH</h1></a>
+            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars text-primary"></span>
+            </button>
+            <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                <div class="navbar-nav mx-auto">
+                    <a th:href="@{/}" class="nav-item nav-link active">Home</a>
+                    <a th:href="@{/user/shop}" class="nav-item nav-link">Shop</a>
+                    <a href="#" class="nav-item nav-link">Contact</a>
+                </div>
+                <div class="d-flex m-3 me-0">
+                    <a href="#" class="position-relative me-4 my-auto">
+                        <i class="fa fa-shopping-bag fa-2x"></i>
+                        <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                              style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                    </a>
+                    <a href="#" class="my-auto">
+                        <i class="fas fa-user fa-2x"></i>
+                    </a>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
 </div>
+<br><br><br><br>
 <!-- Navbar End -->
 
 <!-- Info start -->
-<div class="container rounded bg-white mt-5 mb-5">
-  <div class="row">
-    <div class="col-md-3 border-right">
-      <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" th:src="*{userLogin.avatar}"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+<form class="container rounded bg-white mt-5 mb-5" th:action="@{'/user/updateInfo/'+${editUserRequest.id}}"
+      th:object="${editUserRequest}" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5" width="150px" th:src="*{avatar}"/>
+                <input th:field="*{file}" type="file" class="form-control mt-3" id="avatar"/>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="p-3 py-5">
+                <h2 class="text-right">Profile Settings</h2>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label class="labels" for="fullname">Fullname</label>
+                        <input th:field="*{fullName}" id="fullname" type="text" class="form-control"/>
+                        <small th:errors="*{fullName}" class="text-danger"></small>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels" for="username">Username</label>
+                        <input th:field="*{username}" id="username" type="text" class="form-control"/>
+                        <small th:errors="*{username}" class="text-danger"></small>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="labels" for="email">Email</label>
+                        <input th:field="*{email}" id="email" type="text" class="form-control"/>
+                        <small th:errors="*{email}" class="text-danger"></small>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels" for="phone">Phone</label>
+                        <input th:field="*{phone}" id="phone" type="text" class="form-control"/>
+                        <small th:errors="*{phone}" class="text-danger"></small>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label class="labels" for="address">Address</label>
+                        <input th:field="*{address}" id="address" type="text" class="form-control"/>
+                        <small th:errors="*{address}" class="text-danger"></small>
+                    </div>
+                </div>
+                <div class="mt-5 text-center">
+                    <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                    <button class="btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-5 border-right">
-      <div class="p-3 py-5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h4 class="text-right">Profile Settings</h4>
-        </div>
-        <div class="row mt-2">
-          <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-          <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-          <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-          <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-          <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-          <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-          <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-          <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-          <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-          <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
-        </div>
-        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="p-3 py-5">
-        <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-        <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-        <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
+</form>
 <!-- Info End -->
 
+<!-- Change Password Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form th:action="@{/user/changePassword}" method="post" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="oldPassword" class="form-label">Old Password</label>
+                    <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
+                </div>
+                <div class="mb-3">
+                    <label for="newPassword" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                </div>
+                <div class="mb-3">
+                    <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                    <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+    </div>
+</div>
 
+<!-- Footer -->
 <th:block th:insert="/layout/user/footer::footer"></th:block>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

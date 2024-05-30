@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        User users = (User) request.getSession().getAttribute("user");
+        User users = (User) request.getSession().getAttribute("userLogin");
         if(users != null) {
             if(users.getRoles().stream().anyMatch(roles -> roles.getRoleName().equals(RoleName.ROLE_ADMIN))) {
                 return true;
