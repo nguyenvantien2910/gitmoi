@@ -1,52 +1,63 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Banner</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Include Header -->
+    <th:block th:include="/layout/admin/header::header"></th:block>
 </head>
 <body>
-<div class="container">
-    <h1>Add Banner</h1><br>
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a th:href="@{/admin/banner/list}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Add Banner</li>
-        </ol>
-    </nav>
-    <br>
-    <form th:action="@{/admin/banner/insertBanner}" th:object="${bannerRequest}" method="post" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input th:field="*{title}" type="text" class="form-control" id="title"/>
-            <div th:errors="*{title}" class="text-danger"></div>
-        </div>
+<div class="wrapper">
+    <!-- Include Sidebar -->
+    <th:block th:include="/layout/admin/sidebar::#sidebar"></th:block>
 
-        <div class="mb-3">
-            <label for="url" class="form-label">Image</label>
-            <input th:field="*{file}" type="file" class="form-control" id="url"/>
-            <div th:errors="*{file}" class="text-danger"></div>
-        </div>
+    <div class="main">
+        <!-- Include Navbar -->
+        <th:block th:include="/layout/admin/navbar::navbar"></th:block>
 
-        <div class="mb-3">
-            <label for="isDisplay" class="form-label">IsDisplay</label>
-            <select th:field="*{isDisplay}" class="form-control" id="isDisplay">
-                <option value="">Select status</option>
-                <option value="true">Display in Homepage</option>
-                <option value="false">Hidden</option>
-            </select>
-            <small th:errors="*{isDisplay}" class="text-danger"></small>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-        <button type="reset" class="btn btn-secondary">Clear</button>
-    </form>
-
+        <!-- Page Content -->
+        <main class="content">
+            <div class="container-fluid p-0">
+                <h1 class="h3 mb-3"><strong>Add Banner</strong></h1>
+                <!-- Breadcrumb -->
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/admin/banner/list}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Add Banner</li>
+                    </ol>
+                </nav>
+                <!-- Form -->
+                <form th:action="@{/admin/banner/insertBanner}" th:object="${bannerRequest}" method="post" enctype="multipart/form-data">
+                    <!-- Title Input -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input th:field="*{title}" type="text" class="form-control" id="title"/>
+                        <div th:errors="*{title}" class="text-danger"></div>
+                    </div>
+                    <!-- Image Input -->
+                    <div class="mb-3">
+                        <label for="url" class="form-label">Image</label>
+                        <input th:field="*{file}" type="file" class="form-control" id="url"/>
+                        <div th:errors="*{file}" class="text-danger"></div>
+                    </div>
+                    <!-- IsDisplay Selection -->
+                    <div class="mb-3">
+                        <label for="isDisplay" class="form-label">IsDisplay</label>
+                        <select th:field="*{isDisplay}" class="form-control" id="isDisplay">
+                            <option value="">Select status</option>
+                            <option value="true">Display in Homepage</option>
+                            <option value="false">Hidden</option>
+                        </select>
+                        <small th:errors="*{isDisplay}" class="text-danger"></small>
+                    </div>
+                    <!-- Save and Clear Buttons -->
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </form>
+            </div>
+        </main>
+    </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-
+<!-- Include Footer -->
+<th:block th:include="/layout/admin/footer::footer"></th:block>
 </body>
 </html>

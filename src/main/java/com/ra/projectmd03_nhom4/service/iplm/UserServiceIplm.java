@@ -4,12 +4,11 @@ import com.ra.projectmd03_nhom4.constant.RoleName;
 import com.ra.projectmd03_nhom4.dao.IRoleDao;
 import com.ra.projectmd03_nhom4.dao.IUserDao;
 import com.ra.projectmd03_nhom4.dto.request.*;
-import com.ra.projectmd03_nhom4.model.Banner;
 import com.ra.projectmd03_nhom4.model.Role;
 import com.ra.projectmd03_nhom4.model.User;
 import com.ra.projectmd03_nhom4.service.IUserService;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -19,6 +18,9 @@ import java.util.Set;
 
 @Service
 public class UserServiceIplm implements IUserService {
+    @Autowired
+    private Environment env;
+
     @Autowired
     private IRoleDao roleDao;
 
@@ -97,6 +99,7 @@ public class UserServiceIplm implements IUserService {
                 .address(fromAddUser.getAddress())
                 .phone(fromAddUser.getPhone())
                 .email(fromAddUser.getEmail())
+                .avatar(env.getProperty("default_avatar"))
                 .createdAt(new Date())
                 .roles(roles)
                 .status(true)

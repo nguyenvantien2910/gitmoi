@@ -70,7 +70,7 @@ public class UserManagerController {
     }
 
     @PostMapping("/updateUser")
-    public String updateUser(@Valid @ModelAttribute("user")  User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String updateUser(@ModelAttribute("user")  @Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "admin/user/edit";
         } else {
