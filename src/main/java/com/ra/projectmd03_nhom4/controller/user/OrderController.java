@@ -118,14 +118,4 @@ public class OrderController {
     public String success(@ModelAttribute Order order) {
         return "user/order/order-success";
     }
-
-    @GetMapping("/apply-voucher")
-    public String applyVoucher(Model model) {
-        Voucher newVoucher = new Voucher(1L,"VOUCHER1",5.0, LocalDateTime.of(2024,12,12,0,0,0));
-        voucherDao.save(newVoucher);
-        session.setAttribute("voucher",newVoucher);
-        model.addAttribute("voucher",newVoucher);
-        return "user/order/checkout";
-    }
-
 }
