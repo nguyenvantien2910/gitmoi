@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class VoucherService {
@@ -17,11 +19,20 @@ public class VoucherService {
     private HttpSession session;
 
     public Voucher getVoucherByCode(String code) {
-        Voucher voucher = voucherDao.findByCode(code);
-        if (voucher != null && voucher.getExpiryDate().isAfter(LocalDateTime.now())){
+        List<Voucher> voucherList = voucherDao.findAllCode();
+        Voucher voucher = null;
+        for (Voucher voucher1 : voucherList) {
+            if (voucher1.getVoucherCode().equals(code)) {
+                voucher = voucher1;
+            }
+        }
+        if (voucher != null && voucher.getExpiryDate().after(new Date())){
             return voucher;
         }
         return null;
     }
 
+    public boolean checkVoucherCode(String voucherCode) {
+        return voucherDao.checkVoucherCode(voucherCode);
+    }
 }

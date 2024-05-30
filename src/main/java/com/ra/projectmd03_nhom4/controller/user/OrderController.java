@@ -36,7 +36,7 @@ public class OrderController {
     @Autowired
     private CartDaoImpl cartDao;
     @Autowired
-    private VoucherDao voucherDao;
+    private VoucherService voucherService;
 
     @GetMapping("/clients")
     public String ordersClients(Model model) {
@@ -66,7 +66,6 @@ public class OrderController {
     public String orders(Model model) {
         User userLogin = (User) session.getAttribute("userLogin");
         model.addAttribute("orders", new Order());
-//        model.addAttribute("addressList",addressService.findByUserId(1L));
         List<ShoppingCart> cartList = cartService.findCartByUserId(userLogin.getUserId());
         model.addAttribute("cartList", cartList);
         double totalPrice = 0;
@@ -92,14 +91,14 @@ public class OrderController {
     }
 
     @PostMapping("/checkout")
-    public String checkout(@ModelAttribute("orders") Order order, @RequestParam(value = "useVoucher",required = false) String useVoucher, Model model) {
+    public String checkout(@ModelAttribute("orders") Order order, @RequestParam(value = "voucherCode") String voucherCode) {
         User userLogin = (User) session.getAttribute("userLogin");
         double totalPrice = 0;
         for(ShoppingCart shoppingCart : cartService.findCartByUserId(userLogin.getUserId())){
             totalPrice += shoppingCart.getProduct().getUnitPrice()*shoppingCart.getOrderQuantity();
         }
-        if ("true".equals(useVoucher)) {
-            double discount = 5.0;
+        if (voucherService.checkVoucherCode(voucherCode)) {
+            double discount = voucherService.getVoucherByCode(voucherCode).getDiscount();
             totalPrice = totalPrice*(1-(discount/100));
         }
         order.setTotalPrice(totalPrice);
@@ -119,13 +118,5 @@ public class OrderController {
         return "user/order/order-success";
     }
 
-    @GetMapping("/apply-voucher")
-    public String applyVoucher(Model model) {
-        Voucher newVoucher = new Voucher(1L,"VOUCHER1",5.0, LocalDateTime.of(2024,12,12,0,0,0));
-        voucherDao.save(newVoucher);
-        session.setAttribute("voucher",newVoucher);
-        model.addAttribute("voucher",newVoucher);
-        return "user/order/checkout";
-    }
 
 }

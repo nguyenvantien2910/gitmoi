@@ -26,5 +26,5 @@ public class Voucher {
     private double discount;
 
     @Column(nullable = false)
-    private LocalDateTime expiryDate;
+    private Date expiryDate;
 }

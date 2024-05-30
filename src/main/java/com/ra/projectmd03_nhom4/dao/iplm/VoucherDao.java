@@ -7,13 +7,14 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Repository
 public class VoucherDao implements IVoucherDao {
+
     @Autowired
     private SessionFactory sessionFactory;
+
     @Override
     public List<Voucher> findAllCode() {
         Session session = sessionFactory.openSession();
@@ -31,12 +32,13 @@ public class VoucherDao implements IVoucherDao {
         return null;
     }
 
+
     @Override
-    public Voucher findByCode(String code) {
+    public Voucher findByCode(Long codeId) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            return session.get(Voucher.class, code);
+            return session.get(Voucher.class, codeId);
         }catch(Exception e){
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -88,6 +90,21 @@ public class VoucherDao implements IVoucherDao {
             session.delete(voucher);
             session.getTransaction().commit();
             return true;
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return false;
+    }
+
+    public boolean checkVoucherCode(String voucherCode) {
+        Session session = sessionFactory.openSession();
+        try{
+            List<Voucher> voucherList = session.createQuery("select v from Voucher v where v.voucherCode = :voucherCode")
+                    .setParameter("voucherCode", voucherCode).list();
+            return voucherList != null && !voucherList.isEmpty();
         }catch(Exception e){
             session.getTransaction().rollback();
             e.printStackTrace();

@@ -7,4 +7,12 @@ import java.util.List;
 public interface IOrderDetailDAO {
     void save(OrderDetail orderDetail);
     List<OrderDetail> getOrderDetail(Long orderId);
+
+    Integer countSales();
+
+    Integer sumTotal();
+
+    Integer countOrder();
+
+    Integer countVisitor();
 }

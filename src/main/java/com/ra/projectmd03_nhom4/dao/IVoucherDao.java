@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IVoucherDao {
     List<Voucher> findAllCode();
-    Voucher findByCode(String code);
+    Voucher findByCode(Long codeId);
     boolean save(Voucher voucher);
     boolean update(Voucher voucher);
     boolean delete(Voucher voucher);
