@@ -48,7 +48,7 @@ public class HomeController {
     }
 
     @PostMapping("/register")
-    public String handleRegister(@Valid @ModelAttribute("formRegister") FormRegister formRegister) {
+    public String handleRegister(@ModelAttribute("formRegister") @Valid FormRegister formRegister) {
         userService.register(formRegister);
         return "redirect:/";
     }
@@ -78,7 +78,7 @@ public class HomeController {
     }
 
     @PostMapping("/login")
-    public String handleLogin(@Valid @ModelAttribute("formLogin") FormLogin formLogin, HttpSession session) {
+    public String handleLogin(@ModelAttribute("formLogin") @Valid FormLogin formLogin, HttpSession session) {
         User userLogin = userService.login(formLogin);
         if (userLogin != null) {
             session.setAttribute("userLogin", userLogin);
@@ -90,7 +90,7 @@ public class HomeController {
                 return "redirect:/user/homepage";
             }
         }
-        return "redirect:/login";
+        return "/login";
     }
 
     @GetMapping("/403")
