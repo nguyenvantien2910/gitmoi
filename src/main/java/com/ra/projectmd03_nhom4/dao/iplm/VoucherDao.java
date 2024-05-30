@@ -53,22 +53,6 @@ public class VoucherDao implements IVoucherDao {
         return null;
     }
 
-    @Override
-    public List<Voucher> findAllCode() {
-        Session session = sessionFactory.openSession();
-        try {
-            session.beginTransaction();
-            List<Voucher> list = session.createQuery("from Voucher").list();
-            session.getTransaction().commit();
-            return list;
-        }catch (Exception e) {
-            session.getTransaction().rollback();
-            e.printStackTrace();
-        }finally {
-            session.close();
-        }
-        return null;
-    }
 
     @Override
 
