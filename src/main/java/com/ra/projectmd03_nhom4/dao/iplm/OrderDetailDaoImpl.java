@@ -26,11 +26,7 @@ public class OrderDetailDaoImpl implements IOrderDetailDAO {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            if (orderDetail.getOrder()==null || orderDetail.getProduct() == null){
-                session.save(orderDetail);
-            }else {
-                session.update(orderDetail);
-            }
+            session.save(orderDetail);
             session.getTransaction().commit();
         }catch (Exception e){
             session.getTransaction().rollback();

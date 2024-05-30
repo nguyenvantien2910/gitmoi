@@ -13,7 +13,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/category")
+
+@RequestMapping(value = "/admin")
+
+
 public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
@@ -41,7 +44,9 @@ public class CategoryController {
         }
         categoryService.saveOrUpdate(category);
         redirectAttributes.addFlashAttribute("mess", "Thêm mới danh mục thành công !");
-        return "redirect:admin/category/list";
+
+        return "redirect:/admin/category";
+
     }
 
 
@@ -58,14 +63,17 @@ public class CategoryController {
             return "admin/category/edit-category";
         }
         categoryService.saveOrUpdate(category);
-//        redirectAttributes.addAttribute("mess", "Cập nhật thành công !");
-        return "redirect:admin/category/list";
+
+        return "redirect:/admin/category";
+
     }
 
     @GetMapping("/{id}")
     public String blockCategory(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         categoryService.block(id);
-        return "redirect:admin/category/list";
+
+        return "redirect:/admin/category";
+
     }
 
 }

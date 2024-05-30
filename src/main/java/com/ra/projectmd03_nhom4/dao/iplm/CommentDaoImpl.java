@@ -2,6 +2,7 @@ package com.ra.projectmd03_nhom4.dao.iplm;
 
 import com.ra.projectmd03_nhom4.dao.ICommentDao;
 import com.ra.projectmd03_nhom4.model.Comment;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,10 +24,32 @@ public class CommentDaoImpl implements ICommentDao {
     }
 
     @Override
-    public void saveComment(Comment comment) {
-        sessionFactory.getCurrentSession().saveOrUpdate(comment);
+    public boolean addComment(Comment comment) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.save(comment);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-
+    @Override
+    public void deleteComment(Long commentId) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Comment comment = session.get(Comment.class, commentId);
+            if (comment != null) {
+                session.delete(comment);
+                session.getTransaction().commit();
+            } else {
+                session.getTransaction().rollback();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

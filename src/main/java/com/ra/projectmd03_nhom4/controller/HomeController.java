@@ -55,7 +55,25 @@ public class HomeController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute("formLogin", new FormLogin());
+        User userLogin = (User) session.getAttribute("userLogin");
+        if (userLogin != null){
+            model.addAttribute("userLogin", userLogin);
+            List<ShoppingCart> cartList = shoppingCartService.findCartByUserId(userLogin.getUserId());
+            session.setAttribute("cartList", cartList);
+        } else {
+            model.addAttribute("formLogin", new FormLogin());
+        }
+        List<Category> categoryList = categoryService.findAll();
+        session.setAttribute("categoryList", categoryList);
+
+        List<Product> productList = productService.findAll();
+        session.setAttribute("productList", productList);
+
+        List<Banner> bannerList = bannerService.findBannerToDisplay();
+        session.setAttribute("bannerList", bannerList);
+
+
+        model.addAttribute("formLogin", new FormLogin())
         return "login";
     }
 

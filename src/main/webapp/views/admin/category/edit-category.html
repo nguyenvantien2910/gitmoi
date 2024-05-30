@@ -11,7 +11,8 @@
 <body>
 <div class="container">
     <h1 class="text text-danger">Cập nhật danh mục</h1>
-    <form action="/admin/category/edit-category" th:object="${category}" method="post">
+    <form th:action ="@{/admin/category/edit-category}" th:object="${category}" method="post">
+
         <div class="mb-3">
             <label for="categoryId" class="form-label">ID danh mục</label>
             <input name="categoryId" class="form-control" id="categoryId" readonly th:field="*{categoryId}"/>

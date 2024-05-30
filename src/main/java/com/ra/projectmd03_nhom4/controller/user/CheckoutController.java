@@ -38,7 +38,7 @@ public class CheckoutController {
         model.addAttribute("userCheckoutDTO", userCheckoutDTO);
         List<ShoppingCart> cartList = cartService.findCartByUserId(userLogin.getUserId());
         model.addAttribute("cartList", cartList);
-        return "user/checkout";
+        return "user/order/checkout";
     }
 
     @PostMapping("/checkout")
