@@ -24,6 +24,8 @@ public class OrderDAOImpl implements IOrderDAO {
     private CartDaoImpl cartDao;
     @Autowired
     private OrderDetailDaoImpl orderDetailDao;
+    @Autowired
+    private ProductDaoImpl productDao;
 
     @Override
     public List<Order> getAllOrders() {
@@ -83,6 +85,7 @@ public class OrderDAOImpl implements IOrderDAO {
                 orderDetail.setUnitPrice(cart.getProduct().getUnitPrice());
                 orderDetail.setOrderQuantity(cart.getOrderQuantity());
                 orderDetailDao.save(orderDetail);
+
             }
             return true;
         }catch (Exception e) {

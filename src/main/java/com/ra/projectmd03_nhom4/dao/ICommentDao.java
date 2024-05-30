@@ -5,7 +5,7 @@ import com.ra.projectmd03_nhom4.model.Comment;
 import java.util.List;
 
 public interface ICommentDao {
-    List<Comment> getCommentsByProductId(Long productId);
+    List<Comment> getCommentsByProductId(Long productId, Long userId);
     boolean addComment(Comment comment);
     void deleteComment(Long commentId);
 }

@@ -56,7 +56,7 @@ public class HomeController {
     @GetMapping("/login")
     public String login(Model model) {
         User userLogin = (User) session.getAttribute("userLogin");
-        if (userLogin != null){
+        if (userLogin != null) {
             model.addAttribute("userLogin", userLogin);
             List<ShoppingCart> cartList = shoppingCartService.findCartByUserId(userLogin.getUserId());
             session.setAttribute("cartList", cartList);
