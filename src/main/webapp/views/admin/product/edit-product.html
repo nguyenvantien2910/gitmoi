@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Edit Product</title>
-    <th:block th:insert="/layout/header::header"></th:block>
+    <!-- Header -->
+    <th:block th:insert="/layout/admin/header::header"></th:block>
     <style>
         .form-group {
             margin-bottom: 15px;
@@ -43,60 +43,62 @@
             margin-bottom: 10px;
         }
     </style>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <th:block th:insert="/layout/admin/sidebar::sidebar"></th:block>
 
-<div class="container">
-    <form th:action="@{'/admin/product/handleEditProduct/' + ${product.productId}}" method="post" enctype="multipart/form-data" th:object="${product}">
-        <div class="form-group row">
-            <label class="col-12 col-form-label">Name</label>
-            <div class="col-12">
-                <input type="text" class="form-control" th:field="*{productName}">
+    <div class="main">
+        <!-- Navbar -->
+        <th:block th:insert="/layout/admin/navbar::navbar"></th:block>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/admin/product/list}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Product</li>
+                    </ol>
+                </nav>
+
+                <h1 class="h3 mb-3"><strong>Edit Product</strong></h1>
+                <form th:action="@{'/admin/product/handleEditProduct/' + ${product.productId}}" method="post" enctype="multipart/form-data" th:object="${product}">
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">Name</label>
+                        <input type="text" class="form-control" th:field="*{productName}" id="productName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="productDescription" class="form-label">Description</label>
+                        <input type="text" class="form-control" th:field="*{productDescription}" id="productDescription">
+                    </div>
+                    <div class="mb-3">
+                        <label for="unitPrice" class="form-label">Price</label>
+                        <input type="text" class="form-control" th:field="*{unitPrice}" id="unitPrice">
+                    </div>
+                    <div class="mb-3">
+                        <label for="stockQuantity" class="form-label">Stock</label>
+                        <input type="text" class="form-control" th:field="*{stockQuantity}" id="stockQuantity">
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoryId_up" class="form-label">Category</label>
+                        <select th:field="*{category.categoryId}" id="categoryId_up" class="form-select">
+                            <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <img th:src="@{${product.image}}" width="150" height="150" alt="Product Image"/>
+                        <input type="file" class="form-control" id="image" th:field="*{image}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+<!--                    <button type="reset" class="btn btn-secondary">Clear</button>-->
+                </form>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-12 col-form-label">Description</label>
-            <div class="col-12">
-                <input type="text" class="form-control" th:field="*{productDescription}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-12 col-form-label">Price</label>
-            <div class="col-12">
-                <input type="text" class="form-control" th:field="*{unitPrice}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-12 col-form-label">Stock</label>
-            <div class="col-12">
-                <input type="text" class="form-control" th:field="*{stockQuantity}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-12 col-form-label">Category</label>
-            <div class="col-12">
-                <select th:field="*{category.categoryId}" id="categoryId_up" class="form-select">
-                    <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="image" class="col-12 col-form-label">Image</label>
-            <div class="col-12">
-                <img th:src="@{${product.image}}" width="150" height="150" alt="Product Image"/>
-                <input type="file" class="form-control" id="image" th:field="*{image}">
-            </div>
-        </div>
-        <button type="submit">UPDATE</button>
-    </form>
+        </main>
+    </div>
 </div>
-
-<th:block th:insert="/layout/header::myScript"></th:block>
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Footer -->
+<th:block th:insert="/layout/admin/footer::footer"></th:block>
 </body>
 </html>

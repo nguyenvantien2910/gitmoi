@@ -8,6 +8,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/user/index.html" value="file://$PROJECT_DIR$/src/main/webapp/views/user" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/user/info.html" value="file://$PROJECT_DIR$/src/main/webapp/views/user" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/user/order/orderViewDetail.html" value="file://$PROJECT_DIR$/src/main/webapp/views/user/order" />
+       
       </map>
     </option>
   </component>

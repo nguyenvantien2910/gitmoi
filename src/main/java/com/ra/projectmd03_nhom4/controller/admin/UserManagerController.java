@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -18,6 +19,9 @@ import java.util.List;
 public class UserManagerController {
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private HttpSession session;
 
     @GetMapping("/list")
     public String listUser(Model model,
@@ -39,6 +43,9 @@ public class UserManagerController {
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("searchQuery", searchQuery);
+
+        session.setAttribute("activePage", "user");
+
         if (message != null && !message.isEmpty()) {
             model.addAttribute("message", message);
         }

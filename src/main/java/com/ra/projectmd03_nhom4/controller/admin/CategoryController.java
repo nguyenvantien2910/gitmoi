@@ -9,22 +9,25 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 
-@RequestMapping(value = "/admin")
-
+@RequestMapping(value = "/admin/category")
 
 public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private HttpSession session;
 
     @GetMapping("/list")
     public String categoryManagement(Model model) {
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
+        session.setAttribute("activePage", "category");
         return "admin/category/list-category";
     }
 
@@ -40,12 +43,12 @@ public class CategoryController {
             return "admin/category/add-category";
         }
         if(categoryService.checkCategoryName(category.getCategoryName())){
-            return "redirect:admin/category/add-category";
+            return "redirect:/admin/category/add-category";
         }
         categoryService.saveOrUpdate(category);
         redirectAttributes.addFlashAttribute("mess", "Thêm mới danh mục thành công !");
 
-        return "redirect:/admin/category";
+        return "redirect:/admin/category/list";
 
     }
 
@@ -64,15 +67,15 @@ public class CategoryController {
         }
         categoryService.saveOrUpdate(category);
 
-        return "redirect:/admin/category";
+        return "redirect:/admin/category/list";
 
     }
 
     @GetMapping("/{id}")
-    public String blockCategory(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    public String blockCategory(@PathVariable("id") Long id) {
         categoryService.block(id);
 
-        return "redirect:/admin/category";
+        return "redirect:/admin/category/list";
 
     }
 

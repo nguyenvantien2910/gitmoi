@@ -31,6 +31,7 @@ public class AdminController {
         model.addAttribute("countOrder", countOrder);
         Integer countVisitor = orderDetailDao.countVisitor();
         model.addAttribute("countVisitor", countVisitor);
+        session.setAttribute("activePage", "dashboard")
         return "admin/index";
     }
 

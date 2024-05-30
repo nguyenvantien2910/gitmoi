@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <th:block th:replace="/layout/header::header"></th:block>
+    <title>Thêm Sản Phẩm</title>
+    <!-- Header -->
+    <th:block th:insert="/layout/admin/header::header"></th:block>
     <style>
         .form-group {
             margin-bottom: 15px;
@@ -39,58 +39,75 @@
             background-color: #0056b3;
         }
     </style>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-    <form th:action="@{/admin/product/handleAddProduct}" method="post" enctype="multipart/form-data" th:object="${productRequest}">
-        <div class="form-group row">
-            <label class="col-12 col-form-label">Name</label>
-            <div class="col-12">
-                <input type="text" class="form-control" th:field="*{productName}">
+<div class="wrapper">
+    <!-- Sidebar -->
+    <th:block th:insert="/layout/admin/sidebar::sidebar"></th:block>
+
+    <div class="main">
+        <!-- Navbar -->
+        <th:block th:insert="/layout/admin/navbar::navbar"></th:block>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <h1 class="h3 mb-3"><strong>Thêm Sản Phẩm</strong></h1>
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/admin/product/list}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Thêm Sản Phẩm</li>
+                    </ol>
+                </nav>
+                <form th:action="@{/admin/product/handleAddProduct}" method="post" enctype="multipart/form-data" th:object="${productRequest}">
+                    <div class="form-group row">
+                        <label class="col-12 col-form-label">Name</label>
+                        <div class="col-12">
+                            <input type="text" class="form-control" th:field="*{productName}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-form-label">Description</label>
+                        <div class="col-12">
+                            <input type="text" class="form-control" th:field="*{productDescription}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-form-label">Price</label>
+                        <div class="col-12">
+                            <input type="text" class="form-control" th:field="*{unitPrice}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-form-label">Stock</label>
+                        <div class="col-12">
+                            <input type="text" class="form-control" th:field="*{stockQuantity}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-form-label">Category</label>
+                        <div class="col-12">
+                            <select th:field="*{category.categoryId}" id="categoryId_up" class="form-select">
+                                <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="image" class="col-12 col-form-label">Image</label>
+                        <div class="col-12">
+                            <input type="file" class="form-control" id="image" th:field="*{file}">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+<!--                    <button type="reset" class="btn btn-secondary">Clear</button>-->
+                </form>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-12 col-form-label">Description</label>
-            <div class="col-12">
-                <input type="text" class="form-control" th:field="*{productDescription}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-12 col-form-label">Price</label>
-            <div class="col-12">
-                <input type="text" class="form-control" th:field="*{unitPrice}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-12 col-form-label">Stock</label>
-            <div class="col-12">
-                <input type="text" class="form-control" th:field="*{stockQuantity}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-12 col-form-label">Category</label>
-            <div class="col-12">
-                <select th:field="*{category.categoryId}" id="categoryId_up" class="form-select">
-                    <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="image" class="col-12 col-form-label">Image</label>
-            <div class="col-12">
-                <input type="file" class="form-control" id="image" th:field="*{file}">
-            </div>
-        </div>
-        <button type="submit">ADD</button>
-    </form>
+        </main>
+
+    </div>
 </div>
 
-<th:block th:replace="/layout/header::myScript"></th:block>
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Footer -->
+<th:block th:insert="/layout/admin/footer::footer"></th:block>
+
 </body>
 </html>
