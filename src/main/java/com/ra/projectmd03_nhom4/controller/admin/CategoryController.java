@@ -69,10 +69,10 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public String blockCategory(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    public String blockCategory(@PathVariable("id") Long id) {
         categoryService.block(id);
 
-        return "redirect:/admin/category";
+        return "redirect:/admin/category/list";
 
     }
 

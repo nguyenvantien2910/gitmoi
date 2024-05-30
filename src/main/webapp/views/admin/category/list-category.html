@@ -33,7 +33,7 @@
             <td>
                 <a type="button" class="btn"
                    th:classappend="${category.categoryStatus ? 'btn-success' : 'btn-danger'}"
-                   th:href="@{/category/{categoryId}(categoryId=${category.categoryId})}"
+                   th:href="@{/admin/category/{categoryId}(categoryId=${category.categoryId})}"
                    th:attr="onclick=${category.categoryStatus ? 'return confirm(`Bạn có chắc muốn khóa danh mục này ?`)' : 'return confirm(`Bạn có chắc muốn mở khóa danh mục này ?`)' }"
                 >
                     <span th:text="${category.categoryStatus ? 'Active' : 'Block'}"></span>
