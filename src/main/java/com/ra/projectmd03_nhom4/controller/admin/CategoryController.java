@@ -9,22 +9,25 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 
-@RequestMapping(value = "/admin")
-
+@RequestMapping(value = "/admin/category")
 
 public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private HttpSession session;
 
     @GetMapping("/list")
     public String categoryManagement(Model model) {
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
+        session.setAttribute("activePage", "category");
         return "admin/category/list-category";
     }
 
