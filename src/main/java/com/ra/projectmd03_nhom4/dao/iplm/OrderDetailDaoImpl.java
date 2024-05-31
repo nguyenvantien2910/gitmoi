@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class OrderDetailDaoImpl implements IOrderDetailDAO {
@@ -53,8 +54,10 @@ public class OrderDetailDaoImpl implements IOrderDetailDAO {
         Session session = sessionFactory.openSession();
         List<OrderDetail> orderDetails = session.createQuery("from order_details", OrderDetail.class).getResultList();
         Integer countSales = 0;
-        for (OrderDetail orderDetail : orderDetails) {
-            countSales += orderDetail.getOrderQuantity();
+        if (orderDetails != null) {
+            for (OrderDetail orderDetail : orderDetails) {
+                countSales += orderDetail.getOrderQuantity();
+            }
         }
         return countSales;
     }
@@ -64,8 +67,10 @@ public class OrderDetailDaoImpl implements IOrderDetailDAO {
         Session session = sessionFactory.openSession();
         List<OrderDetail> orderDetails = session.createQuery("from order_details", OrderDetail.class).getResultList();
         double sumTotal = 0;
-        for (OrderDetail orderDetail : orderDetails) {
-            sumTotal += orderDetail.getOrderQuantity()*orderDetail.getProduct().getUnitPrice();
+        if (orderDetails != null) {
+            for (OrderDetail orderDetail : orderDetails) {
+                sumTotal += orderDetail.getOrderQuantity()*orderDetail.getProduct().getUnitPrice();
+            }
         }
         return (int)sumTotal;
     }
@@ -75,8 +80,10 @@ public class OrderDetailDaoImpl implements IOrderDetailDAO {
         Session session = sessionFactory.openSession();
         List<OrderDetail> orderDetails = session.createQuery("from order_details", OrderDetail.class).getResultList();
         Integer countOrder = 0;
-        for (OrderDetail orderDetail : orderDetails) {
-            countOrder += 1;
+        if (orderDetails != null) {
+            for (OrderDetail orderDetail : orderDetails) {
+                countOrder += 1;
+            }
         }
         return countOrder;
     }
@@ -86,11 +93,14 @@ public class OrderDetailDaoImpl implements IOrderDetailDAO {
         Session session = sessionFactory.openSession();
         List<OrderDetail> orderDetails = session.createQuery("from order_details", OrderDetail.class).getResultList();
         int countVisitor = 1;
-        Long visitorId = orderDetails.get(0).getOrder().getUser().getUserId();
-        for (OrderDetail orderDetail : orderDetails) {
-            if (orderDetail.getOrder().getUser().getUserId() != visitorId) {
-                countVisitor += 1;
-                visitorId = orderDetail.getOrder().getUser().getUserId();
+        Long visitorId = 0L;
+        if(orderDetails != null) {
+            visitorId = orderDetails.get(0).getOrder().getUser().getUserId();
+            for (OrderDetail orderDetail : orderDetails) {
+                if (!Objects.equals(orderDetail.getOrder().getUser().getUserId(), visitorId)) {
+                    countVisitor += 1;
+                    visitorId = orderDetail.getOrder().getUser().getUserId();
+                }
             }
         }
         return countVisitor;
