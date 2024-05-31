@@ -77,7 +77,7 @@ public class ShoppingCartService implements ICartService {
 
     @Override
     public Float getCartTotal(List<ShoppingCart> shoppingCartList) {
-        Float total = 0f;
+        float total = 0f;
         for (ShoppingCart cart : shoppingCartList) {
             total += cart.getProduct().getUnitPrice().floatValue() * cart.getOrderQuantity();
         }
