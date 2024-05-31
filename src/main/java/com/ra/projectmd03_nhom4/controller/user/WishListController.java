@@ -35,10 +35,9 @@ public class WishListController {
             return "redirect:/login";
         }
 
-
         List<Product> productWishList = wishListService.getAllWishList(userLogin.getUserId());
         model.addAttribute("productWishList", productWishList);
-        return "user/favorProduct"; // View name to display the wishlist
+        return "user/favorProduct";
     }
 
 

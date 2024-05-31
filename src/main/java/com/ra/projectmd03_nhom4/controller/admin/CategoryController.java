@@ -37,13 +37,17 @@ public class CategoryController {
         model.addAttribute("category", category);
         return "admin/category/add-category";
     }
+
     @PostMapping("/add-category")
-    public String createCategory(@Valid @ModelAttribute("category") Category category, BindingResult result, RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()){
+    public String createCategory(@Valid @ModelAttribute("category") Category category, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("category", category);
             return "admin/category/add-category";
         }
-        if(categoryService.checkCategoryName(category.getCategoryName())){
-            return "redirect:/admin/category/add-category";
+        if (categoryService.checkCategoryName(category.getCategoryName())) {
+            model.addAttribute("category", category);
+            model.addAttribute("error", "Danh mục đã tồn tại!");
+            return "admin/category/add-category";
         }
         categoryService.saveOrUpdate(category);
         redirectAttributes.addFlashAttribute("mess", "Thêm mới danh mục thành công !");
