@@ -113,9 +113,11 @@ public class HomeController {
         }
         List<Product> products = productService.getAllProducts();
         session.setAttribute("products", products);
+        model.addAttribute("products", products);
 
         List<Category> categoryList = categoryService.findAll();
         session.setAttribute("categoryList", categoryList);
+        model.addAttribute("categoryList", categoryList );
 
         List<Banner> bannerList = bannerService.findBannerToDisplay();
         model.addAttribute("bannerList", bannerList);

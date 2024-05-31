@@ -91,18 +91,17 @@ public class CategoryDaoIpml implements ICategoryDao {
 
     @Override
     public boolean checkCategoryName(String categoryName) {
-        Session session = sessionFactory.openSession();
-        try {
-            Long count = (Long) session.createQuery("select count(*) from categories where lower(categoryName) = :name")
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "select count(*) from categories where lower(categoryName) = :name";
+            Long count = (Long) session.createQuery(hql)
                     .setParameter("name", categoryName.toLowerCase())
                     .uniqueResult();
             return count > 0;
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } finally {
-            session.close();
         }
     }
+
 
 //    public List<CategoryDTO> findAllCategoriesWithProductCount() {
 //        Session session = sessionFactory.getCurrentSession();
