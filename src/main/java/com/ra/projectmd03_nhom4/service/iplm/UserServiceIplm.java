@@ -7,7 +7,6 @@ import com.ra.projectmd03_nhom4.dto.request.*;
 import com.ra.projectmd03_nhom4.model.Role;
 import com.ra.projectmd03_nhom4.model.User;
 import com.ra.projectmd03_nhom4.service.IUserService;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -78,10 +77,11 @@ public class UserServiceIplm implements IUserService {
         User user = User.builder()
                 .fullName(formRegister.getFullName())
                 .username(formRegister.getUsername())
-                .password(BCrypt.hashpw(formRegister.getPassword(),BCrypt.gensalt(5)))
+                .password(formRegister.getPassword())
                 .address(formRegister.getAddress())
                 .email(formRegister.getEmail())
                 .phone(formRegister.getPhone())
+                .avatar(env.getProperty("default_avatar"))
                 .createdAt(new Date())
                 .roles(roles)
                 .status(true)
@@ -96,7 +96,7 @@ public class UserServiceIplm implements IUserService {
         User user = User.builder()
                 .fullName(fromAddUser.getFullName())
                 .username(fromAddUser.getUsername())
-                .password(BCrypt.hashpw(fromAddUser.getPassword(),BCrypt.gensalt(5)))
+                .password(fromAddUser.getPassword())
                 .address(fromAddUser.getAddress())
                 .phone(fromAddUser.getPhone())
                 .email(fromAddUser.getEmail())
